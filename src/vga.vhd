@@ -10,7 +10,7 @@ entity vga is
         vgaGreen : out STD_LOGIC_VECTOR(2 downto 0);
     	vgaBlue : out STD_LOGIC_VECTOR(1 downto 0);
     	Hsync : out STD_LOGIC;
-    	Vsync : out STD_LOGIC;
+    	Vsync : out STD_LOGIC
     );
 end vga;
 
