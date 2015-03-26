@@ -34,7 +34,7 @@ PART=xc6slx16-3-csg324
 
 
 lab.%: S=computer.vhd cpu.vhd vga.vhd
-lab.%: U=lab.ucf
+lab.%: U=computer.ucf
 
 
 # Det här är ett exempel på hur man kan skriva en testbänk som är
