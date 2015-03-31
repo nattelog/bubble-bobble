@@ -10,17 +10,6 @@ entity computer is
 end computer;
 
 architecture behavioral of computer is
-
-component vga port(
-	clk, rst ...
-	
-);
-
 begin
-
-process (clk) begin
-	if rising_edge(clk) then
-	end if;
-end process;
 
 end behavioral;
