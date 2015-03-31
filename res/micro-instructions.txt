@@ -128,3 +128,4 @@ By Natanael Log
    0x1						Constant
    0x2						Indirect
    0x3						Indexed
+

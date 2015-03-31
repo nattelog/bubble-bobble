@@ -1,50 +1,70 @@
 
-computer.ucf,788
-Net "clk" LOC=7,207
-Net "clk" TNM_NET 8,248
-TIMESPEC TS_sys_clk_pin 9,281
-NET "vgaRed<0>" LOC 183,15505
-NET "vgaRed<0>" LOC = U7 | IOSTANDARD = LVCMOS33; # Bank 183,15505
-NET "vgaRed<1>" LOC = V7 | IOSTANDARD = LVCMOS33; # Bank 184,15603
-NET "vgaRed<2>" LOC = N7 | IOSTANDARD = LVCMOS33; # Bank 185,15701
-NET "vgaGreen<0>" LOC = P8 | IOSTANDARD = LVCMOS33; # Bank 186,15799
-NET "vgaGreen<1>" LOC = T6 | IOSTANDARD = LVCMOS33; # Bank 187,15899
-NET "vgaGreen<2>" LOC = V6 | IOSTANDARD = LVCMOS33; # Bank 188,15999
-NET "vgaBlue<1>" LOC = R7 | IOSTANDARD = LVCMOS33; # Bank 189,16099
-NET "vgaBlue<2>" LOC = T7 | IOSTANDARD = LVCMOS33; # Bank 190,16198
-NET "Hsync" LOC = N6 | IOSTANDARD = LVCMOS33; # Bank 192,16298
-NET "Vsync" LOC = P7 | IOSTANDARD = LVCMOS33; # Bank 193,16393
-
-computer.vhd,171
-use IEEE.STD_LOGIC_1164.ALL;ALL4,49
-use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,78
-    	Hsync : out STD_LOGIC;12,317
-    	Vsync : out STD_LOGIC;13,345
-end computer;15,380
-
-cpu.vhd,115
-library IEEE;3,12
-use IEEE.STD_LOGIC_1164.ALL;ALL4,26
-use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,55
-end cpu;10,146
+#pm.vhd#,136
+library IEEE;3,23
+use IEEE.STD_LOGIC_1164.ALL;ALL4,37
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,66
+end pm;9,147
+end behavioral;13,195
 
 Makefile,77
 XILINX_INIT 32,1286
 PART=33,1350
 lab.%:lab.%36,1375
-lab.%:lab.%37,1413
+lab.%:lab.%37,1397
 
-vga.vhd,185
+computer.ucf,183
+CONFIG PART 6,192
+Net "clk" LOC=9,241
+Net "clk" TNM_NET 10,282
+TIMESPEC TS_sys_clk_pin 11,315
+Net "rst" LOC 14,386
+Net "rst" LOC = B8 | IOSTANDARD = LVCMOS33; #Bank Bank14,386
+
+computer.vhd,101
+use IEEE.STD_LOGIC_1164.ALL;ALL4,49
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,78
+end computer;10,169
+
+cpu.vhd,484
+library IEEE;3,12
+use IEEE.STD_LOGIC_1164.ALL;ALL4,26
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,55
+end cpu;9,139
+  signal buss,12,183
+  signal buss, IR,12,183
+  signal alu,13,239
+  signal tb,14,289
+  signal p : STD_LOGIC;15,337
+    P : STD_LOGIC;24,602
+  end record;28,741
+  end record;35,944
+  type mM is array(37,963
+                  end process;87,2018
+  process 90,2069
+                    elsif 95,2243
+                end process;98,2323
+end behavioral;122,2551
+
+pm.vhd,136
+library IEEE;3,23
+use IEEE.STD_LOGIC_1164.ALL;ALL4,37
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,66
+end pm;8,113
+end behavioral;12,161
+
+vga.vhd,184
 library IEEE;3,23
 use IEEE.STD_LOGIC_1164.ALL;ALL4,37
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,66
     	Hsync : out STD_LOGIC;12,303
-    	Vsync : out STD_LOGIC;13,331
-end vga;15,366
+    	Vsync : out STD_LOGIC13,331
+end vga;15,365
 
 xst.mk,53
 $(PROJNAME)-synthdir/xst/synth/design.scr: $(14,594
 
 sanitycheck.sh,0
+
+pm.vhd~,0
 
 Nexys3_Master.ucf,0
