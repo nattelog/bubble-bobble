@@ -14,6 +14,7 @@ architecture behavioral of cpu is
   signal buss, IR, ASR : STD_LOGIC_VECTOR(31 downto 0);
 
   -- Signals from controlword
+  signal mPC : STD_LOGIC_VECTOR(6 downto 0);
   signal alu, seq : STD_LOGIC_VECTOR(3 downto 0);
   signal tb, fb : STD_LOGIC_VECTOR(2 downto 0);
   signal p : STD_LOGIC;
@@ -80,16 +81,30 @@ architecture behavioral of cpu is
   
 begin
 
-  -- ** Big reset **
+  -- ** Controlregister **
+
   process (clk)
   begin
     if rising_edge(clk) then
-      
+      if (rst = '1') then
+        mPC <= (others => '0');
+      end if;
     end if;
   end process;
   
 
   -- ** BUSS **
+  
+  process (clk)
+  begin
+    if rising_edge(clk) then
+      if (rst = '1') then
+        buss <= (others => '0');
+      end if;
+      
+    end if;
+  end process;
+  
   
   -- ** ASR **    
 
@@ -100,8 +115,6 @@ begin
   -- ** µPC **
 
   -- ** SuPC
-
-  -- ** micro unit **
 
   -- ** Flaggor (Z, N, C, O, L)
 
