@@ -1,16 +1,130 @@
 Microinstructions and other info for the Bubble Bobble-machine.
 By Natanael Log
 
-** Different bus slots on the machine **
-** (t) meaning "writes to bus"
-** (f) meaning "reads from bus"
-** (t/f) meaning "writes and reads from bus"
+**
+** IR
+**
 
-   000 : nothing...
-   001 : IR (t/f)
-   010 : PM (t/f)
-   011 : PC (t/f)
-   100 : AR (t)
-   101 : nothing...
-   110 : GR (t/f)
-   111 : AR (f)
+   31-28 : OP (assembly instruction)
+   27-24 : GRx (register number)
+   23-22 : M (adressmod)
+   15-0 : ADR (adressfield)
+   
+
+**
+** Micromemory and its parts
+**
+
+** A line in the micromemory
+
+   Bit 0-3 : ALU-field
+   
+       Bits  Function		Affects flags		Comment
+       0000  None		None
+       0001  AR := buss		None
+       0010  AR := buss'	None
+       0011  AR := 0		Z, N
+       0100  AR := AR+buss	Z,N,O,C
+       0101  AR := AR-buss	Z,N,O,C
+       0110  AR := AR AND buss	Z,N
+       0111  AR := AR OR buss	Z,N
+       1000  AR := AR+buss	None
+       1001  LSL(AR)		Z,N, shifted bit to C	Shift one bit left
+       1010  None
+       1011  None
+       1100  None
+       1101  LSR(AR)		N,Z,shifted bit to C	Shift one bit right
+       1110  ROL		N,Z,shifted bit to C	Rotate one bit left
+       1111  None
+
+   Bit 4-6 : TB-field
+
+       Bits  Reads from
+       000   Nothing
+       001   IR
+       010   PM
+       011   PC
+       100   AR
+       101   Nothing
+       110   GRx
+       111   Not sure yet...
+
+   Bit 7-9 : FB-field
+
+       Bits  Writes to
+       000   Nothing
+       001   IR
+       010   PM
+       011   PC
+       100   None
+       101   None
+       110   GRx
+       111   ASR
+
+   Bit 10 : P
+
+       Bit  Function
+       0    PC stays the same
+       1    PC increments by one
+
+   Bit 11-12 : LC-field
+
+       Bit   Function
+       00    LC stays the same
+       01    LC decrements by one
+       10    LC := buss(7 downto 0)
+       11    LC(6 downto 0) := ADR
+
+   Bit 13-16 : SEQ-field
+       Bit   Function
+       0000  microPC++
+       0001  microPC := K1
+       0010  microPC := K2
+       0011  microPC = 0
+       0100  jmp ADR if Z == 0, else microPC++
+       0101  jmp ADR
+       0110  jsr ADR (SuPC := microPC+1, microPC := ADR)
+       0111  rts (microPC := SuPC)
+
+       1000  jmp ADR if Z == 1, else microPC++
+       1001  jmp ADR if N == 1, else microPC++
+       1010  jmp ADR if C == 1, else microPC++
+       1011  jmp ADR if O == 1, else microPC++
+       1100  jmp ADR if L == 1, else microPC++
+       1101  jmp ADR if C == 0, else microPC++
+       1110  jmp ADR if O == 0, else microPC++
+
+       1111  reset microPC and HALT
+
+   Bit 17-23 : ADR-field
+       Contains adress for the next microinstruction or
+       the value to load LC with.
+       
+       
+** Different registers
+
+   K1
+   Adress	Pointing to microadress		Comment
+   0x0						LDA
+   0x1						STR
+   0x2						ADD
+   0x3						SUB
+   0x4						CMP
+   0x5						AND
+   0x6						OR
+   0x7						LSR
+   0x8						LSL
+   0x9						BRA
+   0xa						BRG
+   0xb						BNE
+   0xc						BRE
+   0xd						BRC
+   0xe						JSR
+   0xf						RTS
+
+   K2
+   Adress	Pointing to microadress		Comment
+   0x0			    			Direct
+   0x1						Constant
+   0x2						Indirect
+   0x3						Indexed
