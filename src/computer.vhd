@@ -10,6 +10,12 @@ entity computer is
 end computer;
 
 architecture behavioral of computer is
+
+component vga port(
+	clk, rst ...
+	
+);
+
 begin
 
 process (clk) begin
