@@ -1,4 +1,6 @@
 -- The CPU
+-- This architecture follows the same architecture as in
+-- Lab 1 in the course TSEA83, except for some modifications.
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
@@ -11,44 +13,33 @@ end cpu;
 architecture behavioral of cpu is
 
   -- Main registers for the CPU
-  signal buss, IR, ASR : STD_LOGIC_VECTOR(31 downto 0);
+  signal BUSS, IR, ASR : STD_LOGIC_VECTOR(31 downto 0);
 
-  -- Signals from controlword
+  -- Control-unit
+  signal controlword : STD_LOGIC_VECTOR(0 to 23);
   signal mPC : STD_LOGIC_VECTOR(6 downto 0);
-  signal alu, seq : STD_LOGIC_VECTOR(3 downto 0);
-  signal tb, fb : STD_LOGIC_VECTOR(2 downto 0);
-  signal p : STD_LOGIC;
-  signal lc : STD_LOGIC_VECTOR(1 downto 0);
-  signal madr : STD_LOGIC_VECTOR(6 downto 0);
-
-  type controlword is record
-    ALU : STD_LOGIC_VECTOR(3 downto 0);
-    TB : STD_LOGIC_VECTOR(2 downto 0);
-    FB : STD_LOGIC_VECTOR(2 downto 0);
-    P : STD_LOGIC;
-    LC : STD_LOGIC_VECTOR(1 downto 0);
-    SEQ : STD_LOGIC_VECTOR(3 downto 0);
-    mADR : STD_LOGIC_VECTOR(6 downto 0);
-  end record;
-
-  type programword is record
-    OP : STD_LOGIC_VECTOR(3 downto 0);
-    GRx : STD_LOGIC_VECTOR(3 downto 0);
-    M : STD_LOGIC_VECTOR(1 downto 0);
-    pADR : STD_LOGIC_VECTOR(15 downto 0);
-  end record;
-
-  -- Type for micromemoryyes
   type mM is array(0 to 127) of controlword;
+  type kM is array(0 to 15) of STD_LOGIC_VECTOR(6 downto 0); -- K-registers
+  type gR is array(0 to 15) of STD_LOGIC_VECTOR(31 downto 0); -- General registers
 
-  -- Type for primary memory
+  -- Memory-unit
+  signal programword : STD_LOGIC_VECTOR(31 downto 0);
   type pM is array(0 to 65535) of programword;
 
-  -- Type for K-registers
-  type kM is array(0 to 15) of STD_LOGIC_VECTOR(6 downto 0);
+  -- Signals from controlword
+  alias alu : STD_LOGIC_VECTOR(3 downto 0) is controlword(0 to 3);
+  alias tb : STD_LOGIC_VECTOR(2 downto 0) is controlword(4 to 6);
+  alias fb : STD_LOGIC_VECTOR(2 downto 0) is controlword(7 to 9);
+  alias p : STD_LOGIC is controlword(10);
+  alias lc : STD_LOGIC_VECTOR(1 downto 0) is controlword(11 to 12);
+  alias seq : STD_LOGIC_VECTOR(3 downto 0) is controlword(13 to 16);
+  alias madr : STD_LOGIC_VECTOR(6 downto 0) is controlword(17 to 23);
 
-  -- Type for general registers
-  type gR is array(0 to 15) of STD_LOGIC_VECTOR(31 downto 0);
+  -- Signals from programword
+  alias op : STD_LOGIC_VECTOR(3 downto 0) is programword(31 downto 28);
+  alias grx : STD_LOGIC_VECTOR(3 downto 0) is programword(27 downto 24);
+  alias m : STD_LOGIC_VECTOR(1 downto 0) is programword(23 downto 22);
+  alias padr : STD_LOGIC_VECTOR(15 downto 0) is programword(15 downto 0);
 
   -- K1
   constant K1 : kM := (
@@ -78,37 +69,62 @@ architecture behavioral of cpu is
     X"00",      -- 0x3 : Indexed
     others => X"00"
     );
+
+  -- Micromemory
+  constant mMem : mM := (
+    others => X"00"
+    );
+
+  -- Programmemory
+  signal pMem : pM := (
+    others => X"00"
+    );     
   
 begin
 
-  -- ** Controlregister **
+  -- ** Micromemory **
 
   process (clk)
   begin
     if rising_edge(clk) then
       if (rst = '1') then
         mPC <= (others => '0');
+        controlword <= (others => '0');
+
+      else
+        controlword <= mMem(CONV_INTEGER(mPC));
+        
       end if;
     end if;
   end process;
-  
 
-  -- ** BUSS **
-  
+  -- ** BUSS  **
+
   process (clk)
   begin
     if rising_edge(clk) then
       if (rst = '1') then
-        buss <= (others => '0');
+        BUSS <= (others => '0');
       end if;
-      
     end if;
   end process;
   
-  
-  -- ** ASR **    
+  -- ** ASR **
 
-  -- ** Programminne **
+  process (clk)
+  begin
+    if rising_edge(clk) then
+      if (rst = '1') then
+        ASR <= (others => '0');
+
+      elsif (fb = "111")
+        
+        
+      end if;
+    end if;
+  end process;
+
+  -- ** Programmemory **
 
   -- ** IR **
 

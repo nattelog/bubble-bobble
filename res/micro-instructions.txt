@@ -2,7 +2,7 @@ Microinstructions and other info for the Bubble Bobble-machine.
 By Natanael Log
 
 **
-** IR
+** A program instruction
 **
 
    31-28 : OP (assembly instruction)
@@ -15,7 +15,7 @@ By Natanael Log
 ** Micromemory and its parts
 **
 
-** A line in the micromemory
+** A microinstruction
 
    Bit 0-3 : ALU-field
    
@@ -128,4 +128,3 @@ By Natanael Log
    0x1						Constant
    0x2						Indirect
    0x3						Indexed
-
