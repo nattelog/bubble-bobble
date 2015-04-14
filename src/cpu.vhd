@@ -13,7 +13,8 @@ end cpu;
 architecture behavioral of cpu is
 
   -- Main registers for the CPU
-  signal BUSS, IR, PM, PC, AR, GRx : STD_LOGIC_VECTOR(31 downto 0);
+  signal BUSS, IR, PM, GRx, AR : STD_LOGIC_VECTOR(31 downto 0);
+  signal ASR, PC : STD_LOGIC_VECTOR(15 downto 0);
 
   -- Control-unit
   signal controlword : STD_LOGIC_VECTOR(0 to 23);
@@ -76,9 +77,7 @@ architecture behavioral of cpu is
     );
 
   -- Programmemory
-  signal pMem : pM := (
-    others => X"00"
-    );     
+  signal pMem : pM; 
   
 begin
 
@@ -106,7 +105,8 @@ begin
 
     -- read from PC 
     when "011" =>
-      BUSS <= PC;
+      BUSS(31 downto 0) <= (others => '0');
+      BUSS(15 downto 0) <= PC;
 
     -- read from AR  
     when "100" =>
@@ -134,7 +134,7 @@ begin
 
     -- write to PC
     when "011" =>
-      PC <= BUSS;
+      PC <= BUSS(15 downto 0);
 
     -- write to GRx
     when "110" =>
@@ -142,7 +142,7 @@ begin
 
     -- write to ASR
     when "111" =>
-      ASR <= BUSS;
+      ASR <= BUSS(15 downto 0);
 
     -- do nothing
     when others =>  
@@ -164,8 +164,8 @@ begin
       end if;
     end if;
   end process;
-  
-  -- ** ASR **
+
+  -- ** Programmemory **
 
   process (clk)
   begin
@@ -173,14 +173,12 @@ begin
       if (rst = '1') then
         ASR <= (others => '0');
 
-      elsif (fb = "111")
+      else
         
         
       end if;
     end if;
   end process;
-
-  -- ** Programmemory **
 
   -- ** IR **
 
