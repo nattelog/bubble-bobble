@@ -13,7 +13,7 @@ end cpu;
 architecture behavioral of cpu is
 
   -- Main registers for the CPU
-  signal BUSS, IR, ASR : STD_LOGIC_VECTOR(31 downto 0);
+  signal BUSS, IR, PM, PC, AR, GRx : STD_LOGIC_VECTOR(31 downto 0);
 
   -- Control-unit
   signal controlword : STD_LOGIC_VECTOR(0 to 23);
@@ -82,6 +82,73 @@ architecture behavioral of cpu is
   
 begin
 
+  -- ** BUSS  **
+
+  process (clk)
+  begin
+    if rising_edge(clk) then
+      if (rst = '1') then
+        BUSS <= (others => '0');
+      end if;
+    end if;
+  end process;
+
+  -- to bus
+  case tb is
+
+    -- read from IR
+    when "001" =>
+      BUSS <= IR;
+
+    -- read from PM
+    when "010" =>
+      BUSS <= PM;
+
+    -- read from PC 
+    when "011" =>
+      BUSS <= PC;
+
+    -- read from AR  
+    when "100" =>
+      BUSS <= AR;
+
+    -- read from GRx
+    when "110" =>
+      BUSS <= GRx;
+
+    -- do nothing
+    when others =>
+      
+  end case;
+
+  -- from bus
+  case fb is
+
+    -- write to IR
+    when "001" =>
+      IR <= BUSS;
+
+    -- write to PM
+    when "010" =>
+      PM <= BUSS;
+
+    -- write to PC
+    when "011" =>
+      PC <= BUSS;
+
+    -- write to GRx
+    when "110" =>
+      GRx <= BUSS;
+
+    -- write to ASR
+    when "111" =>
+      ASR <= BUSS;
+
+    -- do nothing
+    when others =>  
+    
+  end case;
+
   -- ** Micromemory **
 
   process (clk)
@@ -94,17 +161,6 @@ begin
       else
         controlword <= mMem(CONV_INTEGER(mPC));
         
-      end if;
-    end if;
-  end process;
-
-  -- ** BUSS  **
-
-  process (clk)
-  begin
-    if rising_edge(clk) then
-      if (rst = '1') then
-        BUSS <= (others => '0');
       end if;
     end if;
   end process;
