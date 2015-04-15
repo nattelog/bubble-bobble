@@ -1,10 +1,12 @@
+-- Programmemory
+
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity pm is
   Port (we, re : in STD_LOGIC;
-        asr : in STD_LOGIC_VECTOR(15 downto 0);
+        adr : in STD_LOGIC_VECTOR(15 downto 0);
         datain : in STD_LOGIC_VECTOR(31 downto 0);
         dataout : out STD_LOGIC_VECTOR(31 downto 0))
 end pm;

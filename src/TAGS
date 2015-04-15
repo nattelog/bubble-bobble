@@ -25,22 +25,22 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL7,174
 end cpu;11,255
   signal ASR,17,396
   type mM is array(22,560
-  end process;93,2675
-    when others 120,3082
-    when others 148,3477
-  process 154,3540
-  end process;166,3786
-  process 170,3828
-  end process;182,4026
-end behavioral;204,4226
+  end process;95,2737
+    when others 122,3144
+    when others 150,3539
+  process 156,3602
+  end process;168,3848
+  process 172,3890
+  end process;184,4088
+end behavioral;206,4288
 
-pm.vhd,150
-library IEEE;1,0
-use IEEE.STD_LOGIC_1164.ALL;ALL2,14
-use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL3,43
-  Port 6,90
-  elsif 20,489
-end behavioral;25,583
+pm.vhd,185
+library IEEE;3,18
+use IEEE.STD_LOGIC_1164.ALL;ALL4,32
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,61
+        dataout : out STD_LOGIC_VECTOR(11,238
+  elsif 22,507
+end behavioral;27,601
 
 vga.vhd,184
 library IEEE;3,23
@@ -56,5 +56,7 @@ $(PROJNAME)-synthdir/xst/synth/design.scr: $(14,594
 sanitycheck.sh,0
 
 pm.vhd~,0
+
+mm.vhd,0
 
 Nexys3_Master.ucf,0

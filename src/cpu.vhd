@@ -16,21 +16,31 @@ architecture behavioral of cpu is
   signal BUSS, IR, PM, GRx, AR : STD_LOGIC_VECTOR(31 downto 0);
   signal ASR, PC : STD_LOGIC_VECTOR(15 downto 0);
 
-  -- Control-unit
-  signal controlword : STD_LOGIC_VECTOR(0 to 23);
-  signal mPC : STD_LOGIC_VECTOR(6 downto 0);
-  type mM is array(0 to 127) of controlword;
-  type kM is array(0 to 15) of STD_LOGIC_VECTOR(6 downto 0); -- K-registers
-  type gR is array(0 to 15) of STD_LOGIC_VECTOR(31 downto 0); -- General registers
+  type gR is array(0 to 15) of GRx; -- General registers
 
-  -- Memory-unit
+  -- Programmemory
   signal we, re : STD_LOGIC;
   component pm is
     port (we, re : in STD_LOGIC;
-          asr : in STD_LOGIC_VECTOR(15 downto 0);
+          adr : in STD_LOGIC_VECTOR(15 downto 0);
           datain : in STD_LOGIC_VECTOR(31 downto 0);
           dataout : out STD_LOGIC_VECTOR(31 downto 0));
   end component;
+
+  -- Micromemory
+  signal controlword : STD_LOGIC_VECTOR(0 to 23);
+  signal mPC : STD_LOGIC_VECTOR(6 downto 0);
+  component mm is
+    port (clk : in STD_LOGIC;
+          adr : in STD_LOGIC_VECTOR(6 downto 0);
+          data : out STD_LOGIC_VECTOR(0 to 23));
+  end component;
+
+  -- Signals from programword
+  alias op : STD_LOGIC_VECTOR(3 downto 0) is PM(31 downto 28);
+  alias grx : STD_LOGIC_VECTOR(3 downto 0) is PM(27 downto 24);
+  alias m : STD_LOGIC_VECTOR(1 downto 0) is PM(23 downto 22);
+  alias padr : STD_LOGIC_VECTOR(15 downto 0) is PM(15 downto 0);
 
   -- Signals from controlword
   alias alu : STD_LOGIC_VECTOR(3 downto 0) is controlword(0 to 3);
@@ -41,12 +51,8 @@ architecture behavioral of cpu is
   alias seq : STD_LOGIC_VECTOR(3 downto 0) is controlword(13 to 16);
   alias madr : STD_LOGIC_VECTOR(6 downto 0) is controlword(17 to 23);
 
-  -- Signals from programword
-  alias op : STD_LOGIC_VECTOR(3 downto 0) is PM(31 downto 28);
-  alias grx : STD_LOGIC_VECTOR(3 downto 0) is PM(27 downto 24);
-  alias m : STD_LOGIC_VECTOR(1 downto 0) is PM(23 downto 22);
-  alias padr : STD_LOGIC_VECTOR(15 downto 0) is PM(15 downto 0);
-
+  type kM is array(0 to 15) of STD_LOGIC_VECTOR(6 downto 0); -- K-registers
+  
   -- K1
   constant K1 : kM := (
     X"00",      -- 0x0 : LDA
@@ -75,14 +81,6 @@ architecture behavioral of cpu is
     X"00",      -- 0x3 : Indexed
     others => X"00"
     );
-
-  -- Micromemory
-  constant mMem : mM := (
-    others => X"00"
-    );
-
-  -- Programmemory
-  signal pMem : pM; 
   
 begin
 
@@ -156,19 +154,7 @@ begin
 
   -- ** Micromemory **
 
-  process (clk)
-  begin
-    if rising_edge(clk) then
-      if (rst = '1') then
-        mPC <= (others => '0');
-        controlword <= (others => '0');
-
-      else
-        controlword <= mMem(CONV_INTEGER(mPC));
-        
-      end if;
-    end if;
-  end process;
+  mm port map (clk, mPC, controlword);
 
   -- ** Programmemory **
 
@@ -186,7 +172,7 @@ begin
     end if;
   end process;
 
-  port map
+  pm port map (we, re, ASR, PM, PM);
 
   -- ** IR **
 
