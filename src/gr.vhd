@@ -1,25 +1,25 @@
--- Programmemory
+-- General registers
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
-entity pm is
+entity gr is
   Port (tb, fb : in STD_LOGIC_VECTOR(2 downto 0);
-        adr : in STD_LOGIC_VECTOR(15 downto 0);
+        adr : in STD_LOGIC_VECTOR(3 downto 0);
         datain : in STD_LOGIC_VECTOR(31 downto 0);
         dataout : out STD_LOGIC_VECTOR(31 downto 0))
-end pm;
+end gr;
 
-architecture behavioral of pm is
-  type memtype is array(0 to 65535) of STD_LOGIC_VECTOR(31 downto 0);
+architecture behavioral of gr is
+  type memtype is array(0 to 15) of STD_LOGIC_VECTOR(31 downto 0);
   signal mem : memtype;
 begin
 
-  if (fb = "010" and not tb = "010") then
+  if (fb = "110" and not tb = "110") then
     mem(CONV_INTEGER(adr)) <= datain;
 
-  elsif (not fb = "010" and tb = "010") then
+  elsif (not fb = "110" and tb = "110") then
     dataout <= mem(CONV_INTEGER(adr));
     
   end if;

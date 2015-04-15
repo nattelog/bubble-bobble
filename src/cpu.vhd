@@ -16,17 +16,40 @@ architecture behavioral of cpu is
   signal BUSS, IR, PM, GRx, AR : STD_LOGIC_VECTOR(31 downto 0);
   signal ASR, PC : STD_LOGIC_VECTOR(15 downto 0);
 
-  type gR is array(0 to 15) of GRx; -- General registers
+  -- General registers
+  component gr is
+    port (tb, fb : STD_LOGIC_VECTOR(2 downto 0);
+          adr : in STD_LOGIC_VECTOR(3 downto 0);
+          datain : in STD_LOGIC_VECTOR(31 downto 0);
+          dataout : out STD_LOGIC_VECTOR(31 downto 0));
+  end component;
+
+  -- Flags
+  signal flags : STD_LOGIC_VECTOR(4 downto 0);
+
+  alias z : STD_LOGIC is flags(4);
+  alias n : STD_LOGIC is flags(3);
+  alias c : STD_LOGIC is flags(2);
+  alias o : STD_LOGIC is flags(1);
+  alias l : STD_LOGIC is flags(0);
+
+  -- Loopcounter
+  signal lc : STD_LOGIC_VECTOR(7 downto 0);
 
   -- Programmemory
-  signal we, re : STD_LOGIC;
   component pm is
-    port (we, re : in STD_LOGIC;
+    port (tb, fb : in STD_LOGIC_VECTOR(2 downto 0);
           adr : in STD_LOGIC_VECTOR(15 downto 0);
           datain : in STD_LOGIC_VECTOR(31 downto 0);
           dataout : out STD_LOGIC_VECTOR(31 downto 0));
   end component;
 
+  -- Signals from programword
+  alias op : STD_LOGIC_VECTOR(3 downto 0) is PM(31 downto 28);
+  alias grx : STD_LOGIC_VECTOR(3 downto 0) is PM(27 downto 24);
+  alias m : STD_LOGIC_VECTOR(1 downto 0) is PM(23 downto 22);
+  alias padr : STD_LOGIC_VECTOR(15 downto 0) is PM(15 downto 0);
+  
   -- Micromemory
   signal controlword : STD_LOGIC_VECTOR(0 to 23);
   signal mPC : STD_LOGIC_VECTOR(6 downto 0);
@@ -35,12 +58,6 @@ architecture behavioral of cpu is
           adr : in STD_LOGIC_VECTOR(6 downto 0);
           data : out STD_LOGIC_VECTOR(0 to 23));
   end component;
-
-  -- Signals from programword
-  alias op : STD_LOGIC_VECTOR(3 downto 0) is PM(31 downto 28);
-  alias grx : STD_LOGIC_VECTOR(3 downto 0) is PM(27 downto 24);
-  alias m : STD_LOGIC_VECTOR(1 downto 0) is PM(23 downto 22);
-  alias padr : STD_LOGIC_VECTOR(15 downto 0) is PM(15 downto 0);
 
   -- Signals from controlword
   alias alu : STD_LOGIC_VECTOR(3 downto 0) is controlword(0 to 3);
@@ -108,7 +125,7 @@ begin
 
     -- read from PC 
     when "011" =>
-      BUSS(31 downto 0) <= (others => '0');
+      BUSS(31 downto 16) <= (others => '0');
       BUSS(15 downto 0) <= PC;
 
     -- read from AR  
@@ -164,25 +181,21 @@ begin
       if (rst = '1') then
         ASR <= (others => '0');
         PM <= (others => '0');
-
-      else
-        
-        
       end if;
     end if;
   end process;
 
-  pm port map (we, re, ASR, PM, PM);
+  pm port map (tb, fb, ASR, PM, PM);
 
+  -- ** GR **
+
+  gr port map (tb, fb, grx, GRx, GRx);
+  
   -- ** IR **
 
   -- ** µPC **
 
   -- ** SuPC
-
-  -- ** Flaggor (Z, N, C, O, L)
-
-  -- ** GR **
 
   -- ** RP (registerpekare) **
 

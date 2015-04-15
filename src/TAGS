@@ -18,21 +18,28 @@ use IEEE.STD_LOGIC_1164.ALL;ALL4,49
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,78
 end computer;10,169
 
-cpu.vhd,370
+cpu.vhd,349
 -- Lab 1 in the course TSEA83,3,68
 use IEEE.STD_LOGIC_1164.ALL;ALL6,145
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL7,174
 end cpu;11,255
   signal ASR,17,396
-  type mM is array(22,560
-  end process;95,2737
-    when others 122,3144
-    when others 150,3539
-  process 156,3602
-  end process;168,3848
-  process 172,3890
-  end process;184,4088
-end behavioral;206,4288
+  type grType is array(20,470
+  end process;109,3055
+    when others 136,3462
+    when others 164,3857
+  process 174,3986
+  end process;182,4154
+  elsif 187,4223
+end behavioral;215,4539
+
+mm.vhd,188
+library IEEE;3,16
+use IEEE.STD_LOGIC_1164.ALL;ALL4,30
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,59
+        data : out STD_LOGIC_VECTOR(10,181
+  end process;25,479
+end behavioral;27,497
 
 pm.vhd,185
 library IEEE;3,18
@@ -57,6 +64,8 @@ sanitycheck.sh,0
 
 pm.vhd~,0
 
-mm.vhd,0
+mm.vhd~,0
+
+gr.vhd,0
 
 Nexys3_Master.ucf,0
