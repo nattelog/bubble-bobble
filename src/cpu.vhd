@@ -7,7 +7,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity cpu is
-  Port (clk,rst : in  STD_LOGIC);
+  Port (clk,rst : in STD_LOGIC);
 end cpu;
 
 architecture behavioral of cpu is
@@ -24,8 +24,13 @@ architecture behavioral of cpu is
   type gR is array(0 to 15) of STD_LOGIC_VECTOR(31 downto 0); -- General registers
 
   -- Memory-unit
-  alias programword : STD_LOGIC_VECTOR(31 downto 0) is PM(31 downto 0);
-  type pM is array(0 to 65535) of programword;
+  signal we, re : STD_LOGIC;
+  component pm is
+    port (we, re : in STD_LOGIC;
+          asr : in STD_LOGIC_VECTOR(15 downto 0);
+          datain : in STD_LOGIC_VECTOR(31 downto 0);
+          dataout : out STD_LOGIC_VECTOR(31 downto 0));
+  end component;
 
   -- Signals from controlword
   alias alu : STD_LOGIC_VECTOR(3 downto 0) is controlword(0 to 3);
@@ -37,10 +42,10 @@ architecture behavioral of cpu is
   alias madr : STD_LOGIC_VECTOR(6 downto 0) is controlword(17 to 23);
 
   -- Signals from programword
-  alias op : STD_LOGIC_VECTOR(3 downto 0) is programword(31 downto 28);
-  alias grx : STD_LOGIC_VECTOR(3 downto 0) is programword(27 downto 24);
-  alias m : STD_LOGIC_VECTOR(1 downto 0) is programword(23 downto 22);
-  alias padr : STD_LOGIC_VECTOR(15 downto 0) is programword(15 downto 0);
+  alias op : STD_LOGIC_VECTOR(3 downto 0) is PM(31 downto 28);
+  alias grx : STD_LOGIC_VECTOR(3 downto 0) is PM(27 downto 24);
+  alias m : STD_LOGIC_VECTOR(1 downto 0) is PM(23 downto 22);
+  alias padr : STD_LOGIC_VECTOR(15 downto 0) is PM(15 downto 0);
 
   -- K1
   constant K1 : kM := (
@@ -180,6 +185,8 @@ begin
       end if;
     end if;
   end process;
+
+  port map
 
   -- ** IR **
 

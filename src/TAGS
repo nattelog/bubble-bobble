@@ -1,11 +1,4 @@
 
-#pm.vhd#,136
-library IEEE;3,23
-use IEEE.STD_LOGIC_1164.ALL;ALL4,37
-use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,66
-end pm;9,147
-end behavioral;13,195
-
 Makefile,77
 XILINX_INIT 32,1286
 PART=33,1350
@@ -25,32 +18,29 @@ use IEEE.STD_LOGIC_1164.ALL;ALL4,49
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,78
 end computer;10,169
 
-cpu.vhd,484
-library IEEE;3,12
-use IEEE.STD_LOGIC_1164.ALL;ALL4,26
-use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,55
-end cpu;9,139
-  signal buss,12,183
-  signal buss, IR,12,183
-  signal alu,13,239
-  signal tb,14,289
-  signal p : STD_LOGIC;15,337
-    P : STD_LOGIC;24,602
-  end record;28,741
-  end record;35,944
-  type mM is array(37,963
-                  end process;87,2018
-  process 90,2069
-                    elsif 95,2243
-                end process;98,2323
-end behavioral;122,2551
+cpu.vhd,370
+-- Lab 1 in the course TSEA83,3,68
+use IEEE.STD_LOGIC_1164.ALL;ALL6,145
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL7,174
+end cpu;11,255
+  signal ASR,17,396
+  type mM is array(22,560
+  end process;93,2675
+    when others 120,3082
+    when others 148,3477
+  process 154,3540
+  end process;166,3786
+  process 170,3828
+  end process;182,4026
+end behavioral;204,4226
 
-pm.vhd,136
-library IEEE;3,23
-use IEEE.STD_LOGIC_1164.ALL;ALL4,37
-use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,66
-end pm;8,113
-end behavioral;12,161
+pm.vhd,150
+library IEEE;1,0
+use IEEE.STD_LOGIC_1164.ALL;ALL2,14
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL3,43
+  Port 6,90
+  elsif 20,489
+end behavioral;25,583
 
 vga.vhd,184
 library IEEE;3,23
