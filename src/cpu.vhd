@@ -24,7 +24,7 @@ architecture behavioral of cpu is
   type gR is array(0 to 15) of STD_LOGIC_VECTOR(31 downto 0); -- General registers
 
   -- Memory-unit
-  signal programword : STD_LOGIC_VECTOR(31 downto 0);
+  alias programword : STD_LOGIC_VECTOR(31 downto 0) is PM(31 downto 0);
   type pM is array(0 to 65535) of programword;
 
   -- Signals from controlword
@@ -172,6 +172,7 @@ begin
     if rising_edge(clk) then
       if (rst = '1') then
         ASR <= (others => '0');
+        PM <= (others => '0');
 
       else
         
