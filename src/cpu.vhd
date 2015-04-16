@@ -69,6 +69,8 @@ architecture behavioral of cpu is
   alias madr : STD_LOGIC_VECTOR(6 downto 0) is controlword(17 to 23);
 
   type kM is array(0 to 15) of STD_LOGIC_VECTOR(6 downto 0); -- K-registers
+  signal k1 : STD_LOGIC_VECTOR(6 downto 0);
+  signal k2 : STD_LOGIC_VECTOR(6 downto 0);
   
   -- K1
   constant K1 : kM := (
@@ -100,6 +102,10 @@ architecture behavioral of cpu is
     );
   
 begin
+
+  -- ******************
+  -- ** MAIN SIGNALS **
+  -- ******************
 
   -- ** BUSS  **
 
@@ -138,6 +144,7 @@ begin
 
     -- do nothing
     when others =>
+      BUSS <= (others => '0');
       
   end case;
 
@@ -165,11 +172,22 @@ begin
       ASR <= BUSS(15 downto 0);
 
     -- do nothing
-    when others =>  
+    when others =>
+      BUSS <= (others => '0');
     
   end case;
 
   -- ** Micromemory **
+
+  process (clk)
+  begin
+    if rising_edge(clk) then
+      if (rst = '1') then
+        mPC <= (others => '0');
+        controlword <= (others => '0');
+      end if;
+    end if;
+  end process;
 
   mm port map (clk, mPC, controlword);
 
@@ -189,20 +207,37 @@ begin
 
   -- ** GR **
 
+  process (clk)
+  begin
+    if rising_edge(clk) then
+      if (rst = '1') then
+        GRx <= (others => '0');
+      end if;
+    end if;
+  end process;
+
   gr port map (tb, fb, grx, GRx, GRx);
   
   -- ** IR **
 
-  -- ** µPC **
+  process (clk)
+  begin
+    if rising_edge(clk) then
+      if (rst = '1') then
+        IR <= (others => '0');
+        k1 <= (others => '0');
+        k2 <= (others => '0');
+      end if;
+    end if;
+  end process;
 
-  -- ** SuPC
+  -- ******************
+  -- ** CONTROL UNIT **
+  -- ******************
 
-  -- ** RP (registerpekare) **
+  -- ** K-registers **
 
-  -- ** ALU **
-
-  -- ** AR **
-
-  -- ** PC **
+  k1 <= K1(CONV_INTEGER(op));
+  k2 <= K2(CONV_INTEGER(m));
 
 end behavioral;
