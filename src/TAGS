@@ -5,6 +5,25 @@ PART=33,1350
 lab.%:lab.%36,1375
 lab.%:lab.%37,1397
 
+alu.vhd,484
+library IEEE;3,8
+use IEEE.STD_LOGIC_1164.ALL;ALL4,22
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,51
+use IEE.NUMERIC_STD;NUMERIC_STD6,84
+end alu;14,359
+  alias helpreg_small : STD_LOGIC_VECTOR(18,453
+          -- AR 39,911
+            -- AR 43,988
+          -- AR 50,1139
+          -- AR 55,1276
+          -- AR 60,1413
+          -- AR 65,1556
+            -- AR 70,1697
+          when others 89,2162
+        end case;93,2241
+  end process;103,2433
+end behavioral;105,2451
+
 computer.ucf,183
 CONFIG PART 6,192
 Net "clk" LOC=9,241
@@ -18,20 +37,43 @@ use IEEE.STD_LOGIC_1164.ALL;ALL4,49
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,78
 end computer;10,169
 
-cpu.vhd,349
+cpu.vhd,453
 -- Lab 1 in the course TSEA83,3,68
 use IEEE.STD_LOGIC_1164.ALL;ALL6,145
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL7,174
 end cpu;11,255
-  signal ASR,17,396
-  type grType is array(20,470
-  end process;109,3055
-    when others 136,3462
-    when others 164,3857
-  process 174,3986
-  end process;182,4154
-  elsif 187,4223
-end behavioral;215,4539
+  signal burn : STD_LOGIC;16,373
+  signal ASR,20,497
+  end component;29,834
+  end component;38,1129
+  end component;58,1692
+  alias op : STD_LOGIC_VECTOR(61,1740
+  end process;152,4330
+      when others 217,5447
+    end case;220,5510
+      when others 246,5917
+    end case;249,5980
+end behavioral;254,6009
+
+cu.vhd,250
+library IEEE;3,16
+use IEEE.STD_LOGIC_1164.ALL;ALL4,30
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,59
+end cu;11,243
+  end component;19,431
+  alias alu : STD_LOGIC_VECTOR(24,530
+          -- mPC 48,1179
+  end process;56,1287
+end behavioral;58,1305
+
+gr.vhd,207
+library IEEE;3,22
+use IEEE.STD_LOGIC_1164.ALL;ALL4,36
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,65
+        dataout : out STD_LOGIC_VECTOR(12,293
+  end process;28,673
+  elsif 33,772
+end behavioral;38,874
 
 mm.vhd,188
 library IEEE;3,16
@@ -45,9 +87,9 @@ pm.vhd,185
 library IEEE;3,18
 use IEEE.STD_LOGIC_1164.ALL;ALL4,32
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,61
-        dataout : out STD_LOGIC_VECTOR(11,238
-  elsif 22,507
-end behavioral;27,601
+        dataout : out STD_LOGIC_VECTOR(11,257
+  elsif 22,534
+end behavioral;27,636
 
 vga.vhd,184
 library IEEE;3,23
@@ -66,6 +108,14 @@ pm.vhd~,0
 
 mm.vhd~,0
 
-gr.vhd,0
+k2.vhd,0
+
+k1.vhd,0
+
+gr.vhd~,0
+
+cu.vhd~,0
+
+alu.vhd~,0
 
 Nexys3_Master.ucf,0
