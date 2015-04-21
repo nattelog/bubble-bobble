@@ -155,7 +155,7 @@ begin
 
         -- read from PC 
         when "011" =>
-          BUSS(31 downto 16) <= 0;
+          BUSS(31 downto 16) <= (others => '0');
           BUSS(15 downto 0) <= PC;
 
         -- read from AR  
@@ -168,7 +168,7 @@ begin
 
         -- do nothing
         when others =>
-          BUSS <= 0;
+          BUSS <= (others => '0');
           
       end case;
 
@@ -197,7 +197,7 @@ begin
 
         -- do nothing
         when others =>
-          BUSS <= 0;
+          BUSS <= (others => '0');
           
       end case;
 
