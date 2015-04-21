@@ -54,6 +54,7 @@ begin
 
           when others =>
             WR <= '0';
+            bussout <= (others => '0');
           
         end case;
 
@@ -71,6 +72,7 @@ begin
 
           when others =>
             ASR <= ASR;
+            bussin <= (others => '0');
           
         end case;
 
