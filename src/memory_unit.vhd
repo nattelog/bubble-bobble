@@ -21,15 +21,17 @@ architecture behavioral of memory_unit is
   end component;
 
   signal ASR, PC : STD_LOGIC_VECTOR(15 downto 0);
-  signal PM : STD_LOGIC_VECTOR(31 downto 0);
+  signal PM, datain : STD_LOGIC_VECTOR(31 downto 0);
   signal WR : STD_LOGIC;
 
   alias tb : STD_LOGIC_VECTOR(2 downto 0) is controlword(4 to 6);
   alias fb : STD_LOGIC_VECTOR(2 downto 0) is controlword(7 to 9);
   alias p : STD_LOGIC is controlword(10);
-    
+
 begin
 
+  datain <= (others => '0');
+  
   process (clk)
   begin
     if rising_edge(clk) then
@@ -90,6 +92,6 @@ begin
     end if;
   end process;
 
-  mem : primary_memory port map (WR, ASR, PM, PM);
+  mem : primary_memory port map (WR, ASR, datain, PM);
   
 end behavioral;
