@@ -25,7 +25,7 @@ begin
   -- write: wr = 1
   -- read: wr = 0
   
-  mem(CONV_INTEGER(adr)) <= datain when wr = '1';
+  --mem(CONV_INTEGER(adr)) <= datain when wr = '1';
 
   dataout <= mem(CONV_INTEGER(adr)) when wr = '0';
   
