@@ -48,7 +48,7 @@ architecture behavioral of CPU is
   -- Controlunit
   component CU is
     Port (clk, rst : in STD_LOGIC;
-        FLAGS : in STD_LOGIC;
+        FLAGS : in STD_LOGIC_VECTOR(4 downto 0);
         IR, BUSS : in STD_LOGIC_VECTOR(31 downto 0);
         PC : out STD_LOGIC_VECTOR(15 downto 0);
         controlword : out STD_LOGIC_VECTOR(0 to 23));
