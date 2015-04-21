@@ -72,7 +72,6 @@ begin
 
           when others =>
             ASR <= ASR;
-            bussin <= (others => '0');
           
         end case;
 
