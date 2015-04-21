@@ -72,7 +72,7 @@ begin
 
         case p is
 
-          when "1" =>
+          when '1' =>
             PC <= PC + 1;
 
           when others =>
