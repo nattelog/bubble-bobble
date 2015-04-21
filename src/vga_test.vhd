@@ -18,7 +18,11 @@ end vga_test;
 
 
 architecture behavioral of vga_test is
-  
+
+                                
+begin
+  process(clk)
+      
   variable clkCnt : integer := 0; --räknar 0-3 varje klockcykel, för att tima
                                  --med skärm
   variable waitRow : integer := 0; --räknar väntetiden mellan rader
@@ -26,9 +30,7 @@ architecture behavioral of vga_test is
   variable pixelSent : integer := 0; --Räknar pixlar man skickat per rad
   variable RGB : boolean :=  true; --är true om vi håller på att ta in/skickar pixlar
   variable rowCnt : integer := 0; -- räknar antal rader vi skrivit
-                                
-begin
-  process(clk) begin   
+  begin   
          if rising_edge(clk) then
            if waitCol < 56400 and waitCol > 50000 then
              Vsync <= '0';
