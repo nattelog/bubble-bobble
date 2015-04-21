@@ -8,7 +8,7 @@ entity memory_unit is
   Port (clk, rst : in STD_LOGIC;
         controlword : in STD_LOGIC_VECTOR(0 to 23);
         bussin : in STD_LOGIC_VECTOR(31 downto 0);
-        bussout : out STD_LOGIC_VECTOR(31 downto 0))
+        bussout : out STD_LOGIC_VECTOR(31 downto 0));
 end memory_unit;
 
 architecture behavioral of memory_unit is
