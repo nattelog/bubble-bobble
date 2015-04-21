@@ -59,7 +59,7 @@ begin
     rst <= '0';
     wait for 1 us;
 
-    tb_running = false;
+    tb_running <= false;
 
   end process;
 
