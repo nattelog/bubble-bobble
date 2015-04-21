@@ -26,7 +26,7 @@ begin
     begin
       if rising_edge(clk) then
         --moddar upp clk
-        if clkCnt = 3 then
+        if clkCnt = 4 then
           clkCntMod := clkCntMod+1;
           clkCnt := 0;
         end if;
