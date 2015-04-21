@@ -16,7 +16,7 @@ architecture behavioral of CPU is
   --signal burn : STD_LOGIC;
 
   -- Main registers for the CPU
-  signal BUSS, IR, PM, GRx, AR : STD_LOGIC_VECTOR(31 downto 0);
+  signal BUSS, IR, PR, GRx, AR : STD_LOGIC_VECTOR(31 downto 0);
   signal ASR, PC : STD_LOGIC_VECTOR(15 downto 0);
 
   -- General registers
@@ -100,7 +100,7 @@ begin
 
         -- reset main registers
         ASR <= (others => '0');
-        PM <= (others => '0');
+        PR <= (others => '0');
         IR <= (others => '0');
         PC <= (others => '0');
         AR <= (others => '0');
@@ -116,7 +116,7 @@ begin
 
   -- Programmemory
 
-  PM port map (tb, fb, ASR, PM, PM);
+  PM port map (tb, fb, ASR, PR, PR);
 
   -- General registers
 
@@ -146,7 +146,7 @@ begin
 
     -- read from PM
     when "010" =>
-      BUSS <= PM;
+      BUSS <= PR;
 
     -- read from PC 
     when "011" =>
@@ -176,7 +176,7 @@ begin
 
     -- write to PM
     when "010" =>
-      PM <= BUSS;
+      PR <= BUSS;
 
     -- write to PC
     when "011" =>
