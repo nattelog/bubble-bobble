@@ -31,9 +31,9 @@ begin
   process(clk) begin   
            if rising_edge(clk) then
            if waitCol < 56400 and waitCol > 50000 then
-             Vsync <= 0;
+             Vsync <= '0';
            else
-             Vsync <= 1;
+             Vsync <= '1';
            end if;
            if waitCol = 161300 then
              waitCol := 0;
@@ -42,9 +42,9 @@ begin
              waitCol:=waitCol+1;
            else
              if waitRow < 444 and waitRow > 64 then
-               Hsync <= 0;
+               Hsync <= '0';
              else
-               Hsync <= 1;
+               Hsync <= '1';
              end if;
              if (RGB = true  and clkCnt = 3) then
                vgaRed <= "101";
