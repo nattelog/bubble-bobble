@@ -38,7 +38,7 @@ begin
         ASR <= (others => '0');
         PC <= (others => '0');
         PM <= (others => '0');
-        WR <= (others => '0');
+        WR <= '0';
 
       else
 
