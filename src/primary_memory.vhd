@@ -25,7 +25,7 @@ begin
   -- write: wr = 1
   -- read: wr = 0
   
-  if (wr = '1') then
+  if (wr = 1) then
     mem(CONV_INTEGER(adr)) <= datain;
 
   else
