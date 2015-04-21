@@ -35,10 +35,10 @@ begin
     if rising_edge(clk) then
 
       if (rst = '1') then
-        ASR <= 0;
-        PC <= 0;
-        PM <= 0;
-        WR <= 0;
+        ASR <= (others => '0');
+        PC <= (others => '0');
+        PM <= (others => '0');
+        WR <= (others => '0');
 
       else
 
