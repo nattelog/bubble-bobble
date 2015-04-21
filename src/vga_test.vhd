@@ -5,7 +5,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
  
 
-entity vga is
+entity vga_test is
     Port ( clk,rst : in  STD_LOGIC;
         vgaRed : out STD_LOGIC_VECTOR(2 downto 0);
         vgaGreen : out STD_LOGIC_VECTOR(2 downto 0);
@@ -13,11 +13,11 @@ entity vga is
     	Hsync : out STD_LOGIC;
     	Vsync : out STD_LOGIC
     );
-end vga;
+end vga_test;
 
 
 
-architecture behavioral of vga is
+architecture behavioral of vga_test is
   
   variable clkCnt : integer := 0; --räknar 0-3 varje klockcykel, för att tima
                                  --med skärm
