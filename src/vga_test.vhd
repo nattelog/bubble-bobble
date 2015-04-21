@@ -17,7 +17,7 @@ end vga;
 
 
 
-architecture Behavioral of vga is
+architecture behavioral of vga is
   
   variable clkCnt : integer := 0; --räknar 0-3 varje klockcykel, för att tima
                                  --med skärm
@@ -67,13 +67,13 @@ begin
                clkCnt:=clkCnt+1;
              end if;
            end if;
-           if rst = 1 then -- nollställning
+           if rst = '1' then -- nollställning
              rowCnt := 0;
              RGB := true;
              pixelSent := 0;
              clkCnt := 0;
              waitRow := 0;
              waitCol := 0;
-             end if;          
+           end if;          
   end process;
-end Behavioral;
+end behavioral;
