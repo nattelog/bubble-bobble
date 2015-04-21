@@ -30,19 +30,17 @@ begin
           clkCntMod := clkCntMod+1;
           clkCnt := 0;
         end if;
-        if rowCnt < 480 then
         -- kollar om vi skickat ut en rad
-          if clkCntMod < 640 then
-            vgaRed(2 downto 0) <= "101";
-            vgaGreen(2 downto 0) <= "010";
-            vgaBlue(2 downto 1) <= "10";
-          end if;
+        if clkCntMod < 640 and rowCnt <480 then
+          vgaRed(2 downto 0) <= ('1' & '1' & '0');
+          vgaGreen(2 downto 0) <= ('0' & '1' & '1');
+          vgaBlue(2 downto 1) <= ('1' & '0');
+        end if;
           
-          if clkCntMod >= 688 and clkCntMod < 784 then
-            Hsync <= '0';  
-          else
-            Hsync <= '1';
-          end if;
+        if clkCntMod >= 688 and clkCntMod < 784 and rowCnt < 480 then
+          Hsync <= '0';  
+        else
+          Hsync <= '1';
         end if;
         if clkCntMod = 800 then
           rowCnt := rowCnt + 1;
