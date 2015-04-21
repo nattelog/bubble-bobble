@@ -37,7 +37,7 @@ begin
           vgaBlue(2 downto 1) <= ('1' & '0');
         end if;
           
-        if clkCntMod >= 688 and clkCntMod < 784 and rowCnt < 480 then
+        if clkCntMod >= 687 and clkCntMod < 783 and rowCnt < 480 then
           Hsync <= '0';  
         else
           Hsync <= '1';
