@@ -61,9 +61,9 @@ begin
 
     wait until rising_edge(clk);
 
-    tb <= PM_TO_BUSS;
+    tb <= "010";
 
-    wait for 100 us;
+    wait for 500 ns;
 
     tb_running <= false;
 
