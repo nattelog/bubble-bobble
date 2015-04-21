@@ -39,9 +39,9 @@ begin
           end if;
           
           if clkCntMod >= 688 and clkCntMod < 784 then
-            Hsync <= 0;  
+            Hsync <= '0';  
           else
-            Hsync <= 1;
+            Hsync <= '1';
           end if;
         end if;
         if clkCntMod = 800 then
@@ -50,10 +50,10 @@ begin
         end if;
 
         if rowCnt >= 509 and rowCnt <=511 then
-          Vsync <= 0;
+          Vsync <= '0';
         else
-          Vsync <= 1;  
-        end if
+          Vsync <= '1';  
+        end if;
 
        if rowCnt = 521 then
          rowCnt := 0;
