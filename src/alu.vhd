@@ -5,15 +5,15 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 use IEE.NUMERIC_STD;
 
-entity alu is
+entity ALU is
   Port (clk, rst : in STD_LOGIC;
         operation : in STD_LOGIC_VECTOR(0 to 3);
         buss, arin : in STD_LOGIC_VECTOR(31 downto 0);
         arout : out STD_LOGIC_VECTOR(31 downto 0);
         flags : out STD_LOGIC_VECTOR(4 downto 0));
-end alu;
+end ALU;
 
-architecture behavioral of alu is
+architecture behavioral of ALU is
   signal helpreg : STD_LOGIC_VECTOR(32 downto 0);
   alias helpreg_small : STD_LOGIC_VECTOR(31 downto 0) is helpreg(31 downto 0);
 
