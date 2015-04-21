@@ -64,16 +64,16 @@ architecture behavioral of CPU is
   alias L : STD_LOGIC is flags(0);
 
   -- Signals from programword
-  alias op : STD_LOGIC_VECTOR(3 downto 0) is PM(31 downto 28);
-  alias grx : STD_LOGIC_VECTOR(3 downto 0) is PM(27 downto 24);
-  alias m : STD_LOGIC_VECTOR(1 downto 0) is PM(23 downto 22);
-  alias padr : STD_LOGIC_VECTOR(15 downto 0) is PM(15 downto 0);
+  --alias op : STD_LOGIC_VECTOR(3 downto 0) is PM(31 downto 28);
+  alias gradr : STD_LOGIC_VECTOR(3 downto 0) is PM(27 downto 24);
+  --alias m : STD_LOGIC_VECTOR(1 downto 0) is PM(23 downto 22);
+  --alias padr : STD_LOGIC_VECTOR(15 downto 0) is PM(15 downto 0);
   
   -- Micromemory
   signal controlword : STD_LOGIC_VECTOR(0 to 23);
 
   -- Signals from controlword
-  alias alu : STD_LOGIC_VECTOR(3 downto 0) is controlword(0 to 3);
+  alias operation : STD_LOGIC_VECTOR(3 downto 0) is controlword(0 to 3);
   alias tb : STD_LOGIC_VECTOR(2 downto 0) is controlword(4 to 6);
   alias fb : STD_LOGIC_VECTOR(2 downto 0) is controlword(7 to 9);
   --alias p : STD_LOGIC is controlword(10);
@@ -104,7 +104,7 @@ begin
         IR <= (others => '0');
         PC <= (others => '0');
         AR <= (others => '0');
-        GRx <= (others => '0');
+        GRADR <= (others => '0');
         -- the entire gr-memory is reset in gr.vhd
         
         -- reset micromemory
@@ -120,7 +120,7 @@ begin
 
   -- General registers
 
-  GR port map (clk, rst, tb, fb, grx, GRx, GRx);
+  GR port map (clk, rst, tb, fb, gradr, GRx, GRx);
 
   -- Controlunit
 
@@ -128,7 +128,7 @@ begin
 
   -- ALU
 
-  ALU port map (clk, rst, alu, BUSS, AR, AR, flags);
+  ALU port map (clk, rst, operation, BUSS, AR, AR, flags);
 
   -- UART
 
