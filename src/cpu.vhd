@@ -137,64 +137,73 @@ begin
   -- ** BUSS LOGIC **
   
   -- to bus
+
+  process (clk)
+  begin
+
+    if rising_edge(clk) then
   
-  case tb is
+      case tb is
 
-    -- read from IR
-    when "001" =>
-      BUSS <= IR;
+        -- read from IR
+        when "001" =>
+          BUSS <= IR;
 
-    -- read from PM
-    when "010" =>
-      BUSS <= PR;
+        -- read from PM
+        when "010" =>
+          BUSS <= PR;
 
-    -- read from PC 
-    when "011" =>
-      BUSS(31 downto 16) <= 0;
-      BUSS(15 downto 0) <= PC;
+        -- read from PC 
+        when "011" =>
+          BUSS(31 downto 16) <= 0;
+          BUSS(15 downto 0) <= PC;
 
-    -- read from AR  
-    when "100" =>
-      BUSS <= AR;
+        -- read from AR  
+        when "100" =>
+          BUSS <= AR;
 
-    -- read from GRx
-    when "110" =>
-      BUSS <= GRx;
+        -- read from GRx
+        when "110" =>
+          BUSS <= GRx;
 
-    -- do nothing
-    when others =>
-      BUSS <= 0;
-      
-  end case;
+        -- do nothing
+        when others =>
+          BUSS <= 0;
+          
+      end case;
 
-  -- from bus
-  case fb is
+      -- from bus
+      case fb is
 
-    -- write to IR
-    when "001" =>
-      IR <= BUSS;
+        -- write to IR
+        when "001" =>
+          IR <= BUSS;
 
-    -- write to PM
-    when "010" =>
-      PR <= BUSS;
+        -- write to PM
+        when "010" =>
+          PR <= BUSS;
 
-    -- write to PC
-    when "011" =>
-      PC <= BUSS(15 downto 0);
+        -- write to PC
+        when "011" =>
+          PC <= BUSS(15 downto 0);
 
-    -- write to GRx
-    when "110" =>
-      GRx <= BUSS;
+        -- write to GRx
+        when "110" =>
+          GRx <= BUSS;
 
-    -- write to ASR
-    when "111" =>
-      ASR <= BUSS(15 downto 0);
+        -- write to ASR
+        when "111" =>
+          ASR <= BUSS(15 downto 0);
 
-    -- do nothing
-    when others =>
-      BUSS <= 0;
-      
-  end case;
+        -- do nothing
+        when others =>
+          BUSS <= 0;
+          
+      end case;
+
+    end if;
+  
+  end process;
   
 
 end behavioral;
