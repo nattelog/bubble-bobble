@@ -30,43 +30,50 @@ architecture Behavioral of vga is
 begin
   process(clk) begin   
            if rising_edge(clk) then
-             Vsync <= 0 when 50000<waitRow<56400 else 1; 
-             if waitCol = 161300 then
-               waitCol := 0;
-             end if;     
-             if rowCnt = 480 then
-               waitCol:=waitCol+1;
+           if waitCol < 56400 and waitCol > 50000 then
+             Vsync <= 0;
+           else
+             Vsync <= 1;
+           end if;
+           if waitCol = 161300 then
+             waitCol := 0;
+           end if;     
+           if rowCnt = 480 then
+             waitCol:=waitCol+1;
+           else
+             if waitRow < 444 and waitRow > 64 then
+               Hsync <= 0;
              else
-               Hsync <= 0 when 64 < waitRow < 444 else 1;
-               if (RGB = true  and clkCnt = 3) then
-                 vgaRed <= "101";
-                 vgaGreen <= "010";
-                 vgaBlue <= "11";
-                 pixelSent:=pixelSent+1;
-                 if pixelSent = 640 then --Vi har skickar ut 640 pixlar/1 rad
-                   RGB := false;
-                 end if;
-                 clkCnt = 0;
-               elsif RGB = false then --väntetid mellan rader
-                 waitRow:=waitRow+1;
-                 clkCnt:=clkCnt+1;
-                 if waitRow = 634 then
-                   rowCnt:=rowCnt+1;
-                   RGB := true;
-                   waitRow := 0;
-                 end if;
-               else -- Vi kan bara skicka ut en pixel var fjärde cykel;
-                 clkCnt:=clkCnt+1;
-               end if;
+               Hsync <= 1;
              end if;
-             if rst = 1 then -- nollställning
-               rowCnt := 0;
-               RGB := true;
-               pixelSent := 0;
+             if (RGB = true  and clkCnt = 3) then
+               vgaRed <= "101";
+               vgaGreen <= "010";
+               vgaBlue <= "11";
+               pixelSent:=pixelSent+1;
+               if pixelSent = 640 then --Vi har skickar ut 640 pixlar/1 rad
+                 RGB := false;
+               end if;
                clkCnt := 0;
-               waitRow := 0;
-               waitCol := 0;
-               countPixel := 0;
+             elsif RGB = false then --väntetid mellan rader
+               waitRow:=waitRow+1;
+               clkCnt:=clkCnt+1;
+               if waitRow = 634 then
+                 rowCnt:=rowCnt+1;
+                 RGB := true;
+                 waitRow := 0;
+               end if;
+             else -- Vi kan bara skicka ut en pixel var fjärde cykel;
+               clkCnt:=clkCnt+1;
+             end if;
+           end if;
+           if rst = 1 then -- nollställning
+             rowCnt := 0;
+             RGB := true;
+             pixelSent := 0;
+             clkCnt := 0;
+             waitRow := 0;
+             waitCol := 0;
              end if;          
   end process;
-end behavioral;
+end Behavioral;
