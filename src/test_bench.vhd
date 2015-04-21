@@ -59,6 +59,12 @@ begin
     rst <= '0';
     wait for 1 us;
 
+    wait until rising_edge(clk);
+
+    tb <= PM_TO_BUSS;
+
+    wait for 100 us;
+
     tb_running <= false;
 
   end process;
