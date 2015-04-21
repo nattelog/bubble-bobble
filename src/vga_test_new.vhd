@@ -32,9 +32,9 @@ begin
         end if;
         -- kollar om vi skickat ut en rad
         if clkCntMod < 640 and rowCnt <480 then
-          vgaRed(2 downto 0) <= ('1' & '1' & '0');
-          vgaGreen(2 downto 0) <= ('0' & '1' & '1');
-          vgaBlue(2 downto 1) <= ('1' & '0');
+          vgaRed(2 downto 0) <= ('0' & '0' & '0');
+          vgaGreen(2 downto 0) <= ('0' & '0' & '0');
+          vgaBlue(2 downto 1) <= ('0' & '0');
         end if;
           
         if clkCntMod >= 670 and clkCntMod < 766 and rowCnt < 480 then
