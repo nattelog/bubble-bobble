@@ -15,8 +15,8 @@ architecture behavioral of primary_memory is
   
   type memtype is array(0 to 65535) of STD_LOGIC_VECTOR(31 downto 0);
   constant mem : memtype := (
-    "1100110011001100110011001100110011001100",
-    "0011001100110011001100110011001100110011",
+    "11001100110011001100110011001100",
+    "00110011001100110011001100110011",
     others => X"00000000"
     );
   
