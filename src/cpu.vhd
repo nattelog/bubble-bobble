@@ -116,19 +116,19 @@ begin
 
   -- Programmemory
 
-  PM port map (tb, fb, ASR, PR, PR);
+  primary_memory: PM port map (tb, fb, ASR, PR, PR);
 
   -- General registers
 
-  GR port map (clk, rst, tb, fb, gradr, GRx, GRx);
+  general_reqisters: GR port map (clk, rst, tb, fb, gradr, GRx, GRx);
 
   -- Controlunit
 
-  CU port map (clk, rst, flags, IR, BUSS, PC, controlword);
+  control_unit: CU port map (clk, rst, flags, IR, BUSS, PC, controlword);
 
   -- ALU
 
-  ALU port map (clk, rst, operation, BUSS, AR, AR, flags);
+  arithmetic_logic_unit: ALU port map (clk, rst, operation, BUSS, AR, AR, flags);
 
   -- UART
 
