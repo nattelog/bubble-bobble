@@ -32,9 +32,6 @@ begin
   variable rowCnt : integer := 0; -- räknar antal rader vi skrivit
   begin   
          if rising_edge(clk) then
-            vgaRed <= "101";
-            vgaGreen <= "010";
-            vgaBlue <= "11";
            if waitCol < 56400 and waitCol > 50000 then
              Vsync <= '0';
            else
@@ -52,9 +49,9 @@ begin
                Hsync <= '1';
              end if;
              if (RGB = true  and clkCnt = 3) then
-               vgaRed <= "101";
-               vgaGreen <= "010";
-               vgaBlue <= "11";
+               vgaRed(2 downto 0) <= "101";
+               vgaGreen(2 downto 0) <= "010";
+               vgaBlue(2 downto 1) <= "11";
                pixelSent:=pixelSent+1;
                if pixelSent = 640 then --Vi har skickar ut 640 pixlar/1 rad
                  RGB := false;
