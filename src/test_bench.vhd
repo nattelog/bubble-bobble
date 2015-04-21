@@ -19,7 +19,8 @@ architecture behavioral of test_bench is
   signal clk : STD_LOGIC := '0';
   signal rst : STD_LOGIC := '0';
   signal controlword : STD_LOGIC_VECTOR(0 to 23) := (others => '0');
-  signal buss : STD_LOGIC_VECTOR(31 downto 0);
+  signal buss : STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
+  signal buss2 : STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
   signal tb_running : boolean := true;
 
   alias tb : STD_LOGIC_VECTOR(2 downto 0) is controlword(4 to 6);
@@ -35,7 +36,7 @@ architecture behavioral of test_bench is
   
 begin
 
-  test : memory_unit port map(clk, rst, controlword, buss, buss);
+  test : memory_unit port map(clk, rst, controlword, buss, buss2);
 
   clk_gen : process
   begin
@@ -51,7 +52,6 @@ begin
   sim : process
   begin
 
-    buss <= (others => '0');
     rst <= '1';
     wait for 500 ns;
 
