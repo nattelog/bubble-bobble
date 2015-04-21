@@ -24,18 +24,18 @@ architecture Behavioral of vga is
   variable waitRow : integer := 0; --räknar väntetiden mellan rader
   variable waitCol : integer := 0; --räknar väntetiden efter alla rader
   variable pixelSent : integer := 0; --Räknar pixlar man skickat per rad
-  variable RGB : boolean =  true; --är true om vi håller på att ta in/skickar pixlar
+  variable RGB : boolean :=  true; --är true om vi håller på att ta in/skickar pixlar
   variable rowCnt : integer := 0; -- räknar antal rader vi skrivit
                                 
 begin
   process(clk) begin   
-           if (rising_edge(clk)) then
+           if rising_edge(clk) then
              Vsync <= 0 when 50000<waitRow<56400 else 1; 
-             if (waitCol = 161300) then
-               waitCol = 0;
+             if waitCol = 161300 then
+               waitCol := 0;
              end if     
-             if (rowCnt = 480) then
-               waitCol++;
+             if rowCnt = 480 then
+               waitCol:=waitCol+1;
              else
                Hsync <= 0 when 64 < waitRow < 444 else 1;
                if (RGB = true  and clkCnt = 3) then
