@@ -25,12 +25,8 @@ begin
   -- write: wr = 1
   -- read: wr = 0
   
-  if wr = '1' then
-    mem(CONV_INTEGER(adr)) <= datain;
+  mem(CONV_INTEGER(adr)) <= datain when wr = '1';
 
-  else
-    dataout <= mem(CONV_INTEGER(adr));
-    
-  end if;
+  dataout <= mem(CONV_INTEGER(adr)) when wr = '0';
   
 end behavioral;
