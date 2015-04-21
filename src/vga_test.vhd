@@ -29,7 +29,7 @@ architecture behavioral of vga is
                                 
 begin
   process(clk) begin   
-           if rising_edge(clk) then
+         if rising_edge(clk) then
            if waitCol < 56400 and waitCol > 50000 then
              Vsync <= '0';
            else
@@ -74,6 +74,7 @@ begin
              clkCnt := 0;
              waitRow := 0;
              waitCol := 0;
-           end if;          
+           end if;
+         end if;      
   end process;
 end behavioral;
