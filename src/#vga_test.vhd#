@@ -29,21 +29,21 @@ architecture Behavioral of vga is
                                 
 begin
   process(clk) begin   
-           if (rising_edge(clk)) then
+           if rising_edge(clk) thenmm
              Vsync <= 0 when 50000<waitRow<56400 else 1; 
-             if (waitCol = 161300) then
+             if waitCol = 161300 then
                waitCol = 0;
              end if     
-             if (rowCnt = 480) then
+             if rowCnt = 480 then
                waitCol++;
              else
                Hsync <= 0 when 64 < waitRow < 444 else 1;
-               if (RGB = true  and clkCnt = 3) then
+               if RGB = true  and clkCnt = 3 then
                  vgaRed <= "101";
                  vgaGreen <= "010";
                  vgaBlue <= "11";
                  pixelSent++;
-                 if (pixelSent = 640) then --Vi har skickar ut 640 pixlar/1 rad
+                 if pixelSent = 640 then --Vi har skickar ut 640 pixlar/1 rad
                    RGB = false;
                  end if
                    clkCnt = 0;
