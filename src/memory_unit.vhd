@@ -85,6 +85,6 @@ begin
     end if;
   end process;
 
-  pm : primary_memory port map (WR, ASR, PM, PM);
+  mem : primary_memory port map (WR, ASR, PM, PM);
   
 end behavioral;
