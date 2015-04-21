@@ -65,7 +65,7 @@ architecture behavioral of CPU is
 
   -- Signals from programword
   --alias op : STD_LOGIC_VECTOR(3 downto 0) is PM(31 downto 28);
-  alias gradr : STD_LOGIC_VECTOR(3 downto 0) is PM(27 downto 24);
+  alias gradr : STD_LOGIC_VECTOR(3 downto 0) is PR(27 downto 24);
   --alias m : STD_LOGIC_VECTOR(1 downto 0) is PM(23 downto 22);
   --alias padr : STD_LOGIC_VECTOR(15 downto 0) is PM(15 downto 0);
   
