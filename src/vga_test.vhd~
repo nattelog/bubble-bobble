@@ -17,15 +17,8 @@ end vga;
 
 
 
-architecture behavioral of vga is
-  component gm
-    port( adress : in STD_LOGIC_VECTOR(15 downto 0);
-          data : out STD_LOGIC_VECTOR(31 downto 0)
-          );
-  end component;
-  signal a : out STD_LOGIC_VECTOR(15 downto 0) := "0000000000000000";
-  signal d : in STD_LOGIC_VECTOR(31 downto 0);
-  variable countPixel : integer := 0; -- För att kunna dela upp vectorn i gm i 4.
+architecture behavioral of vga
+  
   variable clkCnt : integer := 0; --räknar 0-3 varje klockcykel, för att tima
                                   --med skärm
   variable waitRow : integer := 0; --räknar väntetiden mellan rader
@@ -46,19 +39,10 @@ begin
              else
                Hsync <= 0 when 64 < waitRow < 444 else 1;
                if RGB = true  and clkCnt = 3 then
-                 vgaRed <= d((31-8*countPixel) downto (29-8*countPixel));
-                 vgaGreen <= d((28-8*countPixel) downto (26-8*countPixel));
-                 vgaBlue <= d((25-8*countPixel) downto (24-8*countPixel));
-                 countPixel++;
+                 vgaRed <= "101";
+                 vgaGreen <= "010";
+                 vgaBlue <= "11";
                  pixelSent++;
-                 if a = "1111111111111111" then
-                   a = "0000000000000000"
-                 endif
-                 if countPixel = 4 then -- Vi har hämtat de fyra pixlarna från vectorn 
-                   a <= a + "0000000000000001"; --adderar adressen med 1
-                   countPixel = 0;
-                 end if;
-                 
                  if pixelSent = 640 then --Vi har skickar ut 640 pixlar/1 rad
                    RGB = false;
                  end if
@@ -83,9 +67,6 @@ begin
                waitRow = 0;
                waitCol = 0;
                countPixel = 0;
-               a <= "0000000000000000";
              end if;          
   end process;
-  
-  gm0: gm port map(a, d);
 end behavioral;

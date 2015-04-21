@@ -17,10 +17,10 @@ end vga;
 
 
 
-architecture behavioral of vga
+architecture Behavioral of vga is
   
   variable clkCnt : integer := 0; --räknar 0-3 varje klockcykel, för att tima
-                                  --med skärm
+                                 --med skärm
   variable waitRow : integer := 0; --räknar väntetiden mellan rader
   variable waitCol : integer := 0; --räknar väntetiden efter alla rader
   variable pixelSent : integer := 0; --Räknar pixlar man skickat per rad
