@@ -1,16 +1,21 @@
 
+#computer.vhd#,101
+use IEEE.STD_LOGIC_1164.ALL;ALL4,49
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,78
+end computer;10,169
+
 Makefile,77
 XILINX_INIT 32,1286
 PART=33,1350
 lab.%:lab.%36,1375
-lab.%:lab.%37,1397
+lab.%:lab.%37,1442
 
-alu.vhd,484
+arithmetic_logic_unit.vhd,484
 library IEEE;3,8
 use IEEE.STD_LOGIC_1164.ALL;ALL4,22
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,51
 use IEE.NUMERIC_STD;NUMERIC_STD6,84
-end alu;14,359
+end ALU;14,359
   alias helpreg_small : STD_LOGIC_VECTOR(18,453
           -- AR 39,911
             -- AR 43,988
@@ -37,34 +42,50 @@ use IEEE.STD_LOGIC_1164.ALL;ALL4,49
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,78
 end computer;10,169
 
-cpu.vhd,453
--- Lab 1 in the course TSEA83,3,68
-use IEEE.STD_LOGIC_1164.ALL;ALL6,145
-use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL7,174
-end cpu;11,255
-  signal burn : STD_LOGIC;16,373
-  signal ASR,20,497
-  end component;29,834
-  end component;38,1129
-  end component;58,1692
-  alias op : STD_LOGIC_VECTOR(61,1740
-  end process;152,4330
-      when others 217,5447
-    end case;220,5510
-      when others 246,5917
-    end case;249,5980
-end behavioral;254,6009
-
-cu.vhd,250
+control_unit.vhd,641
 library IEEE;3,16
 use IEEE.STD_LOGIC_1164.ALL;ALL4,30
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,59
-end cu;11,243
-  end component;19,431
-  alias alu : STD_LOGIC_VECTOR(24,530
-          -- mPC 48,1179
-  end process;56,1287
-end behavioral;58,1305
+end CU;13,343
+  end component;20,501
+          data : out STD_LOGIC_VECTOR(24,586
+          when others 87,2321
+        end case;90,2379
+            -- LC 99,2516
+          when others 109,2783
+        end case;112,2841
+            -- mPC 121,2975
+            -- mPC 125,3061
+            -- mPC 129,3135
+            -- mPC 133,3206
+            -- mPC 143,3432
+            -- suPC 147,3510
+            -- mPC 152,3632
+            -- mPC 156,3710
+          when others 230,5362
+  end process;237,5464
+end behavioral;245,5564
+
+cpu.vhd,534
+-- Lab 1 in the course TSEA83,3,68
+use IEEE.STD_LOGIC_1164.ALL;ALL6,145
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL7,174
+end CPU;11,255
+  --signal burn : STD_LOGIC;16,373
+  signal ASR,20,499
+  end component;29,836
+  end component;38,1131
+  end component;46,1397
+  end component;55,1689
+  --alias op : STD_LOGIC_VECTOR(67,1972
+  end process;115,3439
+  process 141,3863
+        when others 170,4372
+      end case;173,4441
+        when others 199,4886
+      end case;202,4955
+  end process;206,4987
+end behavioral;209,5006
 
 gr.vhd,207
 library IEEE;3,22
@@ -75,21 +96,50 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,65
   elsif 33,772
 end behavioral;38,874
 
-mm.vhd,188
+k1.vhd,142
 library IEEE;3,16
 use IEEE.STD_LOGIC_1164.ALL;ALL4,30
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,59
-        data : out STD_LOGIC_VECTOR(10,181
-  end process;25,479
-end behavioral;27,497
+        data : out STD_LOGIC_VECTOR(9,153
 
-pm.vhd,185
+k2.vhd,142
+library IEEE;3,16
+use IEEE.STD_LOGIC_1164.ALL;ALL4,30
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,59
+        data : out STD_LOGIC_VECTOR(9,153
+
+memory_unit.vhd,333
+library IEEE;3,16
+use IEEE.STD_LOGIC_1164.ALL;ALL4,30
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,59
+        bussout : out STD_LOGIC_VECTOR(11,251
+        end case;54,1227
+          when others 68,1469
+        end case;71,1529
+          when others 78,1616
+        end case;81,1674
+  end process;86,1722
+end behavioral;90,1791
+
+mm.vhd,142
+library IEEE;3,16
+use IEEE.STD_LOGIC_1164.ALL;ALL4,30
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,59
+        data : out STD_LOGIC_VECTOR(9,153
+
+primary_memory.vhd,169
 library IEEE;3,18
 use IEEE.STD_LOGIC_1164.ALL;ALL4,32
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,61
-        dataout : out STD_LOGIC_VECTOR(11,257
-  elsif 22,534
-end behavioral;27,636
+        dataout : out STD_LOGIC_VECTOR(11,246
+end behavioral;30,630
+
+primary_memory.vhd~,169
+library IEEE;3,18
+use IEEE.STD_LOGIC_1164.ALL;ALL4,32
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,61
+        dataout : out STD_LOGIC_VECTOR(11,247
+end behavioral;30,631
 
 vga.vhd,184
 library IEEE;3,23
@@ -102,15 +152,19 @@ end vga;15,365
 xst.mk,53
 $(PROJNAME)-synthdir/xst/synth/design.scr: $(14,594
 
+test_bench.vhd,0
+
 sanitycheck.sh,0
 
 pm.vhd~,0
 
 mm.vhd~,0
 
-k2.vhd,0
+memory_unit.vhd~,0
 
-k1.vhd,0
+k2.vhd~,0
+
+k1.vhd~,0
 
 gr.vhd~,0
 

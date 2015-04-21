@@ -33,7 +33,8 @@ XILINX_INIT = source /sw/xilinx/ise_12.4i/ISE_DS/settings64.sh;
 PART=xc6slx16-3-csg324
 
 
-lab.%: S=cpu.vhd cu.vhd alu.vhd gr.vhd k1.vhd k2.vhd mm.vhd pm.vhd
+lab.%: S=memory_unit.vhd primary_memory.vhd
+lab.%: T=test_bench.vhd
 lab.%: U=computer.ucf
 
 
