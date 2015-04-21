@@ -36,7 +36,7 @@ architecture behavioral of test_bench is
   
 begin
 
-  test : memory_unit port map(clk, rst, controlword, buss, buss2);
+  test : memory_unit port map(clk, rst, controlword, buss, buss);
 
   clk_gen : process
   begin
