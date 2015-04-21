@@ -26,6 +26,6 @@ begin
   
   --mem(CONV_INTEGER(adr)) <= datain when wr = '1';
 
-  dataout <= mem(CONV_INTEGER(adr)) when wr = '0' else (others => '0');
+  dataout <= mem(CONV_INTEGER(adr)) when wr = '0' else X"00000000";
   
 end behavioral;
