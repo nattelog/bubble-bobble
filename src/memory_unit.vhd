@@ -50,6 +50,9 @@ begin
 
           when "011" =>
             bussout <= PC;
+
+          when others =>
+            WR <= '0';
           
         end case;
 
