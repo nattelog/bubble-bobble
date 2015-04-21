@@ -49,7 +49,8 @@ begin
             bussout <= PM;
 
           when "011" =>
-            bussout <= PC;
+            bussout(31 downto 16) <= (others => '0');
+            bussout(15 downto 0) <= PC;
 
           when others =>
             WR <= '0';
