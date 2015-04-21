@@ -1,50 +1,30 @@
 
-computer.ucf,788
-Net "clk" LOC=7,207
-Net "clk" TNM_NET 8,248
-TIMESPEC TS_sys_clk_pin 9,281
-NET "vgaRed<0>" LOC 183,15505
-NET "vgaRed<0>" LOC = U7 | IOSTANDARD = LVCMOS33; # Bank 183,15505
-NET "vgaRed<1>" LOC = V7 | IOSTANDARD = LVCMOS33; # Bank 184,15603
-NET "vgaRed<2>" LOC = N7 | IOSTANDARD = LVCMOS33; # Bank 185,15701
-NET "vgaGreen<0>" LOC = P8 | IOSTANDARD = LVCMOS33; # Bank 186,15799
-NET "vgaGreen<1>" LOC = T6 | IOSTANDARD = LVCMOS33; # Bank 187,15899
-NET "vgaGreen<2>" LOC = V6 | IOSTANDARD = LVCMOS33; # Bank 188,15999
-NET "vgaBlue<1>" LOC = R7 | IOSTANDARD = LVCMOS33; # Bank 189,16099
-NET "vgaBlue<2>" LOC = T7 | IOSTANDARD = LVCMOS33; # Bank 190,16198
-NET "Hsync" LOC = N6 | IOSTANDARD = LVCMOS33; # Bank 192,16298
-NET "Vsync" LOC = P7 | IOSTANDARD = LVCMOS33; # Bank 193,16393
-
-computer.vhd,171
-use IEEE.STD_LOGIC_1164.ALL;ALL4,49
-use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,78
-    	Hsync : out STD_LOGIC;12,317
-    	Vsync : out STD_LOGIC;13,345
-end computer;15,380
-
-cpu.vhd,115
-library IEEE;3,12
-use IEEE.STD_LOGIC_1164.ALL;ALL4,26
-use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,55
-end cpu;10,146
-
-Makefile,77
-XILINX_INIT 32,1286
-PART=33,1350
-lab.%:lab.%36,1375
-lab.%:lab.%37,1413
-
-vga.vhd,185
+vga_test.vhd,941
 library IEEE;3,23
 use IEEE.STD_LOGIC_1164.ALL;ALL4,37
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,66
-    	Hsync : out STD_LOGIC;12,303
-    	Vsync : out STD_LOGIC;13,331
-end vga;15,366
-
-xst.mk,53
-$(PROJNAME)-synthdir/xst/synth/design.scr: $(14,594
-
-sanitycheck.sh,0
-
-Nexys3_Master.ucf,0
+    	Hsync : out STD_LOGIC;13,305
+    	Vsync : out STD_LOGIC14,333
+end vga;16,367
+  end component;25,545
+  variable countPixel : integer 28,679
+  variable clkCnt : integer 29,762
+  variable clkCnt : integer := 0; --räknar 0-3 varje klockcykel,29,762
+  variable waitRow : integer 31,889
+  variable waitCol : integer 32,959
+  variable pixelSent : integer 33,1033
+  variable RGB : boolean 34,1107
+  variable rowCnt : integer 35,1195
+  process(38,1302
+                   countPixel 59,2259
+               elsif RGB 66,2502
+                   RGB 71,2688
+                   waitRow 72,2719
+               RGB 80,2993
+               pixelSent 81,3020
+               clkCnt 82,3050
+               waitRow 83,3077
+               waitCol 84,3105
+               countPixel 85,3133
+  end process;88,3235
+end behavioral;91,3279
