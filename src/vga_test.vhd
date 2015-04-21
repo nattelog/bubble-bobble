@@ -33,7 +33,7 @@ begin
              Vsync <= 0 when 50000<waitRow<56400 else 1; 
              if waitCol = 161300 then
                waitCol := 0;
-             end if     
+             end if;     
              if rowCnt = 480 then
                waitCol:=waitCol+1;
              else
@@ -42,31 +42,31 @@ begin
                  vgaRed <= "101";
                  vgaGreen <= "010";
                  vgaBlue <= "11";
-                 pixelSent++;
-                 if (pixelSent = 640) then --Vi har skickar ut 640 pixlar/1 rad
-                   RGB = false;
-                 end if
-                   clkCnt = 0;
+                 pixelSent:=pixelSent+1;
+                 if pixelSent = 640 then --Vi har skickar ut 640 pixlar/1 rad
+                   RGB := false;
+                 end if;
+                 clkCnt = 0;
                elsif RGB = false then --väntetid mellan rader
-                 waitRow++;
-                 clkCnt++;
+                 waitRow:=waitRow+1;
+                 clkCnt:=clkCnt+1;
                  if waitRow = 634 then
-                   rowCnt++;
-                   RGB = true;
-                   waitRow = 0;
-                 end if
+                   rowCnt:=rowCnt+1;
+                   RGB := true;
+                   waitRow := 0;
+                 end if;
                else -- Vi kan bara skicka ut en pixel var fjärde cykel;
-                 clkCnt++;
+                 clkCnt:=clkCnt+1;
                end if;
              end if;
              if rst = 1 then -- nollställning
-               rowCnt = 0;
-               RGB = true;
-               pixelSent = 0;
-               clkCnt = 0;
-               waitRow = 0;
-               waitCol = 0;
-               countPixel = 0;
+               rowCnt := 0;
+               RGB := true;
+               pixelSent := 0;
+               clkCnt := 0;
+               waitRow := 0;
+               waitCol := 0;
+               countPixel := 0;
              end if;          
   end process;
 end behavioral;
