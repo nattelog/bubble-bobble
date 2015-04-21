@@ -19,7 +19,7 @@ architecture behavioral of test_bench is
   signal clk : STD_LOGIC := '0';
   signal rst : STD_LOGIC := '0';
   signal controlword : STD_LOGIC_VECTOR(0 to 23) := (others => '0');
-  signal buss : STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
+  signal buss : STD_LOGIC_VECTOR(31 downto 0) := "00000000000000000000000000000000";
   signal tb_running : boolean := true;
 
   alias tb : STD_LOGIC_VECTOR(2 downto 0) is controlword(4 to 6);
