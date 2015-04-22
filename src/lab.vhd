@@ -14,7 +14,7 @@ entity lab is
     Port ( clk,rst : in  STD_LOGIC;
            vgaRed, vgaGreen : out  STD_LOGIC_VECTOR (2 downto 0);
            vgaBlue : out  STD_LOGIC_VECTOR (2 downto 1);
-           Hsync,Vsync : out  STD_LOGIC
+           Hsync,Vsync : out  STD_LOGIC);
 end lab;
 
 architecture Behavioral of lab is
