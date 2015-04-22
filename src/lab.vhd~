@@ -14,11 +14,17 @@ entity lab is
     Port ( clk,rst : in  STD_LOGIC;
            vgaRed, vgaGreen : out  STD_LOGIC_VECTOR (2 downto 0);
            vgaBlue : out  STD_LOGIC_VECTOR (2 downto 1);
-           Hsync,Vsync : out  STD_LOGIC
+           ca,cb,cc,cd,ce,cf,cg,dp, Hsync,Vsync : out  STD_LOGIC;
+           an : out  STD_LOGIC_VECTOR (3 downto 0));
 end lab;
 
 architecture Behavioral of lab is
-
+  component leddriver
+    Port ( clk,rst : in  STD_LOGIC;
+           ca,cb,cc,cd,ce,cf,cg,dp : out  STD_LOGIC;
+           an : out  STD_LOGIC_VECTOR (3 downto 0);
+           ledvalue : in  STD_LOGIC_VECTOR (15 downto 0));
+  end component;
 
   signal xctr,yctr : std_logic_vector(9 downto 0) := "0000000000";
   alias rad : std_logic_vector(6 downto 0) is yctr(9 downto 3); -- i bildminnet
@@ -56,11 +62,11 @@ architecture Behavioral of lab is
                               "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
                               "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
                               "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
-                              "00000000000000001111000000111100001111000000011000000001110000000000000000000000",
-                              "00000000000000010000100001000000010000000000100100000001001000000000000000000000",
-                              "00000000000000010000100000111000010000000001111110000001110000000000000000000000",
-                              "00000000000000010000100000000100010000000010000001000001001000000000000000000000",
-                              "00000000000000001111000000111000001111000100000000100001000100000000000000000000",
+                              "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+                              "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+                              "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+                              "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+                              "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
                               "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
                               "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
                               "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
@@ -171,7 +177,39 @@ begin
       end if;
     end if;
   end process;
-
+  
+  -- GoL
+  process(clk) begin
+    if rising_edge(clk) then
+      if rad<60 and ypix=0 and xpix=0 then
+        if pixel=1 then
+          if kol < 79 then
+            a2 <= a(conv_integer(kol+1));
+            b2 <= b(conv_integer(kol+1));
+            c2 <= c(conv_integer(kol+1));
+          elsif kol=79 then
+            a2 <= '0';
+            b2 <= '0';
+            c2 <= '0';
+          end if;
+          a0 <= a1; a1<=a2; 
+          b0 <= b1; b1<=b2; 
+          c0 <= c1; c1<=c2; 
+        elsif pixel=2 then
+          -- antal 1-or i omgivningen
+          nr <= ("000" & a0) + ("000" & a1) + ("000" & a2) + ("000" & b0) + ("000" & b2) + ("000" & c0) + ("000" & c1) + ("000" & c2);
+        elsif pixel=3 then
+          if kol<80 then
+            if nr=3 or (b1='1' and nr=2) then
+              d(conv_integer(kol)) <= '1';
+            else
+              d(conv_integer(kol)) <= '0';
+            end if;
+          end if;
+        end if;
+      end if;
+    end if;
+  end process;
 
       
   -- video
@@ -207,5 +245,6 @@ begin
      end if;
   end process;
        
+  led: leddriver port map (clk,rst,ca,cb,cc,cd,ce,cf,cg,dp,an, ctr);
 end Behavioral;
 
