@@ -93,16 +93,7 @@ begin
   -- ** BUSS **
   -- **********
 
-  buss <= DR when tb = "010" else buss;
-
-  buss_reset : process (clk)
-  begin
-    if rising_edge(clk) then
-      if (rst = '1') then
-        buss <= (others => '0');
-      end if;
-    end if;
-  end process;
+  buss <= DR when tb = "010";
 
   
   -- ******************
