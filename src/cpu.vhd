@@ -210,6 +210,9 @@ begin
           when "1111" =>
             mPC <= (others => '0');
             -- Should HALT here
+
+          when others =>
+            mPC <= mPC;
           
         end case;
       end if;
@@ -225,9 +228,6 @@ begin
       else
         case loop_c is
 
-          when "00" =>
-            LC <= LC;
-
           when "01" =>
             LC <= LC - 1;
 
@@ -235,7 +235,11 @@ begin
             LC <= buss(7 downto 0);
 
           when "11" =>
-            LC <= madr;
+            LC(6 downto 0) <= madr;
+            LC(7) <= '0';
+
+          when others =>
+            LC <= LC;
           
           end case;
       end if;
