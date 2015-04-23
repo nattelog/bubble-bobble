@@ -281,13 +281,9 @@ begin
           DR <= buss;
           pm_write <= '1';
 
-        elsif (tb = "010") then
+        else
           DR <= prim_mem(CONV_INTEGER(ASR));
           pm_write <= '0';
-
-        else
-          pm_write <= '0';
-          DR <= DR;
           
         end if;
 
@@ -353,13 +349,9 @@ begin
           GR <= buss;
           gr_write <= '1';
 
-        elsif (tb = "110") then
+        else
           GR <= gen_reg(CONV_INTEGER(ir_grx));
           gr_write <= '0';
-
-        else
-          gr_write <= '0';
-          GR <= GR;
 
         end if;
         
