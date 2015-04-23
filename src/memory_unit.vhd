@@ -37,7 +37,8 @@ begin
       if (rst = '1') then
         ASR <= (others => '0');
         PC <= (others => '0');
-        PM <= (others => '0');
+        PMin <= (others => '0');
+        PMout <= (others => '0');
         WR <= '0';
 
       else
