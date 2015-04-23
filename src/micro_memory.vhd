@@ -7,12 +7,12 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 entity micro_memory is
   Port (clk, rst : in STD_LOGIC;
         adr : in STD_LOGIC_VECTOR(7 downto 0);
-        controlword : out STD_LOGIC_VECTOR(0 to 24));
+        controlword : out STD_LOGIC_VECTOR(0 to 23));
 end micro_memory;
 
 architecture behavioral of micro_memory is
 
-  type mm_t is array(0 to 256) of STD_LOGIC_VECTOR(0 to 24);
+  type mm_t is array(0 to 256) of STD_LOGIC_VECTOR(0 to 23);
 
 
   -- Example microinstructions
@@ -20,7 +20,7 @@ architecture behavioral of micro_memory is
   -- 
   
   constant MM : mm_t := (
-    others => "0000000000000000000000000"
+    others => X"000000"
     );
   
 begin

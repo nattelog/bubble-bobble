@@ -42,14 +42,14 @@ architecture behavioral of cpu is
   -- ** CONTROL UNIT **
   -- ******************
   
-  signal mPC, suPC, k1, k2 : STD_LOGIC_VECTOR(7 downto 0);
-  signal CONTROLWORD : STD_LOGIC_VECTOR(0 to 24);
+  signal mPC, suPC, k1, k2 : STD_LOGIC_VECTOR(6 downto 0);
+  signal CONTROLWORD : STD_LOGIC_VECTOR(0 to 23);
   signal LC : STD_LOGIC_VECTOR(7 downto 0);
   
   component micro_memory is
     port (clk, rst : in STD_LOGIC;
           adr : in STD_LOGIC_VECTOR(7 downto 0);
-          controlword : out STD_LOGIC_VECTOR(0 to 24));
+          controlword : out STD_LOGIC_VECTOR(0 to 23));
   end component;
 
   -- Signals from controlword
@@ -59,10 +59,10 @@ architecture behavioral of cpu is
   alias p : STD_LOGIC is controlword(10);
   alias loop_c : STD_LOGIC_VECTOR(1 downto 0) is controlword(11 to 12);
   alias seq : STD_LOGIC_VECTOR(3 downto 0) is controlword(13 to 16);
-  alias madr : STD_LOGIC_VECTOR(7 downto 0) is controlword(17 to 24);
+  alias madr : STD_LOGIC_VECTOR(6 downto 0) is controlword(17 to 23);
 
   -- K-registers
-  type k_t is array(0 to 15) of STD_LOGIC_VECTOR(7 downto 0);
+  type k_t is array(0 to 15) of STD_LOGIC_VECTOR(6 downto 0);
 
   constant k1_reg : k_t := (
     X"11",
