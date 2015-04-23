@@ -19,7 +19,7 @@ architecture behavioral of cpu is
   -- Memory Unit
   signal pm_write : STD_LOGIC;
   type pm_t is array(0 to 255) of STD_LOGIC_VECTOR(15 downto 0);
-  signal PM : pm_t := (
+  signal prim_mem : pm_t := (
     X"1100",
     others => X"0000"
     );
@@ -72,7 +72,6 @@ begin
   -- **********
 
   BUSS <= DR when tb = "010" else
-          GR when tb = "110" else
           (others => '0');
 
   
@@ -122,8 +121,23 @@ begin
         pm_write <= '0';
 
       else
-        
-        
+        if (fb = "010") then
+          DR <= BUSS;
+          pm_write <= '1';
+
+        elsif (tb = "010") then
+          DR <= prim_mem(CONV_INTEGER(ASR));
+          pm_write <= '0';
+
+        else
+          pm_write <= '0';
+          
+        end if;
+
+        if (pm_write = '1') then
+          prim_mem(CONV_INTEGER(ASR)) <= DR;
+       
+        end if;
       end if;
     end if;
   end process;
