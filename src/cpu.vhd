@@ -30,12 +30,11 @@ architecture behavioral of cpu is
   signal mPC : STD_LOGIC_VECTOR(6 downto 0);
   signal CONTROLWORD : STD_LOGIC_VECTOR(0 to 23);
   
-  type mm_t is array(0 to 127) of STD_LOGIC_VECTOR(0 to 23);
-  
-  constant MM : mm_t := (
-    X"111000",
-    others => X"000000"
-    );
+  component micro_memory is
+    port (clk : in STD_LOGIC;
+          adr : in STD_LOGIC_VECTOR(6 downto 0);
+          controlword : out STD_LOGIC_VECTOR(0 to 23));
+  end component;
 
   -- Signals from controlword
   --alias operation : STD_LOGIC_VECTOR(3 downto 0) is controlword(0 to 3);
@@ -60,15 +59,14 @@ begin
   -- ** CONTROL UNIT **
   -- ******************
 
-  micro_memory : process (clk)
+  mm : micro_memory port map(clk, mPC, CONTROLWORD);
+
+  process (clk)
   begin
     if rising_edge(clk) then
       if (rst = '1') then
         CONTROLWORD <= (others => '0');
         mPC <= (others => '0');
-
-      else
-        CONTROLWORD <= MM(CONV_INTEGER(mPC));
         
       end if;
     end if;
