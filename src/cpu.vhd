@@ -102,6 +102,7 @@ begin
           DR when tb = "010" else
           AR when tb = "100" else
           GR when tb = "110" else
+          (others => '0') when rst = '1' else
           buss;
 
   
@@ -374,6 +375,7 @@ begin
              AR & '0' when alu_op = "1001" else -- LSL
              AR(0) & '0' & AR(15 downto 1) when alu_op = "1101" else -- LSR
              AR(0) & AR(0) & AR(15 downto 1) when alu_op = "1110" else -- ROL
+             (others => '0') when rst = '1' else
              '0' & AR;
 
   alu : process (clk)
