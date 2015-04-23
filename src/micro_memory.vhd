@@ -50,7 +50,7 @@ architecture behavioral of micro_memory is
   -- for the CPU
   constant MM : mm_t := (
     ALU_FB & TB_DR & FB_GR & P & LC & SEQ & MADR,
-    EMPTY
+    others => EMPTY
     );
   
 begin
