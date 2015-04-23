@@ -98,10 +98,11 @@ begin
   -- ** BUSS **
   -- **********
 
-  buss <= buss when tb = "000" else
-          IR when tb = "001" else
+  buss <= IR when tb = "001" else
           DR when tb = "010" else
-          GR when tb = "110";
+          AR when tb = "100" else
+          GR when tb = "110" else
+          buss;
 
   
   -- ******************
@@ -373,7 +374,7 @@ begin
              AR & '0' when alu_op = "1001" else -- LSL
              AR(0) & '0' & AR(15 downto 1) when alu_op = "1101" else -- LSR
              AR(0) & AR(0) & AR(15 downto 1) when alu_op = "1110" else -- ROL
-             helpreg;
+             '0' & AR;
 
   alu : process (clk)
   begin
