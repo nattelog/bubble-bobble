@@ -49,9 +49,8 @@ architecture behavioral of micro_memory is
   -- The whole micromemory containing microinstructions
   -- for the CPU
   constant MM : mm_t := (
-    ALU & TB_DR & FB_GR & P & LC & SEQ & MADR,
-    EMPTY,
-    others => (others => '0')
+    ALU_FB & TB_DR & FB_GR & P & LC & SEQ & MADR,
+    EMPTY
     );
   
 begin
