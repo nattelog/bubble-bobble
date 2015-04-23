@@ -10,7 +10,7 @@ end test_bench;
 architecture behavioral of test_bench is
 
   component cpu
-    port (clk, rst : in STD_LOGIC;
+    port (clk, rst : in STD_LOGIC);
   end component;
 
   signal clk : STD_LOGIC := '0';
