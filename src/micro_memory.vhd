@@ -23,7 +23,7 @@ architecture behavioral of micro_memory is
   
   constant MM : mm_t := (
     "0000" & DR_FB & "00000000000000000",
-    others => (others => '0');
+    others => (others => '0')
     );
   
 begin
