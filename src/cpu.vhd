@@ -29,7 +29,8 @@ architecture behavioral of cpu is
   type pm_t is array(0 to 255) of STD_LOGIC_VECTOR(15 downto 0);
   
   signal prim_mem : pm_t := (
-    X"1100",
+    X"FF00",
+    X"00FF",
     others => X"0000"
     );
 
@@ -85,6 +86,7 @@ architecture behavioral of cpu is
   -- General registers
   type gr_t is array(0 to 15) of STD_LOGIC_VECTOR(15 downto 0);
   signal gen_reg : gr_t;
+  signal gr_write : STD_LOGIC;
 
   
 begin
@@ -93,7 +95,8 @@ begin
   -- ** BUSS **
   -- **********
 
-  buss <= DR when tb = "010";
+  buss <= DR when tb = "010" else
+          GR when tb = "110";
 
   
   -- ******************
@@ -327,7 +330,27 @@ begin
       if (rst = '1') then
         GR <= (others => '0');
         gen_reg <= (others => (others => '0'));
+        gr_write <= '0';
+
+      else
+        if (fb = "110") then
+          GR <= buss;
+          gr_write <= '1';
+
+        elsif (tb = "110") then
+          GR <= gen_reg(CONV_INTEGER(dr_grx));
+          gr_write <= '0';
+
+        else
+          gr_write <= '0';
+          GR <= GR;
+
+        end if;
         
+        if (gr_write = '1') then
+          gen_reg(CONV_INTEGER(dr_grx)) <= GR;
+          
+        end if;
       end if;
     end if;
   end process;
