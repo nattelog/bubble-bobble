@@ -18,7 +18,7 @@ architecture behavioral of cpu is
 
   -- Memory Unit
   type pm_t is array(0 to 255) of STD_LOGIC_VECTOR(15 downto 0);
-  signal PM : ram_t;
+  signal PM : pm_t;
 
   -- Signals from programword
   --alias op : STD_LOGIC_VECTOR(3 downto 0) is PM(31 downto 28);
@@ -30,11 +30,10 @@ architecture behavioral of cpu is
   signal mPC : STD_LOGIC_VECTOR(6 downto 0);
   signal CONTROLWORD : STD_LOGIC_VECTOR(0 to 23);
   
-  type mm_t is array(0 to 127) of CONTROLWORD;
+  type mm_t is array(0 to 127) of STD_LOGIC_VECTOR(0 to 23);
   
   constant MM : mm_t := (
-    "000010000000000000000",
-    X"000111",
+    X"111000",
     others => X"000000"
     );
 
