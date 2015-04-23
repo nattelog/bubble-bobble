@@ -31,7 +31,7 @@ architecture behavioral of cpu is
   signal CONTROLWORD : STD_LOGIC_VECTOR(0 to 23);
   
   component micro_memory is
-    port (clk : in STD_LOGIC;
+    port (clk, rst : in STD_LOGIC;
           adr : in STD_LOGIC_VECTOR(6 downto 0);
           controlword : out STD_LOGIC_VECTOR(0 to 23));
   end component;
@@ -59,7 +59,7 @@ begin
   -- ** CONTROL UNIT **
   -- ******************
 
-  mm : micro_memory port map(clk, mPC, CONTROLWORD);
+  mm : micro_memory port map(clk, rst, mPC, CONTROLWORD);
 
   process (clk)
   begin
@@ -76,6 +76,16 @@ begin
   -- *****************
   -- ** MEMORY UNIT **
   -- *****************
+
+  process (clk)
+  begin
+    if rising_edge(clk) then
+      if (rst = '1') then
+        DR <= (others => '0');
+        ASR <= (others => '0');
+      end if;
+    end if;
+  end process;
 
   
 

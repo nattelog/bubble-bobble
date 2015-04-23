@@ -5,7 +5,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity micro_memory is
-  Port (clk : in STD_LOGIC;
+  Port (clk, rst : in STD_LOGIC;
         adr : in STD_LOGIC_VECTOR(6 downto 0);
         controlword : out STD_LOGIC_VECTOR(0 to 23));
 end micro_memory;
@@ -24,7 +24,9 @@ begin
   process (clk)
   begin
     if rising_edge(clk) then
-      controlword <= MM(CONV_INTEGER(adr));
+      if (rst = '0') then
+        controlword <= MM(CONV_INTEGER(adr));
+      end if;
     end if;
   end process;
 
