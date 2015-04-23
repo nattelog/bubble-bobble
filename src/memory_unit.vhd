@@ -29,8 +29,6 @@ architecture behavioral of memory_unit is
   alias p : STD_LOGIC is controlword(10);
 
 begin
-
-  datain <= (others => '0');
   
   process (clk)
   begin
