@@ -16,7 +16,7 @@ architecture behavioral of cpu is
   -- ** MAIN SIGNALS **
   -- ******************
   
-  signal buss, DR, GR : STD_LOGIC_VECTOR(15 downto 0);
+  signal buss, DR, GR, IR : STD_LOGIC_VECTOR(15 downto 0);
   signal ASR : STD_LOGIC_VECTOR(15 downto 0);
 
   
@@ -33,10 +33,6 @@ architecture behavioral of cpu is
     X"00FF",
     others => X"0000"
     );
-
-  alias dr_op : STD_LOGIC_VECTOR(3 downto 0) is DR(15 downto 12);
-  alias dr_grx : STD_LOGIC_VECTOR(3 downto 0) is DR(11 downto 8);
-  alias dr_m : STD_LOGIC_VECTOR(1 downto 0) is DR(7 downto 6);
 
   
   -- ******************
@@ -80,6 +76,11 @@ architecture behavioral of cpu is
   -- ** ARITHMETIC LOGIC UNIT **
   -- ***************************
 
+  -- Instructionregister parts
+  alias ir_op : STD_LOGIC_VECTOR(3 downto 0) is IR(15 downto 12);
+  alias ir_grx : STD_LOGIC_VECTOR(3 downto 0) is IR(11 downto 8);
+  alias ir_m : STD_LOGIC_VECTOR(1 downto 0) is IR(7 downto 6);
+
   -- Flags
   signal Z, N, O, C, L : STD_LOGIC;
 
@@ -95,9 +96,10 @@ begin
   -- ** BUSS **
   -- **********
 
-  buss <= DR when tb = "010" else
-          GR when tb = "110" else
-          (others => '0') when tb = "000";
+  buss <= buss when tb = "000" else
+          IR when tb = "001" else
+          DR when tb = "010" else
+          GR when tb = "110";
 
   
   -- ******************
@@ -105,6 +107,19 @@ begin
   -- ******************
 
   mm : micro_memory port map(clk, rst, mPC, CONTROLWORD);
+
+  instruction_register : process (clk)
+  begin
+    if rising_edge(clk) then
+      if (rst = '1') then
+        IR <= (others => '0');
+
+      elsif (fb = "001") then
+        IR <= buss;
+        
+      end if;
+    end if;
+  end process;
 
   -- K registers
   k_registers : process (clk)
@@ -115,8 +130,8 @@ begin
         k2 <= (others => '0');
 
       else
-        k1 <= k1_reg(CONV_INTEGER(dr_op));
-        k2 <= k2_reg(CONV_INTEGER(dr_m));
+        k1 <= k1_reg(CONV_INTEGER(ir_op));
+        k2 <= k2_reg(CONV_INTEGER(ir_m));
         
       end if;
     end if;
@@ -339,7 +354,7 @@ begin
           gr_write <= '1';
 
         elsif (tb = "110") then
-          GR <= gen_reg(CONV_INTEGER(dr_grx));
+          GR <= gen_reg(CONV_INTEGER(ir_grx));
           gr_write <= '0';
 
         else
@@ -349,7 +364,7 @@ begin
         end if;
         
         if (gr_write = '1') then
-          gen_reg(CONV_INTEGER(dr_grx)) <= GR;
+          gen_reg(CONV_INTEGER(ir_grx)) <= GR;
           
         end if;
       end if;

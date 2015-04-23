@@ -14,32 +14,34 @@ architecture behavioral of micro_memory is
 
   type mm_t is array(0 to 256) of STD_LOGIC_VECTOR(0 to 23);
 
-  -- Microinstructions
+  -- ***********************
+  -- ** MICROINSTRUCTIONS **
+  -- ***********************
+  
   -- Each row must follow the order below
-
   constant EMPTY : STD_LOGIC_VECTOR(23 downto 0) := (others => '0');
   
-  -- alu-operation, 4 bits (alu_op)
+  -- 1: alu-operation, 4 bits (alu_op)
   constant ALU : STD_LOGIC_VECTOR(3 downto 0) := "0000";
 
-  -- to bus, 3 bits (tb)
+  -- 2: to bus, 3 bits (tb)
   constant TB : STD_LOGIC_VECTOR(2 downto 0) := "000";
   constant TB_DR : STD_LOGIC_VECTOR(2 downto 0) := "010";
 
-  -- from bus, 3 bits (fb)
+  -- 3: from bus, 3 bits (fb)
   constant FB : STD_LOGIC_VECTOR(2 downto 0) := "000";
   constant FB_GR : STD_LOGIC_VECTOR(2 downto 0) := "110";
 
-  -- programcounter, 1 bit (p)
+  -- 4: programcounter, 1 bit (p)
   constant P : STD_LOGIC := '0';
 
-  -- loopcounter-operation, 2 bits (loop_c)
+  -- 5: loopcounter-operation, 2 bits (loop_c)
   constant LC : STD_LOGIC_VECTOR(1 downto 0) := "00";
 
-  -- sequencecontroller, 4 bits (seq)
+  -- 6: sequencecontroller, 4 bits (seq)
   constant SEQ : STD_LOGIC_VECTOR(3 downto 0) := "0000";
 
-  -- microaddress, 7 bit (madr)
+  -- 7: microaddress, 7 bit (madr)
   constant MADR : STD_LOGIC_VECTOR(6 downto 0) := "0000000";
 
 
