@@ -65,13 +65,13 @@ architecture behavioral of cpu is
   type k_t is array(0 to 15) of STD_LOGIC_VECTOR(6 downto 0);
 
   constant k1_reg : k_t := (
-    X"11",
-    others => X"00"
+    "1100110",
+    others => (others => '0')
     );
 
   constant k2_reg : k_t := (
-    x"00",
-    others => X"00"
+    "1100110",
+    others => (others => '0')
     );
 
 
