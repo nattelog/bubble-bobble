@@ -5,7 +5,6 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
-use IEEE.NUMERIC_STD.ALL;
 
 entity cpu is
   Port (clk,rst : in STD_LOGIC);
@@ -400,15 +399,15 @@ begin
             AR <= helpreg_small;
 
           when "1001" =>
-            helpreg <= AR sll 1;
+            helpreg <= AR & '0';
             AR <= helpreg_small;
 
           when "1101" =>
-            helpreg <= AR srl 1;
+            helpreg <= "00" & AR(14 downto 0);
             AR <= helpreg_small;
 
           when "1110" =>
-            AR <= AR rol 1;
+            AR <= AR(0) & AR(15 downto 1);
             helpreg <= (others => '0');
 
           when others =>
