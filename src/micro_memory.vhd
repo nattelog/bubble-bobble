@@ -23,6 +23,7 @@ architecture behavioral of micro_memory is
   
   -- 1: alu-operation, 4 bits (alu_op)
   constant ALU : STD_LOGIC_VECTOR(3 downto 0) := "0000";
+  constant ALU_FB : STD_LOGIC_VECTOR(3 downto 0) := "0001";
 
   -- 2: to bus, 3 bits (tb)
   constant TB : STD_LOGIC_VECTOR(2 downto 0) := "000";

@@ -82,7 +82,6 @@ architecture behavioral of cpu is
   alias ir_m : STD_LOGIC_VECTOR(1 downto 0) is IR(7 downto 6);
 
   signal helpreg : STD_LOGIC_VECTOR(16 downto 0);
-  alias helpreg_small : STD_LOGIC_VECTOR(15 downto 0) is helpreg(15 downto 0);
 
   -- Flags
   signal Z, N, O, C, L : STD_LOGIC;
@@ -366,6 +365,16 @@ begin
     end if;
   end process;
 
+  -- ALU OPERATIONS
+  helpreg <= AR + buss when alu_op = "0100" else
+             AR - buss when alu_op = "0101" else
+             '0' & (AR and buss) when alu_op = "0110" else
+             '0' & (AR or buss) when alu_op = "0111" else
+             AR & '0' when alu_op = "1001" else -- LSL
+             AR(0) & '0' & AR(15 downto 1) when alu_op = "1101" else -- LSR
+             AR(0) & AR(0) & AR(15 downto 1) when alu_op = "1110" else -- ROL
+             helpreg;
+
   alu : process (clk)
   begin
     if rising_edge(clk) then
@@ -374,56 +383,38 @@ begin
         helpreg <= (others => '0');
 
       else
-        case alu_op is
+        if (alu_op = "0001") then
+          AR <= buss;
 
-          when "0001" =>
-            AR <= buss;
+          if (buss = 0) then
+            Z <= '1';
+          else
+            Z <= '0';
+          end if;
 
-          when "0011" =>
-            AR <= (others => '0');
+          N <= buss(15);
 
-          when "0100" =>
-            helpreg <= AR + buss;
-            AR <= helpreg_small;
-
-          when "0101" =>
-            helpreg <= AR - buss;
-            AR <= helpreg_small;
-
-          when "0110" =>
-            helpreg <= AR and buss;
-            AR <= helpreg_small;
-
-          when "0111" =>
-            helpreg <= AR or buss;
-            AR <= helpreg_small;
-
-          when "1001" =>
-            helpreg <= AR & '0';
-            AR <= helpreg_small;
-
-          when "1101" =>
-            helpreg <= "00" & AR(14 downto 0);
-            AR <= helpreg_small;
-
-          when "1110" =>
-            AR <= AR(0) & AR(15 downto 1);
-            helpreg <= (others => '0');
-
-          when others =>
-            AR <= AR;
-            helpreg <= (others => '0');
-          
-        end case;
-
-        if (AR = 0) then
-          Z <= '1';
-        else
+        elsif (alu_op = "0011") then
+          AR <= (others => '0');
           Z <= '0';
+          N <= '0';
+
+        else
+          AR <= helpreg(15 downto 0);
+
+          if (helpreg(15 downto 0) = 0) then
+            Z <= '1';
+          else
+            Z <= '0';
+          end if;
+
+          N <= helpreg(15);
+
         end if;
 
+      end if;
+
         C <= helpreg(16);
-        N <= AR(15);
         O <= helpreg(16) xor helpreg(15);
         
       end if;
