@@ -43,10 +43,10 @@ architecture behavioral of cpu is
   --alias operation : STD_LOGIC_VECTOR(3 downto 0) is controlword(0 to 3);
   alias tb : STD_LOGIC_VECTOR(2 downto 0) is CONTROLWORD(4 to 6);
   alias fb : STD_LOGIC_VECTOR(2 downto 0) is CONTROLWORD(7 to 9);
-  --alias p : STD_LOGIC is controlword(10);
-  --alias lc : STD_LOGIC_VECTOR(1 downto 0) is controlword(11 to 12);
-  --alias seq : STD_LOGIC_VECTOR(3 downto 0) is controlword(13 to 16);
-  --alias madr : STD_LOGIC_VECTOR(6 downto 0) is controlword(17 to 23);
+  alias p : STD_LOGIC is controlword(10);
+  alias lc : STD_LOGIC_VECTOR(1 downto 0) is controlword(11 to 12);
+  alias seq : STD_LOGIC_VECTOR(3 downto 0) is controlword(13 to 16);
+  alias madr : STD_LOGIC_VECTOR(6 downto 0) is controlword(17 to 23);
 
   -- K-registers
   type k_t is array(0 to 15) of STD_LOGIC_VECTOR(7 downto 0);
@@ -71,7 +71,7 @@ begin
   -- ** BUSS **
   -- **********
 
-  BUSS <= DR when tb = "010" else
+  buss <= DR when tb = "010" else
           (others => '0');
 
   
@@ -82,7 +82,7 @@ begin
   mm : micro_memory port map(clk, rst, mPC, CONTROLWORD);
 
   -- K registers
-  k_reg : process (clk)
+  k_registers : process (clk)
   begin
     if rising_edge(clk) then
       if (rst = '1') then
@@ -97,12 +97,22 @@ begin
     end if;
   end process;
 
-  process (clk)
+  micro_pc : process (clk)
   begin
     if rising_edge(clk) then
       if (rst = '1') then
         mPC <= (others => '0');
-        
+
+      else
+        case seq is
+
+          when "0000" =>
+            mPC <= mPC + 1;
+
+          when others =>
+            mPC <= mPC;
+          
+        end case;
       end if;
     end if;
   end process;
@@ -112,17 +122,16 @@ begin
   -- ** MEMORY UNIT **
   -- *****************
 
-  primary_memory : process (clk)
+  data_register : process (clk)
   begin
     if rising_edge(clk) then
       if (rst = '1') then
         DR <= (others => '0');
-        ASR <= (others => '0');
         pm_write <= '0';
 
       else
         if (fb = "010") then
-          DR <= BUSS;
+          DR <= buss;
           pm_write <= '1';
 
         elsif (tb = "010") then
@@ -131,6 +140,7 @@ begin
 
         else
           pm_write <= '0';
+          DR <= DR;
           
         end if;
 
@@ -138,6 +148,22 @@ begin
           prim_mem(CONV_INTEGER(ASR)) <= DR;
        
         end if;
+      end if;
+    end if;
+  end process;
+
+  adress_register : process(clk)
+  begin
+    if rising_edge(clk) then
+      if (rst = '1') then
+        ASR <= (others => '0');
+
+      elsif (fb = "111") then
+        ASR <= buss;
+
+      else
+        ASR <= ASR;
+        
       end if;
     end if;
   end process;
