@@ -96,7 +96,8 @@ begin
   -- **********
 
   buss <= DR when tb = "010" else
-          GR when tb = "110";
+          GR when tb = "110" else
+          (others => '0') when tb = "000";
 
   
   -- ******************
