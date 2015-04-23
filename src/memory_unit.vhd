@@ -21,7 +21,7 @@ architecture behavioral of memory_unit is
   end component;
 
   signal ASR, PC : STD_LOGIC_VECTOR(15 downto 0);
-  signal PM : STD_LOGIC_VECTOR(31 downto 0);
+  signal PMin, PMout : STD_LOGIC_VECTOR(31 downto 0);
   signal WR : STD_LOGIC;
 
   alias tb : STD_LOGIC_VECTOR(2 downto 0) is controlword(4 to 6);
@@ -46,7 +46,7 @@ begin
 
           when "010" =>
             WR <= '1';
-            bussout <= PM;
+            bussout <= PMout;
 
           when "011" =>
             bussout(31 downto 16) <= (others => '0');
@@ -62,7 +62,7 @@ begin
 
           when "010" =>
             WR <= '0';
-            PM <= bussin;
+            PMin <= bussin;
 
           when "011" =>
             PC <= bussin(15 downto 0);
@@ -90,6 +90,6 @@ begin
     end if;
   end process;
 
-  mem : primary_memory port map (clk, rst, WR, ASR, PM, PM);
+  mem : primary_memory port map (clk, rst, WR, ASR, PMin, PMout);
   
 end behavioral;
