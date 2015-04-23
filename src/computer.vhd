@@ -12,4 +12,4 @@ end computer;
 architecture behavioral of computer is
 begin
 
-end behavioral;
+end behavioral

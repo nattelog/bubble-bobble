@@ -14,14 +14,14 @@ end memory_unit;
 architecture behavioral of memory_unit is
 
   component primary_memory is
-    port (wr : in STD_LOGIC;
+    port (clk, wr : in STD_LOGIC;
           adr : in STD_LOGIC_VECTOR(15 downto 0);
           datain : in STD_LOGIC_VECTOR(31 downto 0);
           dataout : out STD_LOGIC_VECTOR(31 downto 0));
   end component;
 
   signal ASR, PC : STD_LOGIC_VECTOR(15 downto 0);
-  signal PM, datain : STD_LOGIC_VECTOR(31 downto 0);
+  signal PM : STD_LOGIC_VECTOR(31 downto 0);
   signal WR : STD_LOGIC;
 
   alias tb : STD_LOGIC_VECTOR(2 downto 0) is controlword(4 to 6);
@@ -92,6 +92,6 @@ begin
     end if;
   end process;
 
-  mem : primary_memory port map (WR, ASR, datain, PM);
+  mem : primary_memory port map (clk, WR, ASR, PM, PM);
   
 end behavioral;
