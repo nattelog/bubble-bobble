@@ -43,7 +43,7 @@ architecture behavioral of cpu is
   -- ******************
   
   signal mPC, suPC, k1, k2 : STD_LOGIC_VECTOR(7 downto 0);
-  signal CONTROLWORD : STD_LOGIC_VECTOR(0 to 23);
+  signal CONTROLWORD : STD_LOGIC_VECTOR(0 to 24);
   signal LC : STD_LOGIC_VECTOR(7 downto 0);
   
   component micro_memory is
@@ -149,7 +149,7 @@ begin
             end if;
 
           when "0101" =>
-            mPC => madr;
+            mPC <= madr;
 
           when "0110" =>
             suPC <= mPC + 1;
@@ -210,9 +210,6 @@ begin
           when "1111" =>
             mPC <= (others => '0');
             -- Should HALT here
-
-          when others =>
-            mPC <= mPC;
           
         end case;
       end if;
