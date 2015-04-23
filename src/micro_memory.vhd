@@ -19,11 +19,12 @@ architecture behavioral of micro_memory is
   --
   --
 
-  constant DR_TB : STD_LOGIC_VECTOR(2 downto 0) := "010";
-  constant FB_FB : STD_LOGIC_VECTOR(2 downto 0) := "110";
+  constant TB_DR : STD_LOGIC_VECTOR(2 downto 0) := "010";
+  constant FB_GR : STD_LOGIC_VECTOR(2 downto 0) := "110";
   
   constant MM : mm_t := (
-    "0000" & DR_TB & "00000000000000000",
+    "0000" & TB_DR & "00000000000000000",
+    "0000" & FB_GR & "00000000000000000",
     others => (others => '0')
     );
   
