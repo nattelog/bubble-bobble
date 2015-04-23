@@ -7,57 +7,56 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 entity memory_unit is
   Port (clk, rst : in STD_LOGIC;
         controlword : in STD_LOGIC_VECTOR(0 to 23);
-        bussin : in STD_LOGIC_VECTOR(31 downto 0);
-        bussout : out STD_LOGIC_VECTOR(31 downto 0));
+        frombus : in STD_LOGIC_VECTOR(31 downto 0);
+        tobus : out STD_LOGIC_VECTOR(31 downto 0));
 end memory_unit;
 
 architecture behavioral of memory_unit is
 
-  component primary_memory is
-    port (clk, rst, wr : in STD_LOGIC;
-          adr : in STD_LOGIC_VECTOR(15 downto 0);
-          datain : in STD_LOGIC_VECTOR(31 downto 0);
-          dataout : out STD_LOGIC_VECTOR(31 downto 0));
-  end component;
+  type ram_t is array(0 to 255) of STD_LOGIC_VECTOR(15 downto 0);
+  signal PM : ram_t;
 
-  signal ASR, PC : STD_LOGIC_VECTOR(15 downto 0);
-  signal PMin, PMout : STD_LOGIC_VECTOR(31 downto 0);
-  signal WR : STD_LOGIC;
+  signal ASR : STD_LOGIC_VECTOR(15 downto 0);
+  signal DR : STD_LOGIC_VECTOR(31 downto 0);
+  signal wr : STD_LOGIC;
 
   alias tb : STD_LOGIC_VECTOR(2 downto 0) is controlword(4 to 6);
   alias fb : STD_LOGIC_VECTOR(2 downto 0) is controlword(7 to 9);
-  alias p : STD_LOGIC is controlword(10);
 
 begin
+
+  pm_logic : process(clk)
+  begin
+    if rising_edge(clk) then
+      
+      -- Read from PM
+      if (wr = '0') then
+        DR <= PM(CONV_INTEGER(ASR));
+
+      -- Write to PM
+      else
+        PM(CONV_INTEGER(ASR)) <= DR;
+
+      end if;
+    end if;
+  end process;
   
-  process (clk)
+  mu_logic: process (clk)
   begin
     if rising_edge(clk) then
 
       if (rst = '1') then
         ASR <= (others => '0');
-        PC <= (others => '0');
-        PMin <= (others => '0');
-        PMout <= (others => '0');
-        WR <= '0';
+        DR <= (others => '0');
+        wr <= '0';
 
       else
 
-        case tb is
-
-          when "010" =>
-            WR <= '1';
-            bussout <= PMout;
-
-          when "011" =>
-            bussout(31 downto 16) <= (others => '0');
-            bussout(15 downto 0) <= PC;
-
-          when others =>
-            WR <= '0';
-            bussout <= (others => '0');
+        if (tb = "011") then
+          wr <= '0';
+          tobus <= DR;
           
-        end case;
+        end if;
 
         case fb is
 

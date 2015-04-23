@@ -9,34 +9,17 @@ end test_bench;
 
 architecture behavioral of test_bench is
 
-  component memory_unit
+  component cpu
     port (clk, rst : in STD_LOGIC;
-          controlword : in STD_LOGIC_VECTOR(0 to 23);
-          bussin : in STD_LOGIC_VECTOR(31 downto 0);
-          bussout : out STD_LOGIC_VECTOR(31 downto 0));
   end component;
 
   signal clk : STD_LOGIC := '0';
   signal rst : STD_LOGIC := '0';
-  signal controlword : STD_LOGIC_VECTOR(0 to 23) := (others => '0');
-  signal bussin : STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
-  signal bussout : STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
   signal tb_running : boolean := true;
-
-  alias tb : STD_LOGIC_VECTOR(2 downto 0) is controlword(4 to 6);
-  alias fb : STD_LOGIC_VECTOR(2 downto 0) is controlword(7 to 9);
-  alias p : STD_LOGIC is controlword(10);
-
-  constant PM_TO_BUS : STD_LOGIC_VECTOR(2 downto 0) := "010";
-  constant PM_FROM_BUS : STD_LOGIC_VECTOR(2 downto 0) := "010";
-  constant PC_TO_BUS : STD_LOGIC_VECTOR(2 downto 0) := "011";
-  constant PC_FROM_BUS : STD_LOGIC_VECTOR(2 downto 0) := "011";
-  constant ASR_FROM_BUS : STD_LOGIC_VECTOR(2 downto 0) := "111";
-  constant PC_INCR : STD_LOGIC := '1';
   
 begin
 
-  test : memory_unit port map(clk, rst, controlword, bussin, bussout);
+  test : cpu port map(clk, rst);
 
   clk_gen : process
   begin
@@ -61,8 +44,6 @@ begin
     wait for 1 us;
 
     wait until rising_edge(clk);
-
-    tb <= "010";
 
     wait for 500 ns;
 
