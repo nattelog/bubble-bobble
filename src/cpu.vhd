@@ -16,7 +16,7 @@ architecture behavioral of cpu is
   -- ** MAIN SIGNALS **
   -- ******************
   
-  signal buss, DR, GR, IR : STD_LOGIC_VECTOR(15 downto 0);
+  signal buss, DR, GR, IR, AR : STD_LOGIC_VECTOR(15 downto 0);
   signal ASR : STD_LOGIC_VECTOR(15 downto 0);
 
   
@@ -80,6 +80,9 @@ architecture behavioral of cpu is
   alias ir_op : STD_LOGIC_VECTOR(3 downto 0) is IR(15 downto 12);
   alias ir_grx : STD_LOGIC_VECTOR(3 downto 0) is IR(11 downto 8);
   alias ir_m : STD_LOGIC_VECTOR(1 downto 0) is IR(7 downto 6);
+
+  signal helpreg : STD_LOGIC_VECTOR(16 downto 0);
+  alias helpreg_small : STD_LOGIC_VECTOR(15 downto 0) is helpreg(15 downto 0);
 
   -- Flags
   signal Z, N, O, C, L : STD_LOGIC;
@@ -359,6 +362,45 @@ begin
           gr_write <= '0';
           
         end if;
+      end if;
+    end if;
+  end process;
+
+  alu : process (clk)
+  begin
+    if rising_edge(clk) then
+      if (rst = '1') then
+        AR <= (others => '0');
+
+      else
+        case alu_op is
+
+          when "0001" =>
+            AR <= buss;
+
+          when "0011" =>
+            AR <= (others => '0');
+
+          when "0100" =>
+            helpreg <= AR + buss;
+            AR <= helpreg_small;
+
+          when others =>
+            AR <= AR;
+            helpreg <= (others => '0');
+          
+        end case;
+
+        if (AR = 0) then
+          Z <= '1';
+        else
+          Z <= '0';
+        end if;
+
+        C <= helpreg(16);
+        N <= AR(15);
+        O <= helpreg(16) xor helpreg(15);
+        
       end if;
     end if;
   end process;
