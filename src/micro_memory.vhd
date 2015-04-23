@@ -60,11 +60,13 @@ architecture behavioral of micro_memory is
   constant MADR : STD_LOGIC_VECTOR(6 downto 0) := "0000000";
 
 
-  -- The whole micromemory containing microinstructions
-  -- for the CPU
+  -- *****************
+  -- ** MICROMEMORY **
+  -- *****************
+  
   constant MM : mm_t := (
     ALU_FB & TB_DR & FB_GR & P & LC & SEQ & MADR,
-    ALU_ADD & TB_AR & FB & P & LC & SEQ & MADR,
+    --ALU_ADD & TB_AR & FB & P & LC & SEQ & MADR,
     others => EMPTY
     );
   
