@@ -289,6 +289,7 @@ begin
 
         if (pm_write = '1') then
           prim_mem(CONV_INTEGER(ASR)) <= DR;
+          pm_write <= '0';
        
         end if;
       end if;
@@ -357,6 +358,7 @@ begin
         
         if (gr_write = '1') then
           gen_reg(CONV_INTEGER(ir_grx)) <= GR;
+          gr_write <= '0';
           
         end if;
       end if;
