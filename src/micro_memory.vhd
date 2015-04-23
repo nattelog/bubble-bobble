@@ -12,7 +12,7 @@ end micro_memory;
 
 architecture behavioral of micro_memory is
 
-  type mm_t is array(0 to 256) of STD_LOGIC_VECTOR(0 to 23);
+  type mm_t is array(0 to 256) of STD_LOGIC_VECTOR(0 to 24);
 
 
   -- Example microinstructions
@@ -20,8 +20,7 @@ architecture behavioral of micro_memory is
   -- 
   
   constant MM : mm_t := (
-    X"111000",
-    others => X"000000"
+    others => "0000000000000000000000000"
     );
   
 begin
