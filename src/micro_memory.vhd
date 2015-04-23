@@ -24,8 +24,12 @@ begin
   process (clk)
   begin
     if rising_edge(clk) then
-      if (rst = '0') then
+      if (rst = '1') then
+        controlword <= (others => '0');
+
+      else
         controlword <= MM(CONV_INTEGER(adr));
+
       end if;
     end if;
   end process;

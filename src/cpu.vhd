@@ -65,7 +65,6 @@ begin
   begin
     if rising_edge(clk) then
       if (rst = '1') then
-        CONTROLWORD <= (others => '0');
         mPC <= (others => '0');
         
       end if;
