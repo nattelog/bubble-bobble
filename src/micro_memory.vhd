@@ -13,6 +13,11 @@ end micro_memory;
 architecture behavioral of micro_memory is
 
   type mm_t is array(0 to 127) of STD_LOGIC_VECTOR(0 to 23);
+
+
+  -- Example microinstructions
+  --
+  --  
   
   constant MM : mm_t := (
     X"111000",
