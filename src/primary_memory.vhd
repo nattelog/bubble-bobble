@@ -5,7 +5,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity primary_memory is
-  Port (clk, wr : in STD_LOGIC;
+  Port (clk, rst, wr : in STD_LOGIC;
         adr : in STD_LOGIC_VECTOR(15 downto 0);
         datain : in STD_LOGIC_VECTOR(31 downto 0);
         dataout : out STD_LOGIC_VECTOR(31 downto 0));
@@ -27,7 +27,10 @@ begin
   process (clk)
   begin
     if rising_edge(clk) then
-      if (wr = '1') then
+      if (rst = '1') then
+        dataout <= (others => '0');
+      
+      elsif (wr = '1') then
         mem(CONV_INTEGER(adr)) <= datain;
 
       else
