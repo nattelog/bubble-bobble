@@ -39,6 +39,15 @@ architecture behavioral of cpu is
           controlword : out STD_LOGIC_VECTOR(0 to 23));
   end component;
 
+  -- K-registers
+  type k_t is array(0 to 15) of STD_LOGIC_VECTOR(6 downto 0);
+
+  constant k1 : k_t := (
+    0,
+    1,
+    others => 0
+    );
+
   -- Signals from controlword
   --alias operation : STD_LOGIC_VECTOR(3 downto 0) is controlword(0 to 3);
   alias tb : STD_LOGIC_VECTOR(2 downto 0) is CONTROLWORD(4 to 6);
