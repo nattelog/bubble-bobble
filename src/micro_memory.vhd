@@ -6,7 +6,7 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity micro_memory is
   Port (clk, rst : in STD_LOGIC;
-        adr : in STD_LOGIC_VECTOR(7 downto 0);
+        adr : in STD_LOGIC_VECTOR(6 downto 0);
         controlword : out STD_LOGIC_VECTOR(0 to 23));
 end micro_memory;
 

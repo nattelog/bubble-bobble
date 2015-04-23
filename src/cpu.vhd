@@ -48,7 +48,7 @@ architecture behavioral of cpu is
   
   component micro_memory is
     port (clk, rst : in STD_LOGIC;
-          adr : in STD_LOGIC_VECTOR(7 downto 0);
+          adr : in STD_LOGIC_VECTOR(6 downto 0);
           controlword : out STD_LOGIC_VECTOR(0 to 23));
   end component;
 
