@@ -371,6 +371,7 @@ begin
     if rising_edge(clk) then
       if (rst = '1') then
         AR <= (others => '0');
+        helpreg <= (others => '0');
 
       else
         case alu_op is
@@ -384,6 +385,30 @@ begin
           when "0100" =>
             helpreg <= AR + buss;
             AR <= helpreg_small;
+
+          when "0101" =>
+            helpreg <= AR - buss;
+            AR <= helpreg_small;
+
+          when "0110" =>
+            helpreg <= AR and buss;
+            AR <= helpreg_small;
+
+          when "0111" =>
+            helpreg <= AR or buss;
+            AR <= helpreg_small;
+
+          when "1001" =>
+            helpreg <= AR sll 1;
+            AR <= helpreg_small;
+
+          when "1101" =>
+            helpreg <= AR srl 1;
+            AR <= helpreg_small;
+
+          when "1110" =>
+            AR <= AR rol 1;
+            helpreg <= (others => '0');
 
           when others =>
             AR <= AR;
