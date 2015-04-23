@@ -16,7 +16,7 @@ architecture behavioral of cpu is
   -- ** MAIN SIGNALS **
   -- ******************
   
-  signal buss, DR : STD_LOGIC_VECTOR(15 downto 0);
+  signal buss, DR, GR : STD_LOGIC_VECTOR(15 downto 0);
   signal ASR : STD_LOGIC_VECTOR(15 downto 0);
 
   
@@ -53,7 +53,7 @@ architecture behavioral of cpu is
   end component;
 
   -- Signals from controlword
-  alias alu : STD_LOGIC_VECTOR(3 downto 0) is controlword(0 to 3);
+  alias alu_op : STD_LOGIC_VECTOR(3 downto 0) is controlword(0 to 3);
   alias tb : STD_LOGIC_VECTOR(2 downto 0) is CONTROLWORD(4 to 6);
   alias fb : STD_LOGIC_VECTOR(2 downto 0) is CONTROLWORD(7 to 9);
   alias p : STD_LOGIC is controlword(10);
@@ -321,4 +321,15 @@ begin
     end if;
   end process;
 
+  general_register : process (clk)
+  begin
+    if rising_edge(clk) then
+      if (rst = '1') then
+        GR <= (others => '0');
+        gen_reg <= (others => (others => '0'));
+        
+      end if;
+    end if;
+  end process;
+  
 end behavioral;
