@@ -412,8 +412,6 @@ begin
 
         end if;
 
-      end if;
-
         C <= helpreg(16);
         O <= helpreg(16) xor helpreg(15);
         
