@@ -59,7 +59,7 @@ architecture behavioral of cpu is
   alias p : STD_LOGIC is controlword(10);
   alias loop_c : STD_LOGIC_VECTOR(1 downto 0) is controlword(11 to 12);
   alias seq : STD_LOGIC_VECTOR(3 downto 0) is controlword(13 to 16);
-  alias madr : STD_LOGIC_VECTOR(6 downto 0) is controlword(17 to 24);
+  alias madr : STD_LOGIC_VECTOR(7 downto 0) is controlword(17 to 24);
 
   -- K-registers
   type k_t is array(0 to 15) of STD_LOGIC_VECTOR(7 downto 0);
@@ -310,7 +310,7 @@ begin
         L <= '0';
 
       else
-        if (LC = (others => '0')) then
+        if (LC = 0) then
           L <= '1';
         end if;
         
