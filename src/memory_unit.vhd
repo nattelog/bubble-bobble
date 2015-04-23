@@ -14,7 +14,7 @@ end memory_unit;
 architecture behavioral of memory_unit is
 
   component primary_memory is
-    port (clk, wr : in STD_LOGIC;
+    port (clk, rst, wr : in STD_LOGIC;
           adr : in STD_LOGIC_VECTOR(15 downto 0);
           datain : in STD_LOGIC_VECTOR(31 downto 0);
           dataout : out STD_LOGIC_VECTOR(31 downto 0));
