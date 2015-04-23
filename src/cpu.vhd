@@ -12,47 +12,60 @@ end cpu;
 
 architecture behavioral of cpu is
 
-  -- Main signals
-  signal BUSS, DR : STD_LOGIC_VECTOR(15 downto 0);
+  -- ******************
+  -- ** MAIN SIGNALS **
+  -- ******************
+  
+  signal buss, DR : STD_LOGIC_VECTOR(15 downto 0);
   signal ASR : STD_LOGIC_VECTOR(15 downto 0);
 
-  -- Memory Unit
+  
+  -- *****************
+  -- ** MEMORY UNIT **
+  -- *****************
+  
   signal pm_write : STD_LOGIC;
+  
   type pm_t is array(0 to 255) of STD_LOGIC_VECTOR(15 downto 0);
+  
   signal prim_mem : pm_t := (
     X"1100",
     others => X"0000"
     );
 
-  -- Signals from programword/dataregister
   alias dr_op : STD_LOGIC_VECTOR(3 downto 0) is DR(15 downto 12);
   alias dr_grx : STD_LOGIC_VECTOR(3 downto 0) is DR(11 downto 8);
   alias dr_m : STD_LOGIC_VECTOR(1 downto 0) is DR(7 downto 6);
 
-  -- Control Unit signals
-  signal mPC, k1, k2 : STD_LOGIC_VECTOR(7 downto 0);
+  
+  -- ******************
+  -- ** CONTROL UNIT **
+  -- ******************
+  
+  signal mPC, suPC, k1, k2 : STD_LOGIC_VECTOR(7 downto 0);
   signal CONTROLWORD : STD_LOGIC_VECTOR(0 to 23);
+  signal LC : STD_LOGIC_VECTOR(7 downto 0);
   
   component micro_memory is
     port (clk, rst : in STD_LOGIC;
           adr : in STD_LOGIC_VECTOR(7 downto 0);
-          controlword : out STD_LOGIC_VECTOR(0 to 23));
+          controlword : out STD_LOGIC_VECTOR(0 to 24));
   end component;
 
   -- Signals from controlword
-  --alias operation : STD_LOGIC_VECTOR(3 downto 0) is controlword(0 to 3);
+  alias alu : STD_LOGIC_VECTOR(3 downto 0) is controlword(0 to 3);
   alias tb : STD_LOGIC_VECTOR(2 downto 0) is CONTROLWORD(4 to 6);
   alias fb : STD_LOGIC_VECTOR(2 downto 0) is CONTROLWORD(7 to 9);
   alias p : STD_LOGIC is controlword(10);
-  alias lc : STD_LOGIC_VECTOR(1 downto 0) is controlword(11 to 12);
+  alias loop_c : STD_LOGIC_VECTOR(1 downto 0) is controlword(11 to 12);
   alias seq : STD_LOGIC_VECTOR(3 downto 0) is controlword(13 to 16);
-  alias madr : STD_LOGIC_VECTOR(6 downto 0) is controlword(17 to 23);
+  alias madr : STD_LOGIC_VECTOR(6 downto 0) is controlword(17 to 24);
 
   -- K-registers
   type k_t is array(0 to 15) of STD_LOGIC_VECTOR(7 downto 0);
 
   constant k1_reg : k_t := (
-    X"00",
+    X"11",
     others => X"00"
     );
 
@@ -61,9 +74,18 @@ architecture behavioral of cpu is
     others => X"00"
     );
 
+
+  -- ***************************
+  -- ** ARITHMETIC LOGIC UNIT **
+  -- ***************************
+
+  -- Flags
+  signal Z, N, O, C, L : STD_LOGIC;
+
   -- General registers
   type gr_t is array(0 to 15) of STD_LOGIC_VECTOR(15 downto 0);
   signal gen_reg : gr_t;
+
   
 begin
 
@@ -102,6 +124,7 @@ begin
     if rising_edge(clk) then
       if (rst = '1') then
         mPC <= (others => '0');
+        suPC <= (others => '0');
 
       else
         case seq is
@@ -109,10 +132,115 @@ begin
           when "0000" =>
             mPC <= mPC + 1;
 
+          when "0001" =>
+            mPC <= k1;
+
+          when "0010" =>
+            mPC <= k2;
+
+          when "0011" =>
+            mPC <= (others => '0');
+
+          when "0100" =>
+            if (Z = '0') then
+              mPC <= madr;
+            else
+              mPC <= mPC + 1;
+            end if;
+
+          when "0101" =>
+            mPC => madr;
+
+          when "0110" =>
+            suPC <= mPC + 1;
+            mPC <= madr;
+
+          when "0111" =>
+            mPC <= suPC;
+
+          when "1000" =>
+            if (Z = '1') then
+              mPC <= madr;
+            else
+              mPC <= mPC + 1;
+            end if;
+
+          when "1001" =>
+            if (N = '1') then
+              mPC <= madr;
+            else
+              mPC <= mPC + 1;
+            end if;
+
+          when "1010" =>
+            if (C = '1') then
+              mPC <= madr;
+            else
+              mPC <= mPC + 1;
+            end if;
+
+          when "1011" =>
+            if (O = '1') then
+              mPC <= madr;
+            else
+              mPC <= mPC + 1;
+            end if;
+
+          when "1100" =>
+            if (L = '1') then
+              mPC <= madr;
+            else
+              mPC <= mPC + 1;
+            end if;
+
+          when "1101" =>
+            if (C = '0') then
+              mPC <= madr;
+            else
+              mPC <= mPC + 1;
+            end if;
+
+          when "1110" =>
+            if (O = '0') then
+              mPC <= madr;
+            else
+              mPC <= mPC + 1;
+            end if;
+
+          when "1111" =>
+            mPC <= (others => '0');
+            -- Should HALT here
+
           when others =>
             mPC <= mPC;
           
         end case;
+      end if;
+    end if;
+  end process;
+
+  loop_counter : process (clk)
+  begin
+    if rising_edge(clk) then
+      if (rst = '1') then
+        LC <= (others => '0');
+
+      else
+        case loop_c is
+
+          when "00" =>
+            LC <= LC;
+
+          when "01" =>
+            LC <= LC - 1;
+
+          when "10" =>
+            LC <= buss(7 downto 0);
+
+          when "11" =>
+            LC <= madr;
+          
+          end case;
       end if;
     end if;
   end process;
@@ -173,5 +301,24 @@ begin
   -- ***************************
   -- ** ARITHMETIC LOGIC UNIT **
   -- ***************************
+
+  flags : process (clk)
+  begin
+    if rising_edge(clk) then
+      if (rst = '1') then
+        Z <= '0';
+        N <= '0';
+        O <= '0';
+        C <= '0';
+        L <= '0';
+
+      else
+        if (LC = (others => '0')) then
+          L <= '1';
+        end if;
+        
+      end if;
+    end if;
+  end process;
 
 end behavioral;
