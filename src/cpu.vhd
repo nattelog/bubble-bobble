@@ -376,7 +376,7 @@ begin
              AR(0) & '0' & AR(15 downto 1) when alu_op = "1101" else -- LSR
              AR(0) & AR(0) & AR(15 downto 1) when alu_op = "1110" else -- ROL
              (others => '0') when rst = '1' else
-             '0' & helpreg;
+             '0' & AR;
 
   alu : process (clk)
   begin
