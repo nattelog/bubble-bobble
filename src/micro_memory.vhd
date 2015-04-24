@@ -13,7 +13,7 @@ end micro_memory;
 architecture behavioral of micro_memory is
 
   signal halt : STD_LOGIC;
-  alias seq : STD_LOGIC_VECTOR(3 downto 0) is controlword(13 to 16);
+  alias cw_seq : STD_LOGIC_VECTOR(3 downto 0) is controlword(13 to 16);
 
   type mm_t is array(0 to 256) of STD_LOGIC_VECTOR(0 to 23);
 
@@ -114,7 +114,7 @@ begin
         halt <= '0';
 
       else
-        if (seq = "1111") then
+        if (cw_seq = "1111") then
           halt <= '1';
 
         end if;
