@@ -71,8 +71,8 @@ architecture behavioral of micro_memory is
   constant MM : mm_t := (
     ALU_FB & TB_DR & FB_GR & P & LC & SEQ & MADR,
     ALU_LSR & TB_AR & FB & P & LC & SEQ & MADR,
-    ALU_LSR & TB_PC & FB_ASR & P_INC & LC & SEQ & MADR,
-    ALU_LSR & TB_DR & FB & P & LC & SEQ & MADR,
+    ALU_LSR & TB & FB & P_INC & LC & SEQ & MADR,
+    ALU_LSR & TB_PC & FB_ASR & P & LC & SEQ & MADR,
     ALU_LSR & TB & FB & P & LC & SEQ & MADR,
     ALU_LSR & TB & FB & P & LC & SEQ & MADR,
     ALU_LSR & TB & FB & P & LC & SEQ & MADR,
