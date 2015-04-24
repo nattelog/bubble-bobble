@@ -27,7 +27,6 @@ architecture Behavioral of lab is
   alias xpix : std_logic_vector(2 downto 0) is xctr(2 downto 0);  -- i pixeln
   signal pixel : std_logic_vector(1 downto 0) := "00";
   signal a,b,c,d : std_logic_vector(0 to 79) := X"00000000000000000000";
-  signal a0,a1,a2,b0,b1,b2,c0,c1,c2 : std_logic := '0';
   signal nr : std_logic_vector(3 downto 0) := "0000";
   signal ctr : std_logic_vector(15 downto 0) := X"0000";
   signal hs : std_logic := '1';
@@ -98,7 +97,7 @@ architecture Behavioral of lab is
   signal bildminne : ram_t := glider;
   signal video : std_logic;
 begin
-  process(clk) begin
+  process(clk) begin --räknar klockcykler/mod4
      if rising_edge(clk) then
        if rst='1' then
          pixel <= "00";
