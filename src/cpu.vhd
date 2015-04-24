@@ -147,8 +147,9 @@ begin
       if (rst = '1') then
         mPC <= (others => '0');
         suPC <= (others => '0');
-
+        
       else
+        
         case seq is
 
           when "0000" =>
@@ -246,6 +247,7 @@ begin
     if rising_edge(clk) then
       if (rst = '1') then
         LC <= (others => '0');
+        L <= '0';
 
       else
         case loop_c is
@@ -263,7 +265,12 @@ begin
           when others =>
             LC <= LC;
           
-          end case;
+        end case;
+
+        if (LC = 0) then
+          L <= '1';
+        end if;
+        
       end if;
     end if;
   end process;
@@ -321,25 +328,6 @@ begin
   -- ** ARITHMETIC LOGIC UNIT **
   -- ***************************
 
-  flags : process (clk)
-  begin
-    if rising_edge(clk) then
-      if (rst = '1') then
-        Z <= '0';
-        N <= '0';
-        O <= '0';
-        C <= '0';
-        L <= '0';
-
-      else
-        if (LC = 0) then
-          L <= '1';
-        end if;
-        
-      end if;
-    end if;
-  end process;
-
   general_register : process (clk)
   begin
     if rising_edge(clk) then
@@ -375,7 +363,6 @@ begin
              AR & '0' when alu_op = "1001" else -- LSL
              AR(0) & '0' & AR(15 downto 1) when alu_op = "1101" else -- LSR
              AR(0) & AR(0) & AR(15 downto 1) when alu_op = "1110" else -- ROL
-             (others => '0') when rst = '1' else
              (others => '0');
 
   alu : process (clk)
@@ -384,9 +371,18 @@ begin
       if (rst = '1') then
         AR <= (others => '0');
         helpreg <= (others => '0');
+        Z <= '0';
+        N <= '0';
+        O <= '0';
+        C <= '0';
 
       else
-        if (alu_op = "0001") then
+        if (alu_op = "0000") then
+          AR <= AR;
+          Z <= Z;
+          N <= N;
+          
+        elsif (alu_op = "0001") then
           AR <= buss;
 
           if (buss = 0) then
