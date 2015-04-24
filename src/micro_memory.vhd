@@ -71,6 +71,12 @@ architecture behavioral of micro_memory is
     ALU_LSR & TB & FB & P & LC & SEQ & MADR,
     ALU_LSR & TB & FB & P & LC & SEQ & MADR,
     ALU_LSR & TB & FB & P & LC & SEQ & MADR,
+    ALU_LSR & TB & FB & P & LC & SEQ & MADR,
+    ALU_LSR & TB & FB & P & LC & SEQ & MADR,
+    ALU_LSR & TB & FB & P & LC & SEQ & MADR,
+    ALU_LSR & TB & FB & P & LC & SEQ & MADR,
+    ALU_LSR & TB & FB & P & LC & SEQ & MADR,
+    ALU_ROL & TB & FB & P & LC & SEQ & MADR,
     others => EMPTY
     );
   
