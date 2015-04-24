@@ -356,14 +356,29 @@ begin
   end process;
 
   -- ALU OPERATIONS
-  helpreg <= (AR(15) & AR) + (buss(15) & buss) when alu_op = "0100" else
-             (AR(15) & AR) - (buss(15) & buss) when alu_op = "0101" else
-             '0' & (AR and buss) when alu_op = "0110" else
-             '0' & (AR or buss) when alu_op = "0111" else
-             AR & '0' when alu_op = "1001" else -- LSL
-             AR(0) & '0' & AR(15 downto 1) when alu_op = "1101" else -- LSR
-             AR(0) & AR(0) & AR(15 downto 1) when alu_op = "1110" else -- ROL
-             (others => '0');
+  
+  helpreg <=
+
+    -- ADD
+    AR + buss when alu_op = "0100" else
+
+    -- SUB
+    (AR(15) & AR) - (buss(15) & buss) when alu_op = "0101" else
+
+    -- AND
+    '0' & (AR and buss) when alu_op = "0110" else
+
+    -- OR
+    '0' & (AR or buss) when alu_op = "0111" else
+
+    -- LSL
+    AR & '0' when alu_op = "1001" else
+
+    -- LSR
+    AR(0) & '0' & AR(15 downto 1) when alu_op = "1101" else
+
+    -- ROL
+    AR(0) & AR(0) & AR(15 downto 1) when alu_op = "1110" else (others => '0');
 
   alu : process (clk)
   begin

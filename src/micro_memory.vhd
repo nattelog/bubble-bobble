@@ -17,9 +17,10 @@ architecture behavioral of micro_memory is
   -- ***********************
   -- ** MICROINSTRUCTIONS **
   -- ***********************
-  
-  -- Each row must follow the order below
+ 
   constant EMPTY : STD_LOGIC_VECTOR(23 downto 0) := (others => '0');
+
+  -- Each row must follow the order below
   
   -- 1: alu-operation, 4 bits (alu_op)
   constant ALU : STD_LOGIC_VECTOR(3 downto 0) := "0000";
