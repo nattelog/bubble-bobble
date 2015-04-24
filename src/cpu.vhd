@@ -5,7 +5,6 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
-use IEEE.NUMERIC_STD.ALL;
 
 entity cpu is
   Port (clk,rst : in STD_LOGIC);
@@ -358,7 +357,7 @@ begin
 
   -- ALU OPERATIONS
   
-  helpreg <=
+  helpreg  <=
 
     -- ADD
     ((AR(15) & AR) + (buss(15) & buss)) when alu_op = "0100" else
@@ -386,7 +385,6 @@ begin
     if rising_edge(clk) then
       if (rst = '1') then
         AR <= (others => '0');
-        helpreg <= (others => '0');
         Z <= '0';
         N <= '0';
         O <= '0';
@@ -415,7 +413,7 @@ begin
           N <= '0';
 
         else
-          AR <= helpreg(15 downto 0);
+          AR <= helpreg (15 downto 0);
 
           if (helpreg(15 downto 0) = 0) then
             Z <= '1';
