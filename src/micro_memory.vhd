@@ -12,6 +12,9 @@ end micro_memory;
 
 architecture behavioral of micro_memory is
 
+  signal halt : STD_LOGIC;
+  alias seq : STD_LOGIC_VECTOR(3 downto 0) is controlword(13 to 16);
+
   type mm_t is array(0 to 256) of STD_LOGIC_VECTOR(0 to 23);
 
   -- ***********************
@@ -56,9 +59,27 @@ architecture behavioral of micro_memory is
   
   -- 5: loopcounter-operation, 2 bits (loop_c)
   constant LC : STD_LOGIC_VECTOR(1 downto 0) := "00";
-
+  constant LC_DEC : STD_LOGIC_VECTOR(1 downto 0) := "01";
+  constant LC_FB : STD_LOGIC_VECTOR(1 downto 0) := "10";
+  constant LC_MADR : STD_LOGIC_VECTOR(1 downto 0) := "11";
+  
   -- 6: sequencecontroller, 4 bits (seq)
   constant SEQ : STD_LOGIC_VECTOR(3 downto 0) := "0000";
+  constant SEQ_K1 : STD_LOGIC_VECTOR(3 downto 0) := "0001";
+  constant SEQ_K2 : STD_LOGIC_VECTOR(3 downto 0) := "0010";
+  constant SEQ_RES : STD_LOGIC_VECTOR(3 downto 0) := "0011";
+  constant SEQ_JMP_NOT_Z : STD_LOGIC_VECTOR(3 downto 0) := "0100";
+  constant SEQ_JMP : STD_LOGIC_VECTOR(3 downto 0) := "0101";
+  constant SEQ_JSR : STD_LOGIC_VECTOR(3 downto 0) := "0110";
+  constant SEQ_RTS : STD_LOGIC_VECTOR(3 downto 0) := "0111";
+  constant SEQ_JMP_Z : STD_LOGIC_VECTOR(3 downto 0) := "1000";
+  constant SEQ_JMP_N : STD_LOGIC_VECTOR(3 downto 0) := "1001";
+  constant SEQ_JMP_C : STD_LOGIC_VECTOR(3 downto 0) := "1010";
+  constant SEQ_JMP_O : STD_LOGIC_VECTOR(3 downto 0) := "1011";
+  constant SEQ_JMP_L : STD_LOGIC_VECTOR(3 downto 0) := "1100";
+  constant SEQ_JMP_NOT_C : STD_LOGIC_VECTOR(3 downto 0) := "1101";
+  constant SEQ_JMP_NOT_O : STD_LOGIC_VECTOR(3 downto 0) := "1110";
+  constant SEQ_HALT : STD_LOGIC_VECTOR(3 downto 0) := "1111";
 
   -- 7: microaddress, 7 bit (madr)
   constant MADR : STD_LOGIC_VECTOR(6 downto 0) := "0000000";
@@ -73,7 +94,7 @@ architecture behavioral of micro_memory is
     ALU_LSR & TB_AR & FB & P & LC & SEQ & MADR,
     ALU_LSR & TB & FB & P_INC & LC & SEQ & MADR,
     ALU_LSR & TB_PC & FB_ASR & P & LC & SEQ & MADR,
-    ALU_LSR & TB & FB & P & LC & SEQ & MADR,
+    ALU_LSR & TB & FB & P & LC & SEQ_HALT & MADR,
     ALU_LSR & TB & FB & P & LC & SEQ & MADR,
     ALU_LSR & TB & FB & P & LC & SEQ & MADR,
     ALU_LSR & TB & FB & P & LC & SEQ & MADR,
@@ -90,10 +111,22 @@ begin
     if rising_edge(clk) then
       if (rst = '1') then
         controlword <= (others => '0');
+        halt <= '0';
 
       else
-        controlword <= MM(CONV_INTEGER(adr));
+        if (seq = "1111") then
+          halt <= '1';
 
+        end if;
+
+        if (halt = '0') then
+          controlword <= MM(CONV_INTEGER(adr));
+
+        else
+          controlword <= (others => '0');
+
+        end if;
+        
       end if;
     end if;
   end process;
