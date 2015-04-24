@@ -38,6 +38,7 @@ architecture behavioral of micro_memory is
   constant TB : STD_LOGIC_VECTOR(2 downto 0) := "000";
   constant TB_IR : STD_LOGIC_VECTOR(2 downto 0) := "001";
   constant TB_DR : STD_LOGIC_VECTOR(2 downto 0) := "010";
+  constant TB_PC : STD_LOGIC_VECTOR(2 downto 0) := "011";
   constant TB_AR : STD_LOGIC_VECTOR(2 downto 0) := "100";
   constant TB_GR : STD_LOGIC_VECTOR(2 downto 0) := "110";
 
@@ -45,12 +46,14 @@ architecture behavioral of micro_memory is
   constant FB : STD_LOGIC_VECTOR(2 downto 0) := "000";
   constant FB_IR : STD_LOGIC_VECTOR(2 downto 0) := "001";
   constant FB_DR : STD_LOGIC_VECTOR(2 downto 0) := "010";
+  constant FB_PC : STD_LOGIC_VECTOR(2 downto 0) := "011";
   constant FB_GR : STD_LOGIC_VECTOR(2 downto 0) := "110";
   constant FB_ASR : STD_LOGIC_VECTOR(2 downto 0) := "111";
 
   -- 4: programcounter, 1 bit (p)
   constant P : STD_LOGIC := '0';
-
+  constant P_INC : STD_LOGIC := '1';
+  
   -- 5: loopcounter-operation, 2 bits (loop_c)
   constant LC : STD_LOGIC_VECTOR(1 downto 0) := "00";
 
@@ -68,7 +71,7 @@ architecture behavioral of micro_memory is
   constant MM : mm_t := (
     ALU_FB & TB_DR & FB_GR & P & LC & SEQ & MADR,
     ALU_LSR & TB_AR & FB & P & LC & SEQ & MADR,
-    ALU_LSR & TB & FB & P & LC & SEQ & MADR,
+    ALU_LSR & TB_DR & FB & P_INC & LC & SEQ & MADR,
     ALU_LSR & TB & FB & P & LC & SEQ & MADR,
     ALU_LSR & TB & FB & P & LC & SEQ & MADR,
     ALU_LSR & TB & FB & P & LC & SEQ & MADR,

@@ -17,7 +17,7 @@ architecture behavioral of cpu is
   -- ******************
   
   signal buss, DR, GR, IR, AR : STD_LOGIC_VECTOR(15 downto 0);
-  signal ASR : STD_LOGIC_VECTOR(15 downto 0);
+  signal ASR, PC : STD_LOGIC_VECTOR(15 downto 0);
 
   
   -- *****************
@@ -100,6 +100,7 @@ begin
 
   buss <= IR when tb = "001" else
           DR when tb = "010" else
+          PC when tb = "011" else
           AR when tb = "100" else
           GR when tb = "110" else
           (others => '0') when rst = '1' else
@@ -120,6 +121,9 @@ begin
 
       elsif (fb = "001") then
         IR <= buss;
+
+      else
+        IR <= IR;
         
       end if;
     end if;
@@ -427,6 +431,25 @@ begin
 
         C <= helpreg(16);
         O <= helpreg(16) xor helpreg(15);
+        
+      end if;
+    end if;
+  end process;
+
+  pc : process (clk)
+  begin
+    if rising_edge(clk) then
+      if (rst = '1') then
+        PC <= (others => '0');
+
+      elsif (fb = "011") then
+        PC <= buss;
+
+      elsif (p = '1') then
+        PC <= PC + 1;
+
+      else
+        PC <= PC;
         
       end if;
     end if;
