@@ -93,6 +93,9 @@ architecture behavioral of control_unit is
   -- 7: microaddress, 7 bit (madr)
   constant MADR : STD_LOGIC_VECTOR(6 downto 0) := "0000000";
 
+  -- Short line for HALT
+  constant HALT : STD_LOGIC_VECTOR(23 downto 0) := ALU & TB & FB & P & LC & SEQ_RES & MADR;;
+
 
   -- *****************
   -- ** MICROMEMORY **
@@ -132,7 +135,7 @@ begin
           else
             controlword <= ALU & TB_AR & FB_PC & P & SEQ_RES & MADR;
             uart_reset_pc_count <= '0';
-            uart_begin = '0';
+            uart_begin <= '0';
             
           end if;
 
@@ -148,14 +151,14 @@ begin
       -- CPU should halt
       elsif (MM(CONV_INTEGER(adr))(13 to 16) = "1111") then
         halt <= '1';
-        controlword <= ALU & TB & FB & P & LC & SEQ_RES & MADR;
+        controlword <= HALT;
 
       -- CPU should read from micromemory
       elsif (halt = '0') then
         controlword <= MM(CONV_INTEGER(adr));
 
       else
-        controlword <= controlword;
+        controlword <= HALT;
 
       end if;
     end if;
