@@ -1,4 +1,8 @@
--- The micromemory
+-- Control unit
+-- This file controls the rest of the CPU by
+-- setting the controlword to different values.
+-- Either the UART or the micromemory controls
+-- the controlword.
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
@@ -14,7 +18,13 @@ end control_unit;
 
 architecture behavioral of control_unit is
 
-  signal halt, uart_line_c, uart_reading : STD_LOGIC;
+  signal halt : STD_LOGIC;
+
+  -- **********
+  -- ** UART **
+  -- **********
+
+  signal uart_line_c, uart_reading : STD_LOGIC;
 
   component uart is
     Port ( clk,rst,rx : in  STD_LOGIC;
@@ -24,11 +34,12 @@ architecture behavioral of control_unit is
            );
   end component;
 
-  type mm_t is array(0 to 256) of STD_LOGIC_VECTOR(0 to 23);
-
+  
   -- ***********************
   -- ** MICROINSTRUCTIONS **
   -- ***********************
+
+  type mm_t is array(0 to 256) of STD_LOGIC_VECTOR(0 to 23);
  
   constant EMPTY : STD_LOGIC_VECTOR(23 downto 0) := (others => '0');
 
@@ -110,6 +121,19 @@ architecture behavioral of control_unit is
 
     -- Addressmodephase
     ALU & TB & FB & P & LC & SEQ_K2 & MADR,
+
+    -- Direct
+    ALU & TB_IR & FB_ASR & P & LC & SEQ_K1 & MADR,
+
+    -- Immediate
+    ALU & TB_PC & FB_ASR & P_INC & LC & SEQ_K1 & MADR,
+
+    -- Indirect
+    ALU & TB_IR & FB_ASR & P & LC & SEQ & MADR,
+    ALU & TB_DR & FB_ASR & P & LC & SEQ_K1 & MADR,
+
+    -- Indexed
+    -- not done yet..
     
     -- Executionphase
 

@@ -64,14 +64,35 @@ architecture behavioral of cpu is
   -- K-registers
   type k_t is array(0 to 15) of STD_LOGIC_VECTOR(6 downto 0);
 
+  -- Here all programoperators are stored with their
+  -- corresponding microaddresses
   constant k1_reg : k_t := (
-    "1100110",
-    others => (others => '0')
+    "0000000", -- LDA
+    "0000000", -- STR
+    "0000000", -- ADD
+    "0000000", -- SUB
+    "0000000", -- CMP
+    "0000000", -- BRA
+    "0000000", -- BRG
+    "0000000", -- BNE
+    "0000000", -- BRE
+    "0000000", -- JSR
+    "0000000", -- RTS
+    "0000000", -- AND
+    "0000000", -- OR
+    "0000000", -- LSR
+    "0000000", -- LSL
+    "0000000" -- BRC
     );
 
+  -- Here all addressmodes are stored with their
+  -- corresponding microaddresses
   constant k2_reg : k_t := (
-    "1100110",
-    others => (others => '0')
+    2, -- DIRECT
+    3, -- IMMEDIATE
+    5, -- INDIRECT
+    0, -- RELATIVE
+    others => 0;
     );
 
 
