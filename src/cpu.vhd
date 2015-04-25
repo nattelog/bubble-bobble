@@ -30,7 +30,7 @@ architecture behavioral of cpu is
   type pm_t is array(0 to 255) of STD_LOGIC_VECTOR(31 downto 0);
   
   signal prim_mem : pm_t := (
-    X"03000500",
+    X"030000FF",
     X"00FF00FF",
     others => (others => '0')
     );
