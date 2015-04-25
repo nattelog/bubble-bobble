@@ -7,7 +7,6 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
-use IEEE.NUMERIC_STD.ALL;
 
 entity cpu is
   Port (clk,rst, rx : in STD_LOGIC;
@@ -31,7 +30,7 @@ architecture behavioral of cpu is
   type pm_t is array(0 to 255) of STD_LOGIC_VECTOR(31 downto 0);
   
   signal prim_mem : pm_t := (
-    X"FF00FF00",
+    X"03000500",
     X"00FF00FF",
     others => (others => '0')
     );
@@ -89,11 +88,11 @@ architecture behavioral of cpu is
   -- Here all addressmodes are stored with their
   -- corresponding microaddresses
   constant k2_reg : k_t := (
-    2, -- DIRECT
-    3, -- IMMEDIATE
-    5, -- INDIRECT
-    0, -- RELATIVE
-    others => 0
+    "0000010", -- DIRECT
+    "0000011", -- IMMEDIATE
+    "0000101", -- INDIRECT
+    "0000000", -- RELATIVE
+    others => (others => '0');
     );
 
 
