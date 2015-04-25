@@ -108,8 +108,9 @@ architecture behavioral of control_unit is
     ALU & TB_PC & FB_ASR & P & LC & SEQ & MADR,
     ALU & TB_DR & FB_IR & P_INC & LC & SEQ & MADR,
 
-    -- Addressmodephose
-
+    -- Addressmodephase
+    ALU & TB & FB & P & LC & SEQ_K2 & MADR,
+    
     -- Executionphase
 
     
