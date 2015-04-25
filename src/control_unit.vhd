@@ -122,7 +122,7 @@ begin
 
         end if;
 
-        if (halt = '0') then
+        if (halt = '0' and burning = '0') then
           controlword <= MM(CONV_INTEGER(adr));
 
         else
