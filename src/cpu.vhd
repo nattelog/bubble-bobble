@@ -1,13 +1,15 @@
 -- The CPU
 -- This architecture follows the same architecture as in
 -- Lab 1 in the course TSEA83, except for some modifications.
+--
+-- CPU-bit-width: 32 bits
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity cpu is
-  Port (clk,rst : in STD_LOGIC);
+  Port (clk,rst, rx : in STD_LOGIC);
 end cpu;
 
 architecture behavioral of cpu is
@@ -16,7 +18,7 @@ architecture behavioral of cpu is
   -- ** MAIN SIGNALS **
   -- ******************
   
-  signal buss, DR, GR, IR, AR : STD_LOGIC_VECTOR(15 downto 0);
+  signal buss, DR, GR, IR, AR : STD_LOGIC_VECTOR(31 downto 0);
   signal ASR, PC : STD_LOGIC_VECTOR(15 downto 0);
 
   
@@ -26,7 +28,7 @@ architecture behavioral of cpu is
   
   signal pm_write : STD_LOGIC;
   
-  type pm_t is array(0 to 255) of STD_LOGIC_VECTOR(15 downto 0);
+  type pm_t is array(0 to 255) of STD_LOGIC_VECTOR(31 downto 0);
   
   signal prim_mem : pm_t := (
     X"FF00",
@@ -77,19 +79,20 @@ architecture behavioral of cpu is
   -- ***************************
 
   -- Instructionregister parts
-  alias ir_op : STD_LOGIC_VECTOR(3 downto 0) is IR(15 downto 12);
-  alias ir_grx : STD_LOGIC_VECTOR(3 downto 0) is IR(11 downto 8);
-  alias ir_m : STD_LOGIC_VECTOR(1 downto 0) is IR(7 downto 6);
+  alias ir_op : STD_LOGIC_VECTOR(3 downto 0) is IR(31 downto 28);
+  alias ir_grx : STD_LOGIC_VECTOR(3 downto 0) is IR(27 downto 24);
+  alias ir_m : STD_LOGIC_VECTOR(1 downto 0) is IR(23 downto 22);
+  alias ir_adr : STD_LOGIC_VECTOR(15 downto 0) is IR(15 downto 0);
 
   -- The result of an alu-operation, 1 bit bigger than the
   -- regular size of registers
-  signal alu_result : STD_LOGIC_VECTOR(16 downto 0);
+  signal alu_result : STD_LOGIC_VECTOR(32 downto 0);
 
   -- Flags
   signal Z, N, O, C, L : STD_LOGIC;
 
   -- General registers
-  type gr_t is array(0 to 15) of STD_LOGIC_VECTOR(15 downto 0);
+  type gr_t is array(0 to 15) of STD_LOGIC_VECTOR(31 downto 0);
   signal gen_reg : gr_t;
   signal gr_write : STD_LOGIC;
 
@@ -366,10 +369,10 @@ begin
   alu_result  <=
 
     -- ADD
-    ((AR(15) & AR) + (buss(15) & buss)) when alu_op = "0100" else
+    ((AR(31) & AR) + (buss(31) & buss)) when alu_op = "0100" else
 
     -- SUB
-    (AR(15) & AR) - (buss(15) & buss) when alu_op = "0101" else
+    (AR(31) & AR) - (buss(31) & buss) when alu_op = "0101" else
 
     -- AND
     '0' & (AR and buss) when alu_op = "0110" else
@@ -381,10 +384,10 @@ begin
     AR & '0' when alu_op = "1001" else
 
     -- LSR
-    AR(0) & '0' & AR(15 downto 1) when alu_op = "1101" else
+    AR(0) & '0' & AR(31 downto 1) when alu_op = "1101" else
 
     -- ROL
-    AR(0) & AR(0) & AR(15 downto 1) when alu_op = "1110" else (others => '0');
+    AR(0) & AR(0) & AR(31 downto 1) when alu_op = "1110" else (others => '0');
 
   alu : process (clk)
   begin
@@ -411,7 +414,7 @@ begin
             Z <= '0';
           end if;
 
-          N <= buss(15);
+          N <= buss(31);
 
         elsif (alu_op = "0011") then
           AR <= (others => '0');
@@ -419,20 +422,20 @@ begin
           N <= '0';
 
         else
-          AR <= alu_result(15 downto 0);
+          AR <= alu_result(31 downto 0);
 
-          if (alu_result(15 downto 0) = 0) then
+          if (alu_result(31 downto 0) = 0) then
             Z <= '1';
           else
             Z <= '0';
           end if;
 
-          N <= alu_result(15);
+          N <= alu_result(31);
 
         end if;
 
-        C <= alu_result(16);
-        O <= alu_result(16) xor alu_result(15);
+        C <= alu_result(32);
+        O <= alu_result(32) xor alu_result(31);
         
       end if;
     end if;

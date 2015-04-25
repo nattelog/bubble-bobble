@@ -122,7 +122,7 @@ begin
           controlword <= MM(CONV_INTEGER(adr));
 
         else
-          controlword <= (others => '0');
+          controlword <= ALU & TB & FB & P & LC & SEQ_RES & MADR;
 
         end if;
         
