@@ -314,23 +314,6 @@ begin
       end if;
     end if;
   end process;
-
-  adress_register : process(clk)
-  begin
-    if rising_edge(clk) then
-      if (rst = '1') then
-        ASR <= (others => '0');
-
-      elsif (fb = "111") then
-        ASR <= buss(15 downto 0);
-
-      else
-        ASR <= ASR;
-        
-      end if;
-    end if;
-  end process;
-
   
 
   -- ***************************
@@ -347,18 +330,12 @@ begin
 
       else
         if (fb = "110") then
+          gen_reg(CONV_INTEGER(ir_grx)) <= buss;
           GR <= buss;
-          gr_write <= '1';
 
-        elsif (gr_write = '0') then
+        else
           GR <= gen_reg(CONV_INTEGER(ir_grx));
 
-        end if;
-        
-        if (gr_write = '1') then
-          gen_reg(CONV_INTEGER(ir_grx)) <= GR;
-          gr_write <= '0';
-          
         end if;
       end if;
     end if;
