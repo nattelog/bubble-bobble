@@ -6,12 +6,12 @@
 CONFIG PART = xc6slx16-3-csg324;
 
 ##Clock signal
-Net "clk" LOC=V10 | IOSTANDARD=LVCMOS33;
-Net "clk" TNM_NET = sys_clk_pin;
-TIMESPEC TS_sys_clk_pin = PERIOD sys_clk_pin 100000 kHz;
+#Net "clk" LOC=V10 | IOSTANDARD=LVCMOS33;
+#Net "clk" TNM_NET = sys_clk_pin;
+#TIMESPEC TS_sys_clk_pin = PERIOD sys_clk_pin 100000 kHz;
 
 ## Manual clock signal
-#Net "clk" LOC = A8 | IOSTANDARD = LVCMOS33;
+Net "clk" LOC = A8 | IOSTANDARD = LVCMOS33;
 
 ##Rst signal
 Net "rst" LOC = B8 | IOSTANDARD = LVCMOS33; #Bank = 0, pin name = IO_L33P, Sch name = BTNS

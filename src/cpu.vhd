@@ -295,7 +295,7 @@ begin
       if (rst = '1') then
         DR <= (others => '0');
         ASR <= (others => '0');
-        Led <= (others => '1');
+        Led <= (others => '0');
 
       else
         if (fb = "010") then
@@ -311,6 +311,8 @@ begin
           ASR <= ASR;
           
         end if;
+
+        Led <= ASR(7 downto 0);
       end if;
     end if;
   end process;
