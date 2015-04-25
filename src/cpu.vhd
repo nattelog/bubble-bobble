@@ -295,7 +295,7 @@ begin
       if (rst = '1') then
         DR <= (others => '0');
         ASR <= (others => '0');
-        Led <= (others => '0');
+        Led <= (others => '1');
 
       else
         if (fb = "010") then
