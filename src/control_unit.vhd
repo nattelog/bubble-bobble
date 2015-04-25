@@ -94,7 +94,7 @@ architecture behavioral of control_unit is
   constant MADR : STD_LOGIC_VECTOR(6 downto 0) := "0000000";
 
   -- Short line for HALT
-  constant HALT : STD_LOGIC_VECTOR(23 downto 0) := ALU & TB & FB & P & LC & SEQ_RES & MADR;;
+  constant HALT : STD_LOGIC_VECTOR(23 downto 0) := ALU & TB & FB & P & LC & SEQ_RES & MADR;
 
 
   -- *****************
