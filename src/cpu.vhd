@@ -105,6 +105,7 @@ begin
           DR when tb = "010" else
           X"0000" & PC when tb = "011" else
           AR when tb = "100" else
+          UR when tb = "101" else
           GR when tb = "110" else
           (others => '0') when rst = '1' else
           buss;
@@ -115,12 +116,6 @@ begin
   -- ******************
 
   cu : control_unit port map(clk, rst, rx, mPC, CONTROLWORD, UR);
-
-  uart_register : process (clk)
-  begin
-    if rising_edge(clk) then
-    end if;
-  end process;
 
   instruction_register : process (clk)
   begin
