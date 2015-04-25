@@ -92,7 +92,7 @@ architecture behavioral of cpu is
     3, -- IMMEDIATE
     5, -- INDIRECT
     0, -- RELATIVE
-    others => 0;
+    others => 0
     );
 
 
