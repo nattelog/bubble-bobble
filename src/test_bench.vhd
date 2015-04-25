@@ -16,7 +16,7 @@ architecture behavioral of test_bench is
 
   signal clk : STD_LOGIC := '0';
   signal rst : STD_LOGIC := '0';
-  signal rx : STD_LOGIC := '0';
+  signal rx : STD_LOGIC := '1';
   signal rxs :  STD_LOGIC_VECTOR(0 to 159) := "0010101011001010101100101010110010101011000000000101111111110000000001011111111101010101010101010101010101010101010101010000000001011111111100000000010111111111";
   signal Led : STD_LOGIC_VECTOR(7 downto 0) := X"FF";
   signal tb_running : boolean := true;
@@ -49,7 +49,7 @@ begin
 
     rst <= '0';
     wait for 1 us;
-
+    
     --for y in 0 to 83 loop
     --  for i in 0 to 159 loop
     --  	rx <= rxs(i);
