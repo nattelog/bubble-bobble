@@ -115,7 +115,7 @@ begin
 
   control_process : process (clk)
     variable uart_begin : integer := 0;
-    variable uart_reset_pc_count : integer := 0;
+    variable uart_clk_count : integer := 0;
     variable uart_idle_count : integer := 0;
     
   begin
