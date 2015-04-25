@@ -1,94 +1,154 @@
 
-Makefile,98
-XILINX_INIT 32,1286
-PART=33,1350
-lab.%:lab.%36,1375
-lab.%:lab.%37,1418
-lab.%:lab.%38,1442
-
-computer.ucf,183
+computer.ucf,726
 CONFIG PART 6,192
 Net "clk" LOC=9,241
 Net "clk" TNM_NET 10,282
 TIMESPEC TS_sys_clk_pin 11,315
-Net "rst" LOC 14,386
-Net "rst" LOC = B8 | IOSTANDARD = LVCMOS33; #Bank Bank14,386
+Net "rst" LOC 17,455
+Net "rst" LOC = B8 | IOSTANDARD = LVCMOS33; #Bank Bank17,455
+Net "rx" LOC = N17 | IOSTANDARD=LVCMOS33; #Bank Bank20,570
+Net "Led<0>" LOC = U16 | IOSTANDARD = LVCMOS33; #Bank Bank37,1790
+Net "Led<1>" LOC = V16 |  IOSTANDARD = LVCMOS33; #Bank Bank38,1890
+Net "Led<2>" LOC = U15 |  IOSTANDARD = LVCMOS33; #Bank Bank39,1992
+Net "Led<3>" LOC = V15 |  IOSTANDARD = LVCMOS33; #Bank Bank40,2086
+Net "Led<4>" LOC = M11 |  IOSTANDARD = LVCMOS33; #Bank Bank41,2180
+Net "Led<5>" LOC = N11 |  IOSTANDARD = LVCMOS33; #Bank Bank42,2275
+Net "Led<6>" LOC = R11 |  IOSTANDARD = LVCMOS33; #Bank Bank43,2370
 
 computer.vhd,101
 use IEEE.STD_LOGIC_1164.ALL;ALL4,49
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,78
 end computer;10,169
 
-control_unit.vhd,439
+control_unit.vhd,803
 library IEEE;3,20
 use IEEE.STD_LOGIC_1164.ALL;ALL4,34
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,63
-end control_unit;12,313
-  signal halt,16,376
-  signal halt, uart_line_c,16,376
-  signal halt, uart_line_c, uart_reading : STD_LOGIC;16,376
-           uart_line_c : out STD_LOGIC 21,568
-           uart_reading : out STD_LOGIC 22,641
-  end component;24,740
-  type mm_t is array(26,758
-  end process;135,4757
-end behavioral;137,4773
+end control_unit;13,361
+  signal halt,17,424
+  signal halt, uart_line_c,17,424
+  signal halt, uart_line_c, uart_reading : STD_LOGIC;17,424
+           uart_line_c : out STD_LOGIC 22,616
+           uart_reading : out STD_LOGIC 23,689
+  end component;25,788
+  type mm_t is array(27,806
+  constant MM : mm_t 105,4245
+  control_process : process 117,4584
+        uart_begin 128,4908
+        uart_clk_count 129,4933
+        uart_idle_count 130,4962
+      elsif 133,5015
+        elsif 140,5237
+            uart_clk_count 152,5555
+            uart_clk_count 156,5690
+            uart_begin 157,5723
+        elsif 162,5806
+      elsif 173,6126
+  end process;186,6435
+end behavioral;188,6451
 
 cpu.vhd,1025
 -- Lab 1 in the course TSEA83,3,68
 use IEEE.STD_LOGIC_1164.ALL;ALL8,174
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL9,203
-end cpu;13,288
-  signal buss,21,408
-  signal buss, DR,21,408
-  signal buss, DR, GR,21,408
-  signal buss, DR, GR, IR,21,408
-  signal buss, DR, GR, IR, AR,21,408
-  signal ASR,22,475
-  type pm_t is array(29,601
-      elsif 126,3298
-  end process;134,3413
-  k_registers : process 137,3446
-  end process;150,3733
-  micro_pc : process 152,3749
-          when others 245,5644
-        end case;248,5704
-  end process;251,5748
-  loop_counter : process 253,5764
-          when others 273,6139
-        end case;276,6197
-  end process;284,6312
-  primary_memory : process 291,6403
-        elsif 303,6673
-  end process;314,6934
-  general_register : process 321,7053
-  end process;339,7446
-  alu : process 366,7993
-        elsif 382,8294
-        elsif 393,8487
-  end process;416,8940
-  program_counter : process 418,8956
-      elsif 424,9085
-  end process;435,9263
-end behavioral;437,9281
+end cpu;14,336
+  signal buss,22,456
+  signal buss, DR,22,456
+  signal buss, DR, GR,22,456
+  signal buss, DR, GR, IR,22,456
+  signal buss, DR, GR, IR, AR,22,456
+  signal ASR,23,523
+  type pm_t is array(30,649
+      elsif 128,3401
+  end process;136,3516
+  k_registers : process 139,3549
+  end process;152,3836
+  micro_pc : process 154,3852
+          when others 247,5747
+        end case;250,5807
+  end process;253,5851
+  loop_counter : process 255,5867
+          when others 275,6242
+        end case;278,6300
+  end process;286,6415
+  primary_memory : process 293,6506
+        elsif 305,6776
+  end process;316,7037
+  general_register : process 323,7156
+  end process;341,7549
+  alu : process 368,8096
+        elsif 384,8397
+        elsif 395,8590
+  end process;418,9043
+  program_counter : process 420,9059
+      elsif 426,9188
+  end process;437,9366
+end behavioral;439,9384
 
-test_bench.vhd,386
+test_bench.vhd,500
 library IEEE;3,15
 use IEEE.STD_LOGIC_1164.ALL;ALL4,29
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,58
 end test_bench;8,113
-  end component;14,228
-  signal clk : STD_LOGIC 16,246
-  signal rst : STD_LOGIC 17,279
-  signal rx : STD_LOGIC 18,312
-  signal tb_running : boolean 19,344
-    end loop;32,563
-    wait;33,577
-  end process;34,587
-  end process;53,818
-end behavioral;55,834
+  end component;15,278
+  signal clk : STD_LOGIC 17,296
+  signal rst : STD_LOGIC 18,329
+  signal rx : STD_LOGIC 19,362
+  signal tb_running : boolean 22,658
+    end loop;35,882
+    wait;36,896
+  end process;37,906
+    variable i : integer;40,938
+    variable y : integer;41,964
+      end loop;57,1213
+    end loop;58,1235
+  end process;68,1358
+end behavioral;70,1374
 
-uart.vhd,1119
+uart.vhd,1135
+library IEEE;1,0
+use IEEE.STD_LOGIC_1164.ALL;ALL2,15
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL3,45
+use IEEE.NUMERIC_STD.all;all4,79
+	 uart_line_c : out STD_LOGIC 9,245
+	 uart_reading : out STD_LOGIC 10,310
+end uart;12,399
+  signal rx1,17,625
+  signal rx1,rx2 : STD_LOGIC;17,625
+  signal sp : STD_LOGIC;18,691
+  signal lp : STD_LOGIC;19,745
+  signal t_pos : STD_LOGIC_VECTOR(1 downto 0) := "00"; -- Current byte on line 20,798
+  end process;39,1224
+  process(46,1356
+        shift 57,1689
+        clkcnt 58,1714
+        sftcnt 59,1736
+      elsif shift 61,1788
+        clkcnt 67,1972
+          sftcnt 70,2075
+        elsif clkcnt 71,2108
+            clkcnt 76,2272
+            sftcnt 77,2298
+            shift 78,2324
+  end process;83,2417
+  process(89,2547
+      elsif sp 94,2674
+  end process;98,2771
+  process(104,2899
+      elsif lp 109,3012
+  end process;113,3096
+  process(119,3226
+      elsif lp 124,3392
+          when others 130,3720
+        end case;131,3752
+  end process;134,3799
+      elsif 145,4046
+  end process;151,4174
+      elsif wp 159,4356
+  end process;166,4495
+  end;168,4513
+
+uart.vhd~,1119
 library IEEE;1,0
 use IEEE.STD_LOGIC_1164.ALL;ALL2,15
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL3,45

@@ -45,7 +45,7 @@ By Natanael Log
        010   PM
        011   PC
        100   AR
-       101   Nothing
+       101   UR (UART-register)
        110   GRx
        111   Not sure yet...
 
@@ -128,3 +128,7 @@ By Natanael Log
    0x1						Constant
    0x2						Indirect
    0x3						Indexed
+
+
+** Test controlwords
+

@@ -1,32 +1,141 @@
 
+#arguments#,558
+_LDA:	LDA $500,3,41
+	LDA 5,76
+	LDA #$FFFFFFFF,$FFFFFFFF6,96
+	LDA _LDA,7,117
+_STR:	STR $500,10,151
+	STR 12,188
+	STR #$500,$50013,203
+	STR _STR,14,219
+_ADD: 	ADD $500,17,252
+	ADD 19,295
+	ADD #$500,$50020,311
+	ADD _ADD,21,330
+_SUB:	SUB $500,24,370
+	SUB 26,408
+	SUB #$500,$50027,424
+	SUB _SUB,28,441
+_CMP:	CMP $500,31,475
+	CMP 33,512
+	CMP #$500,$50034,527
+	CMP _CMP,35,543
+_AND: 	AND $500,38,576
+	AND 40,614
+	AND #$500,$50041,629
+	AND _AND,42,645
+_OR:	OR $500,45,678
+	OR 47,712
+	OR #$500,$50048,726
+	OR _OR,49,741
+	BRA 58,819
+
+Makefile,56
+OBJS=1,0
+OBJ_NAME 2,56
+CC=4,72
+all 6,80
+TAGS 8,124
+
+arguments,580
+_LDA:	LDA $500,3,41
+	LDA 5,76
+	LDA #$FFFFFFFF,$FFFFFFFF6,96
+	LDA _LDA,7,117
+_STR:	STR $500,10,149
+	STR 12,186
+	STR #$500,$50013,201
+	STR _STR,14,217
+_ADD: 	ADD $500,17,250
+	ADD 19,293
+	ADD #$500,$50020,309
+	ADD _ADD,21,328
+_SUB:	SUB $500,24,368
+	SUB 26,406
+	SUB #$500,$50027,422
+	SUB _SUB,28,439
+_CMP:	CMP $500,31,473
+	CMP 33,510
+	CMP #$500,$50034,525
+	CMP _CMP,35,541
+_AND: 	AND $500,38,574
+	AND 40,612
+	AND #$500,$50041,627
+	AND _AND,42,643
+_OR:	OR $500,45,676
+	OR 47,710
+	OR #$500,$50048,724
+	OR _OR,49,739
+	OR (_OR), GR350,752
+	BRA 57,824
+
 asm.cpp,16
 int main(9,136
 
-asm_lib.cpp,584
-std::string get_substr(17,429
-void str_trim(34,866
-void str_to_upper(40,1029
-std::string int_to_str(46,1158
-std::string int_to_hex_str(53,1306
-unsigned str_hex_to_int(60,1470
-unsigned str_dec_to_int(72,1798
-unsigned str_to_int(84,2114
-bool is_empty(94,2338
-bool is_labeled(101,2489
-bool is_comment(106,2575
-bool is_hex(111,2661
-unsigned op_to_int(119,2788
-unsigned addr_mode_to_int(159,3392
-opcodes str_to_opcode(180,3805
-addr_modes str_to_addr_mode(238,4865
-int no_of_expected_args(262,5297
-std::string opcode_to_str(292,5820
-std::string addr_mode_to_str(334,6521
+asm_lib.cpp,606
+std::string get_substr(16,407
+void str_trim(33,844
+void str_to_upper(39,1007
+std::string int_to_str(45,1136
+std::string int_to_hex_str(52,1284
+unsigned str_hex_to_int(59,1448
+unsigned str_dec_to_int(71,1776
+unsigned str_to_int(83,2092
+bool is_empty(93,2316
+bool is_labeled(100,2467
+bool is_comment(105,2553
+bool is_hex(110,2639
+bool is_reg(114,2701
+unsigned op_to_int(125,2889
+unsigned addr_mode_to_int(165,3493
+opcodes str_to_opcode(186,3906
+addr_modes str_to_addr_mode(247,5096
+int no_of_expected_args(270,5509
+std::string opcode_to_str(300,6032
+std::string addr_mode_to_str(342,6733
+
+asm_lib.h,1233
+#define ASM_LIB_H5,50
+const int ADDR_WIDTH 9,86
+const int NO_OF_GR 10,172
+const std::string NOT_ASSIGNED 11,249
+const std::string ERROR 12,291
+enum opcodes 15,350
+    OPERR,opcodes::OPERR16,365
+    ONA,opcodes::ONA17,385
+    LDA,opcodes::LDA18,410
+    LDA, STR,opcodes::STR18,410
+    LDA, STR, ADD,opcodes::ADD18,410
+    LDA, STR, ADD, SUB,opcodes::SUB18,410
+    CMP,opcodes::CMP19,434
+    CMP, BRA,opcodes::BRA19,434
+    CMP, BRA, BRG,opcodes::BRG19,434
+    CMP, BRA, BRG, BNE,opcodes::BNE19,434
+    BRE,opcodes::BRE20,458
+    BRE, JSR,opcodes::JSR20,458
+    BRE, JSR, RTS,opcodes::RTS20,458
+    BRE, JSR, RTS, AND,opcodes::AND20,458
+    OR,opcodes::OR21,482
+    OR,  LSR,opcodes::LSR21,482
+    OR,  LSR, LSL,opcodes::LSL21,482
+    OR,  LSR, LSL, BRC,opcodes::BRC21,482
+enum addr_modes 25,537
+    ADDRERR,addr_modes::ADDRERR26,555
+    MNA,addr_modes::MNA27,577
+    DIRECT,addr_modes::DIRECT28,602
+    DIRECT, IMMEDIATE,addr_modes::IMMEDIATE28,602
+    DIRECT, IMMEDIATE, INDIRECT,addr_modes::INDIRECT28,602
+    DIRECT, IMMEDIATE, INDIRECT, RELATIVE,addr_modes::RELATIVE28,602
+    DIRECT, IMMEDIATE, INDIRECT, RELATIVE, OPERANDaddr_modes::OPERAND28,602
+struct asm_line 34,769
 
 debug.cpp,102
 std::string fill_with_spaces(19,507
 void debug_print_bitcode(26,682
 void debug_print_parsed(33,896
+
+debug.h,21
+#define DEBUG_H4,30
 
 handle.cpp,142
 void handle_operand(21,442
@@ -35,59 +144,22 @@ void handle_addr_mode(53,1271
 void handle_addr(64,1559
 void gen_bitcode(76,1902
 
-parse.cpp,166
-void parse_addr(8,114
-void parse_reg(19,455
-void parse_opcode(30,776
-void parse_line(38,1073
-void link_labels(92,2650
-std::vector<asm_line> parse_file(111,3330
-
-asm_lib.h,1177
-#define ASM_LIB_H5,50
-#define ADDR_WIDTH 8,132
-enum opcodes 11,181
-    OPERR,12,196
-    ONA,13,216
-    LDA,14,241
-    LDA, STR,14,241
-    LDA, STR, ADD,14,241
-    LDA, STR, ADD, SUB,14,241
-    CMP,15,265
-    CMP, BRA,15,265
-    CMP, BRA, BRG,15,265
-    CMP, BRA, BRG, BNE,15,265
-    BRE,16,289
-    BRE, JSR,16,289
-    BRE, JSR, RTS,16,289
-    BRE, JSR, RTS, AND,16,289
-    OR,17,313
-    OR,  LSR,17,313
-    OR,  LSR, LSL,17,313
-    OR,  LSR, LSL, BRC,17,313
-enum addr_modes 21,368
-    ADDRERR,22,386
-    MNA,23,408
-    DIRECT,24,433
-    DIRECT, IMMEDIATE,24,433
-    DIRECT, IMMEDIATE, INDIRECT,24,433
-    DIRECT, IMMEDIATE, INDIRECT, RELATIVE,24,433
-    DIRECT, IMMEDIATE, INDIRECT, RELATIVE, OPERAND24,433
-struct asm_line 27,488
-    std::string original_line;asm_line::original_line28,506
-    std::string left_arg;asm_line::left_arg29,566
-    std::string right_arg;asm_line::right_arg30,630
-    std::string label;asm_line::label31,684
-    unsigned line_number;asm_line::line_number32,772
-    unsigned phys_addr;asm_line::phys_addr33,865
-    opcodes opcode;asm_line::opcode34,948
-    addr_modes addr_mode;asm_line::addr_mode35,969
-
-debug.h,21
-#define DEBUG_H4,30
-
 handle.h,22
 #define HANDLE_H4,31
 
+parse.cpp,166
+void parse_addr(8,114
+void parse_reg(19,455
+void parse_opcode(30,757
+void parse_line(38,1054
+void link_labels(92,2725
+std::vector<asm_line> parse_file(111,3405
+
 parse.h,21
 #define PARSE_H4,30
+
+test.s,0
+
+bitcode.txt,0
+
+asm,0

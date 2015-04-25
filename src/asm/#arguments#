@@ -1,0 +1,87 @@
+; To check bitcode: xxd -b -c 4 bitcode
+
+_LDA:	LDA $500,GR3
+	LDA ($500),GR3
+	LDA #999999999,GR3
+	LDA #$FFFFFFFF,GR3 
+	LDA _LDA,GR3
+	LDA (_LDA),GR3  
+	
+_STR:	STR $500, GR3
+	STR ($500), GR3
+	STR #500, GR3
+	STR #$500, GR3
+	STR _STR, GR3
+	STR (_STR), GR3
+
+_ADD: 	ADD $500, GR3  
+	ADD ($500), GR3   
+	ADD #500, GR3 
+	ADD #$500, GR3 	 
+	ADD _ADD, GR3      
+	ADD (_ADD), GR3 
+
+_SUB:	SUB $500, GR3
+	SUB ($500), GR3	
+	SUB #500, GR3 
+	SUB #$500, GR3 
+	SUB _SUB, GR3
+	SUB (_SUB), GR3 
+
+_CMP:	CMP $500, GR3
+	CMP ($500), GR3
+	CMP #500, GR3
+	CMP #$500, GR3
+	CMP _CMP, GR3
+	CMP (_CMP), GR3
+
+_AND: 	AND $500, GR3
+	AND ($500), GR3
+	AND #500, GR3
+	AND #$500, GR3
+	AND _AND, GR3
+	AND (_AND), GR3
+
+_OR:	OR $500, GR3
+	OR ($500), GR3
+	OR #500, GR3
+	OR #$500, GR3
+	OR _OR, GR3
+	OR (_OR), GR3
+	
+
+_LSR:	LSR GR3
+
+_LSL:   LSL GR3
+
+_BRA:	BRA $500
+	BRA ($500)
+	BRA _BRA
+	BRA (_BRA)
+
+_BRG:	BRG $500
+	BRG ($500)
+	BRG _BRG
+	BRG (_BRG)
+
+_BNE:	BNE $500
+	BNE ($500)
+	BNE _BNE
+	BNE (_BNE)
+
+_BRE:	BRE $500
+	BRE ($500)
+	BRE _BRE
+	BRE (_BRE)
+
+_BRC: 	BRC $500
+	BRC ($500)
+	BRC _BRC
+	BRC (_BRC)
+
+_JSR: 	JSR $500
+	JSR ($500)
+	JSR _JSR
+	JSR (_JSR)
+
+_RTS:	RTS
