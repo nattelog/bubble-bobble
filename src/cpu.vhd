@@ -81,7 +81,9 @@ architecture behavioral of cpu is
   alias ir_grx : STD_LOGIC_VECTOR(3 downto 0) is IR(11 downto 8);
   alias ir_m : STD_LOGIC_VECTOR(1 downto 0) is IR(7 downto 6);
 
-  signal helpreg : STD_LOGIC_VECTOR(16 downto 0);
+  -- The result of an alu-operation, 1 bit bigger than the
+  -- regular size of registers
+  signal alu_result : STD_LOGIC_VECTOR(16 downto 0);
 
   -- Flags
   signal Z, N, O, C, L : STD_LOGIC;
@@ -361,7 +363,7 @@ begin
 
   -- ALU OPERATIONS
   
-  helpreg  <=
+  alu_result  <=
 
     -- ADD
     ((AR(15) & AR) + (buss(15) & buss)) when alu_op = "0100" else
@@ -417,20 +419,20 @@ begin
           N <= '0';
 
         else
-          AR <= helpreg (15 downto 0);
+          AR <= alu_result(15 downto 0);
 
-          if (helpreg(15 downto 0) = 0) then
+          if (alu_result(15 downto 0) = 0) then
             Z <= '1';
           else
             Z <= '0';
           end if;
 
-          N <= helpreg(15);
+          N <= alu_result(15);
 
         end if;
 
-        C <= helpreg(16);
-        O <= helpreg(16) xor helpreg(15);
+        C <= alu_result(16);
+        O <= alu_result(16) xor alu_result(15);
         
       end if;
     end if;
