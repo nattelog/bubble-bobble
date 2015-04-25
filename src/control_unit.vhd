@@ -13,7 +13,7 @@ end control_unit;
 
 architecture behavioral of control_unit is
 
-  signal halt, uart_line_c, uart_reading : STD_LOGIC;
+  signal halt, uart_line_c : STD_LOGIC;
 
   component uart is
     Port ( clk,rst,rx : in  STD_LOGIC;
@@ -107,7 +107,7 @@ architecture behavioral of control_unit is
   
 begin
 
-  
+  uart_c : uart port map(clk, rst, rx, uart_data, uart_line_c, halt); 
 
   control_process : process (clk)
   begin

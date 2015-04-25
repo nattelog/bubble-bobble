@@ -1,20 +1,10 @@
 
-#micro_memory.vhd#,236
-library IEEE;3,20
-use IEEE.STD_LOGIC_1164.ALL;ALL4,34
-use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,63
-end micro_memory;12,313
-  signal halt : STD_LOGIC;16,376
-  type mm_t is array(18,404
-  end process;127,4385
-end behavioral;129,4401
-
 Makefile,98
 XILINX_INIT 32,1286
 PART=33,1350
 lab.%:lab.%36,1375
-lab.%:lab.%37,1409
-lab.%:lab.%38,1433
+lab.%:lab.%37,1418
+lab.%:lab.%38,1442
 
 computer.ucf,183
 CONFIG PART 6,192
@@ -29,7 +19,22 @@ use IEEE.STD_LOGIC_1164.ALL;ALL4,49
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,78
 end computer;10,169
 
-cpu.vhd,987
+control_unit.vhd,439
+library IEEE;3,20
+use IEEE.STD_LOGIC_1164.ALL;ALL4,34
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,63
+end control_unit;12,313
+  signal halt,16,376
+  signal halt, uart_line_c,16,376
+  signal halt, uart_line_c, uart_reading : STD_LOGIC;16,376
+           uart_line_c : out STD_LOGIC 21,568
+           uart_reading : out STD_LOGIC 22,641
+  end component;24,740
+  type mm_t is array(26,758
+  end process;135,4757
+end behavioral;137,4773
+
+cpu.vhd,1025
 -- Lab 1 in the course TSEA83,3,68
 use IEEE.STD_LOGIC_1164.ALL;ALL8,174
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL9,203
@@ -38,43 +43,34 @@ end cpu;13,288
   signal buss, DR,21,408
   signal buss, DR, GR,21,408
   signal buss, DR, GR, IR,21,408
-  signal ASR,22,471
-  type pm_t is array(29,597
-      elsif 124,3191
-  end process;132,3306
-  k_registers : process 135,3339
-  end process;148,3626
-  micro_pc : process 150,3642
-          when others 243,5537
-        end case;246,5597
-  end process;249,5641
-  loop_counter : process 251,5657
-          when others 271,6032
-        end case;274,6090
-  end process;282,6205
-  primary_memory : process 289,6296
-        elsif 301,6566
-  end process;312,6827
-  general_register : process 319,6946
-  end process;337,7339
-  alu : process 364,7886
-        elsif 380,8187
-        elsif 391,8380
-  end process;414,8833
-  program_counter : process 416,8849
-      elsif 422,8978
-  end process;433,9156
-end behavioral;435,9174
-
-micro_memory.vhd,236
-library IEEE;3,20
-use IEEE.STD_LOGIC_1164.ALL;ALL4,34
-use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,63
-end micro_memory;12,313
-  signal halt : STD_LOGIC;16,376
-  type mm_t is array(18,404
-  end process;125,4381
-end behavioral;127,4397
+  signal buss, DR, GR, IR, AR,21,408
+  signal ASR,22,475
+  type pm_t is array(29,601
+      elsif 126,3298
+  end process;134,3413
+  k_registers : process 137,3446
+  end process;150,3733
+  micro_pc : process 152,3749
+          when others 245,5644
+        end case;248,5704
+  end process;251,5748
+  loop_counter : process 253,5764
+          when others 273,6139
+        end case;276,6197
+  end process;284,6312
+  primary_memory : process 291,6403
+        elsif 303,6673
+  end process;314,6934
+  general_register : process 321,7053
+  end process;339,7446
+  alu : process 366,7993
+        elsif 382,8294
+        elsif 393,8487
+  end process;416,8940
+  program_counter : process 418,8956
+      elsif 424,9085
+  end process;435,9263
+end behavioral;437,9281
 
 test_bench.vhd,386
 library IEEE;3,15
