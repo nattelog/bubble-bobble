@@ -13,7 +13,7 @@ end control_unit;
 
 architecture behavioral of control_unit is
 
-  signal halt, uart_line_c, uart_reading, uart_begin : STD_LOGIC;
+  signal halt, uart_line_c, uart_reading, uart_begin, uart_reset_pc_count : STD_LOGIC;
   signal uart_idle_count : STD_LOGIC_VECTOR(6 downto 0);
 
   component uart is
