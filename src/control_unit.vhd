@@ -141,10 +141,10 @@ begin
 
         -- line ready
         elsif (uart_line_c = '1') then
-          controlword <= EMPTY;
+          controlword <= ALU & TB_UR & FB_DR & P_INC & SEQ_RES & MADR;
 
         else
-          controlword <= EMPTY;
+          controlword <= HALT;
           
         end if;
         
