@@ -92,7 +92,7 @@ architecture behavioral of cpu is
     "0000011", -- IMMEDIATE
     "0000101", -- INDIRECT
     "0000000", -- RELATIVE
-    others => (others => '0');
+    others => (others => '0')
     );
 
 
