@@ -126,6 +126,7 @@ begin
           controlword <= MM(CONV_INTEGER(adr));
 
         else
+          -- Computer halting
           controlword <= ALU & TB & FB & P & LC & SEQ_RES & MADR;
 
         end if;

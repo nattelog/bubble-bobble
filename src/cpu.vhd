@@ -9,7 +9,8 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity cpu is
-  Port (clk,rst, rx : in STD_LOGIC);
+  Port (clk,rst, rx : in STD_LOGIC;
+        Led : out STD_LOGIC_VECTOR(7 downto 0));
 end cpu;
 
 architecture behavioral of cpu is
