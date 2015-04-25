@@ -129,11 +129,11 @@ begin
         -- reset PC
         if (uart_begin = '1') then
           if (uart_reset_pc_count = '0') then
-            controlword <= ALU_RES & TB & FB & P & SEQ_RES & MADR;
+            controlword <= ALU_RES & TB & FB & P & LC & SEQ_RES & MADR;
             uart_reset_pc_count <= '1';
             
           else
-            controlword <= ALU & TB_AR & FB_PC & P & SEQ_RES & MADR;
+            controlword <= ALU & TB_AR & FB_PC & P & LC & SEQ_RES & MADR;
             uart_reset_pc_count <= '0';
             uart_begin <= '0';
             
