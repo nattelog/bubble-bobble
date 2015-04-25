@@ -1,29 +1,20 @@
 
+#micro_memory.vhd#,236
+library IEEE;3,20
+use IEEE.STD_LOGIC_1164.ALL;ALL4,34
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,63
+end micro_memory;12,313
+  signal halt : STD_LOGIC;16,376
+  type mm_t is array(18,404
+  end process;127,4385
+end behavioral;129,4401
+
 Makefile,98
 XILINX_INIT 32,1286
 PART=33,1350
 lab.%:lab.%36,1375
-lab.%:lab.%37,1392
-lab.%:lab.%38,1416
-
-arithmetic_logic_unit.vhd,484
-library IEEE;3,8
-use IEEE.STD_LOGIC_1164.ALL;ALL4,22
-use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,51
-use IEE.NUMERIC_STD;NUMERIC_STD6,84
-end ALU;14,359
-  alias helpreg_small : STD_LOGIC_VECTOR(18,453
-          -- AR 39,911
-            -- AR 43,988
-          -- AR 50,1139
-          -- AR 55,1276
-          -- AR 60,1413
-          -- AR 65,1556
-            -- AR 70,1697
-          when others 89,2162
-        end case;93,2241
-  end process;103,2433
-end behavioral;105,2451
+lab.%:lab.%37,1409
+lab.%:lab.%38,1433
 
 computer.ucf,183
 CONFIG PART 6,192
@@ -38,42 +29,110 @@ use IEEE.STD_LOGIC_1164.ALL;ALL4,49
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,78
 end computer;10,169
 
-cpu.vhd,232
+cpu.vhd,987
 -- Lab 1 in the course TSEA83,3,68
-use IEEE.STD_LOGIC_1164.ALL;ALL6,145
-use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL7,174
-end cpu;11,255
-  signal BUSS,16,318
-  type pm_t is array(20,433
-  end process;75,2017
-end behavioral;88,2212
+use IEEE.STD_LOGIC_1164.ALL;ALL8,174
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL9,203
+end cpu;13,288
+  signal buss,21,408
+  signal buss, DR,21,408
+  signal buss, DR, GR,21,408
+  signal buss, DR, GR, IR,21,408
+  signal ASR,22,471
+  type pm_t is array(29,597
+      elsif 124,3191
+  end process;132,3306
+  k_registers : process 135,3339
+  end process;148,3626
+  micro_pc : process 150,3642
+          when others 243,5537
+        end case;246,5597
+  end process;249,5641
+  loop_counter : process 251,5657
+          when others 271,6032
+        end case;274,6090
+  end process;282,6205
+  primary_memory : process 289,6296
+        elsif 301,6566
+  end process;312,6827
+  general_register : process 319,6946
+  end process;337,7339
+  alu : process 364,7886
+        elsif 380,8187
+        elsif 391,8380
+  end process;414,8833
+  program_counter : process 416,8849
+      elsif 422,8978
+  end process;433,9156
+end behavioral;435,9174
 
-k1.vhd,142
-library IEEE;3,16
-use IEEE.STD_LOGIC_1164.ALL;ALL4,30
-use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,59
-        data : out STD_LOGIC_VECTOR(9,153
+micro_memory.vhd,236
+library IEEE;3,20
+use IEEE.STD_LOGIC_1164.ALL;ALL4,34
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,63
+end micro_memory;12,313
+  signal halt : STD_LOGIC;16,376
+  type mm_t is array(18,404
+  end process;125,4381
+end behavioral;127,4397
 
-k2.vhd,142
-library IEEE;3,16
-use IEEE.STD_LOGIC_1164.ALL;ALL4,30
-use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,59
-        data : out STD_LOGIC_VECTOR(9,153
-
-test_bench.vhd,354
+test_bench.vhd,386
 library IEEE;3,15
 use IEEE.STD_LOGIC_1164.ALL;ALL4,29
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,58
 end test_bench;8,113
-  end component;14,224
-  signal clk : STD_LOGIC 16,242
-  signal rst : STD_LOGIC 17,275
-  signal tb_running : boolean 18,308
-    end loop;31,523
-    wait;32,537
-  end process;33,547
-  end process;52,778
-end behavioral;54,794
+  end component;14,228
+  signal clk : STD_LOGIC 16,246
+  signal rst : STD_LOGIC 17,279
+  signal rx : STD_LOGIC 18,312
+  signal tb_running : boolean 19,344
+    end loop;32,563
+    wait;33,577
+  end process;34,587
+  end process;53,818
+end behavioral;55,834
+
+uart.vhd,1119
+library IEEE;1,0
+use IEEE.STD_LOGIC_1164.ALL;ALL2,15
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL3,45
+use IEEE.NUMERIC_STD.all;all4,79
+	 uart_line_c : out STD_LOGIC 9,245
+	 uart_reading : out STD_LOGIC 10,310
+end uart;12,399
+  signal rx1,17,625
+  signal rx1,rx2 : STD_LOGIC;17,625
+  signal sp : STD_LOGIC;18,691
+  signal lp : STD_LOGIC;19,745
+  signal t_pos : STD_LOGIC_VECTOR(1 downto 0) := "00"; -- Current byte on line 20,798
+  end process;39,1224
+  process(46,1356
+        shift 57,1689
+        clkcnt 58,1714
+        sftcnt 59,1736
+      elsif shift 60,1758
+        clkcnt 66,1942
+          sftcnt 69,2045
+        elsif clkcnt 70,2078
+            clkcnt 75,2242
+            sftcnt 76,2268
+            shift 77,2294
+  end process;82,2387
+  process(88,2517
+      elsif sp 93,2644
+  end process;97,2741
+  process(103,2869
+      elsif lp 108,2982
+  end process;112,3066
+  process(118,3196
+      elsif lp 123,3362
+          when others 129,3690
+        end case;130,3722
+  end process;133,3769
+      elsif 144,4016
+  end process;150,4144
+      elsif wp 158,4326
+  end process;165,4465
 
 vga.vhd,184
 library IEEE;3,23
@@ -89,11 +148,5 @@ $(PROJNAME)-synthdir/xst/synth/design.scr: $(14,594
 test_bench.vhd~,0
 
 sanitycheck.sh,0
-
-micro_memory.vhd,0
-
-k2.vhd~,0
-
-k1.vhd~,0
 
 Nexys3_Master.ucf,0

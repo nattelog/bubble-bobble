@@ -18,15 +18,13 @@ architecture behavioral of cpu is
   -- ** MAIN SIGNALS **
   -- ******************
   
-  signal buss, DR, GR, IR, AR : STD_LOGIC_VECTOR(31 downto 0);
+  signal buss, DR, GR, IR, AR, UR : STD_LOGIC_VECTOR(31 downto 0);
   signal ASR, PC : STD_LOGIC_VECTOR(15 downto 0);
 
   
   -- *****************
   -- ** MEMORY UNIT **
   -- *****************
-  
-  signal pm_write : STD_LOGIC;
   
   type pm_t is array(0 to 255) of STD_LOGIC_VECTOR(31 downto 0);
   
@@ -45,10 +43,11 @@ architecture behavioral of cpu is
   signal CONTROLWORD : STD_LOGIC_VECTOR(0 to 23);
   signal LC : STD_LOGIC_VECTOR(7 downto 0);
   
-  component micro_memory is
-    port (clk, rst : in STD_LOGIC;
+  component control_unit is
+    port (clk, rst, rx : in STD_LOGIC;
           adr : in STD_LOGIC_VECTOR(6 downto 0);
-          controlword : out STD_LOGIC_VECTOR(0 to 23));
+          controlword : out STD_LOGIC_VECTOR(0 to 23);
+          uart_data : out STD_LOGIC_VECTOR(31 downto 0));
   end component;
 
   -- Signals from controlword
@@ -94,7 +93,6 @@ architecture behavioral of cpu is
   -- General registers
   type gr_t is array(0 to 15) of STD_LOGIC_VECTOR(31 downto 0);
   signal gen_reg : gr_t;
-  signal gr_write : STD_LOGIC;
 
   
 begin
@@ -116,7 +114,13 @@ begin
   -- ** CONTROL UNIT **
   -- ******************
 
-  mm : micro_memory port map(clk, rst, mPC, CONTROLWORD);
+  cu : control_unit port map(clk, rst, rx, mPC, CONTROLWORD, UR);
+
+  uart_register : process (clk)
+  begin
+    if rising_edge(clk) then
+    end if;
+  end process;
 
   instruction_register : process (clk)
   begin
@@ -295,7 +299,6 @@ begin
       if (rst = '1') then
         DR <= (others => '0');
         ASR <= (others => '0');
-        pm_write <= '0';
 
       else
         if (fb = "010") then
@@ -326,7 +329,6 @@ begin
       if (rst = '1') then
         GR <= (others => '0');
         gen_reg <= (others => (others => '0'));
-        gr_write <= '0';
 
       else
         if (fb = "110") then

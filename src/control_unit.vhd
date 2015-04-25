@@ -4,15 +4,24 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
-entity micro_memory is
-  Port (clk, rst : in STD_LOGIC;
+entity control_unit is
+  Port (clk, rst, rx : in STD_LOGIC;
         adr : in STD_LOGIC_VECTOR(6 downto 0);
-        controlword : out STD_LOGIC_VECTOR(0 to 23));
-end micro_memory;
+        controlword : out STD_LOGIC_VECTOR(0 to 23);
+        uart_data : out STD_LOGIC_VECTOR(31 downto 0));
+end control_unit;
 
-architecture behavioral of micro_memory is
+architecture behavioral of control_unit is
 
-  signal halt : STD_LOGIC;
+  signal halt, uart_line_c, uart_reading : STD_LOGIC;
+
+  component uart is
+    Port ( clk,rst,rx : in  STD_LOGIC;
+           uart_data_o : out STD_LOGIC_VECTOR (31 downto 0); -- Uart data out
+           uart_line_c : out STD_LOGIC := '0';     -- Uart line complete
+           uart_reading : out STD_LOGIC := '0'     -- Set to one when reading starts
+           );
+  end component;
 
   type mm_t is array(0 to 256) of STD_LOGIC_VECTOR(0 to 23);
 
@@ -98,7 +107,9 @@ architecture behavioral of micro_memory is
   
 begin
 
-  process (clk)
+  
+
+  control_process : process (clk)
   begin
     if rising_edge(clk) then
       if (rst = '1') then
