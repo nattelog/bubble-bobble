@@ -48,7 +48,8 @@ architecture behavioral of cpu is
     port (clk, rst, rx : in STD_LOGIC;
           adr : in STD_LOGIC_VECTOR(6 downto 0);
           controlword : out STD_LOGIC_VECTOR(0 to 23);
-          uart_data : out STD_LOGIC_VECTOR(31 downto 0));
+          uart_data : out STD_LOGIC_VECTOR(31 downto 0);
+          Led : out STD_LOGIC_VECTOR(7 downto 0));
   end component;
 
   -- Signals from controlword
@@ -116,7 +117,7 @@ begin
   -- ** CONTROL UNIT **
   -- ******************
 
-  cu : control_unit port map(clk, rst, rx, mPC, CONTROLWORD, UR);
+  cu : control_unit port map(clk, rst, rx, mPC, CONTROLWORD, UR, Led);
 
   instruction_register : process (clk)
   begin
@@ -295,7 +296,6 @@ begin
       if (rst = '1') then
         DR <= (others => '0');
         ASR <= (others => '0');
-        Led <= (others => '0');
 
       else
         if (fb = "010") then
@@ -311,8 +311,6 @@ begin
           ASR <= ASR;
           
         end if;
-
-        Led <= ASR(7 downto 0);
       end if;
     end if;
   end process;

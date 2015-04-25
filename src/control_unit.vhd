@@ -8,7 +8,8 @@ entity control_unit is
   Port (clk, rst, rx : in STD_LOGIC;
         adr : in STD_LOGIC_VECTOR(6 downto 0);
         controlword : out STD_LOGIC_VECTOR(0 to 23);
-        uart_data : out STD_LOGIC_VECTOR(31 downto 0));
+        uart_data : out STD_LOGIC_VECTOR(31 downto 0);
+        Led : out STD_LOGIC_VECTOR(7 downto 0));
 end control_unit;
 
 architecture behavioral of control_unit is
@@ -123,12 +124,26 @@ begin
       if (rst = '1') then
         controlword <= (others => '0');
         halt <= '0';
+        Led <= (others => '0');
         uart_begin := 1;
         uart_clk_count := 0;
         uart_idle_count := 0;
 
       -- UART reading
       elsif (uart_reading = '1') then
+
+        -- Tells user that UART has finished uploading
+        -- by lighting up the Led's on the board
+        if (uart_idle_count = 50) then
+          Led <= "10011001";
+          
+        elsif (rx = '1') then
+          uart_idle_count := uart_idle_count + 1;
+
+        else
+          uart_idle_count := 0;
+          
+        end if;
 
         -- reset PC
         if (uart_begin = 1) then
