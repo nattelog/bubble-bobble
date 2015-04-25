@@ -31,9 +31,9 @@ architecture behavioral of cpu is
   type pm_t is array(0 to 255) of STD_LOGIC_VECTOR(31 downto 0);
   
   signal prim_mem : pm_t := (
-    X"FF00",
-    X"00FF",
-    others => X"0000"
+    X"FF00FF00",
+    X"00FF00FF",
+    others => (others => '0')
     );
 
   
@@ -105,7 +105,7 @@ begin
 
   buss <= IR when tb = "001" else
           DR when tb = "010" else
-          PC when tb = "011" else
+          X"0000" & PC when tb = "011" else
           AR when tb = "100" else
           GR when tb = "110" else
           (others => '0') when rst = '1' else
@@ -322,7 +322,7 @@ begin
         ASR <= (others => '0');
 
       elsif (fb = "111") then
-        ASR <= buss;
+        ASR <= buss(15 downto 0);
 
       else
         ASR <= ASR;
@@ -448,7 +448,7 @@ begin
         PC <= (others => '0');
 
       elsif (fb = "011") then
-        PC <= buss;
+        PC <= buss(15 downto 0);
 
       elsif (p = '1') then
         PC <= PC + 1;
