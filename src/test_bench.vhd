@@ -16,6 +16,7 @@ architecture behavioral of test_bench is
   signal clk : STD_LOGIC := '0';
   signal rst : STD_LOGIC := '0';
   signal rx : STD_LOGIC := '0';
+  SIGNAL rxs :  std_logic_vector(0 to 159) := "0010101011001010101100101010110010101011000000000101111111110000000001011111111101010101010101010101010101010101010101010000000001011111111100000000010111111111";
   signal tb_running : boolean := true;
   
 begin
@@ -34,6 +35,9 @@ begin
   end process;
 
   sim : process
+    variable i : integer;
+    variable y : integer;
+    
   begin
 
     rst <= '1';
@@ -44,7 +48,12 @@ begin
     rst <= '0';
     wait for 1 us;
 
-    wait until rising_edge(clk);
+    for y in 0 to 83 loop
+      for i in 0 to 159 loop
+      	rx <= rxs(i);
+      	wait for 8.68 us;
+      end loop;  -- i
+    end loop;
 
     wait for 500 ns;
 
