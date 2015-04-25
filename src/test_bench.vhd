@@ -10,18 +10,20 @@ end test_bench;
 architecture behavioral of test_bench is
 
   component cpu
-    port (clk, rst, rx : in STD_LOGIC);
+    port (clk, rst, rx : in STD_LOGIC;
+          Led : out STD_LOGIC_VECTOR(7 downto 0));
   end component;
 
   signal clk : STD_LOGIC := '0';
   signal rst : STD_LOGIC := '0';
   signal rx : STD_LOGIC := '0';
-  SIGNAL rxs :  std_logic_vector(0 to 159) := "0010101011001010101100101010110010101011000000000101111111110000000001011111111101010101010101010101010101010101010101010000000001011111111100000000010111111111";
+  signal rxs :  STD_LOGIC_VECTOR(0 to 159) := "0010101011001010101100101010110010101011000000000101111111110000000001011111111101010101010101010101010101010101010101010000000001011111111100000000010111111111";
+  signal Led : STD_LOGIC_VECTOR(7 downto 0) := X"FF";
   signal tb_running : boolean := true;
   
 begin
 
-  test : cpu port map(clk, rst, rx);
+  test : cpu port map(clk, rst, rx, Led);
 
   clk_gen : process
   begin
