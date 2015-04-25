@@ -106,7 +106,7 @@ architecture behavioral of control_unit is
 
     -- Loadphase
     ALU & TB_PC & FB_ASR & P & LC & SEQ & MADR,
-    ALU & TB_DR & FB_IR & P_INC & LC & MADR,
+    ALU & TB_DR & FB_IR & P_INC & LC & SEQ & MADR,
 
     -- Addressmodephose
 
