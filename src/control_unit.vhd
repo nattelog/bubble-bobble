@@ -52,6 +52,7 @@ architecture behavioral of control_unit is
   constant TB_DR : STD_LOGIC_VECTOR(2 downto 0) := "010";
   constant TB_PC : STD_LOGIC_VECTOR(2 downto 0) := "011";
   constant TB_AR : STD_LOGIC_VECTOR(2 downto 0) := "100";
+  constant TB_UR : STD_LOGIC_VECTOR(2 downto 0) := "101";
   constant TB_GR : STD_LOGIC_VECTOR(2 downto 0) := "110";
 
   -- 3: from bus, 3 bits (fb)
