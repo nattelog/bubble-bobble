@@ -1,1 +1,1 @@
-_LDA:	LDA $500,GR3
+LDA $500,GR3
