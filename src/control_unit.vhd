@@ -13,7 +13,8 @@ end control_unit;
 
 architecture behavioral of control_unit is
 
-  signal halt, burning, uart_line_c : STD_LOGIC;
+  signal halt, uart_line_c, uart_reading, uart_begin : STD_LOGIC;
+  signal uart_idle_count : STD_LOGIC_VECTOR(6 downto 0);
 
   component uart is
     Port ( clk,rst,rx : in  STD_LOGIC;
@@ -107,7 +108,7 @@ architecture behavioral of control_unit is
   
 begin
 
-  uart_c : uart port map(clk, rst, rx, uart_data, uart_line_c, burning); 
+  uart_c : uart port map(clk, rst, rx, uart_data, uart_line_c, uart_reading); 
 
   control_process : process (clk)
   begin
@@ -115,22 +116,47 @@ begin
       if (rst = '1') then
         controlword <= (others => '0');
         halt <= '0';
+        uart_begin <= '1';
+        uart_reset_pc_count <= '0';
+        uart_idle_count <= (others => '0');
 
-      else
-        if (MM(CONV_INTEGER(adr))(13 to 16) = "1111") then
-          halt <= '1';
+      -- UART reading
+      elsif (uart_reading = '1') then
 
-        end if;
+        -- reset PC
+        if (uart_begin = '1') then
+          if (uart_reset_pc_count = '0') then
+            controlword <= ALU_RES & TB & FB & P & SEQ_RES & MADR;
+            uart_reset_pc_count <= '1';
+            
+          else
+            controlword <= ALU & TB_AR & FB_PC & P & SEQ_RES & MADR;
+            uart_reset_pc_count <= '0';
+            uart_begin = '0';
+            
+          end if;
 
-        if (halt = '0') then
-          controlword <= MM(CONV_INTEGER(adr));
+        -- line ready
+        elsif (uart_line_c = '1') then
+          controlword <= EMPTY;
 
         else
-          -- Computer halting
-          controlword <= ALU & TB & FB & P & LC & SEQ_RES & MADR;
-
+          controlword <= EMPTY;
+          
         end if;
         
+      -- CPU should halt
+      elsif (MM(CONV_INTEGER(adr))(13 to 16) = "1111") then
+        halt <= '1';
+        controlword <= ALU & TB & FB & P & LC & SEQ_RES & MADR;
+
+      -- CPU should read from micromemory
+      elsif (halt = '0') then
+        controlword <= MM(CONV_INTEGER(adr));
+
+      else
+        controlword <= controlword;
+
       end if;
     end if;
   end process;
