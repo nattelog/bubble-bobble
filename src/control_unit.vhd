@@ -94,7 +94,7 @@ architecture behavioral of control_unit is
   constant MADR : STD_LOGIC_VECTOR(6 downto 0) := "0000000";
 
   -- Short line for HALT
-  constant HALT : STD_LOGIC_VECTOR(23 downto 0) := ALU & TB & FB & P & LC & SEQ_RES & MADR;
+  constant HALT_CONST : STD_LOGIC_VECTOR(23 downto 0) := ALU & TB & FB & P & LC & SEQ_RES & MADR;
 
 
   -- *****************
@@ -151,14 +151,14 @@ begin
       -- CPU should halt
       elsif (MM(CONV_INTEGER(adr))(13 to 16) = "1111") then
         halt <= '1';
-        controlword <= HALT;
+        controlword <= HALT_CONST;
 
       -- CPU should read from micromemory
       elsif (halt = '0') then
         controlword <= MM(CONV_INTEGER(adr));
 
       else
-        controlword <= HALT;
+        controlword <= HALT_CONST;
 
       end if;
     end if;
