@@ -289,27 +289,27 @@ begin
   -- ** MEMORY UNIT **
   -- *****************
 
-  data_register : process (clk)
+  primary_memory : process (clk)
   begin
     if rising_edge(clk) then
       if (rst = '1') then
         DR <= (others => '0');
+        ASR <= (others => '0');
         pm_write <= '0';
 
       else
         if (fb = "010") then
+          prim_mem(CONV_INTEGER(ASR)) <= buss;
           DR <= buss;
-          pm_write <= '1';
 
-        elsif (pm_write = '0') then
+        elsif (fb = "111") then
+          ASR <= buss(15 downto 0);
+          DR <= prim_mem(CONV_INTEGER(buss(15 downto 0)));
+
+        else
           DR <= prim_mem(CONV_INTEGER(ASR));
+          ASR <= ASR;
           
-        end if;
-
-        if (pm_write = '1') then
-          prim_mem(CONV_INTEGER(ASR)) <= DR;
-          pm_write <= '0';
-       
         end if;
       end if;
     end if;
