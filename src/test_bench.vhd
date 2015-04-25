@@ -10,16 +10,17 @@ end test_bench;
 architecture behavioral of test_bench is
 
   component cpu
-    port (clk, rst : in STD_LOGIC);
+    port (clk, rst, rx : in STD_LOGIC);
   end component;
 
   signal clk : STD_LOGIC := '0';
   signal rst : STD_LOGIC := '0';
+  signal rx : STD_LOGIC := '0';
   signal tb_running : boolean := true;
   
 begin
 
-  test : cpu port map(clk, rst);
+  test : cpu port map(clk, rst, rx);
 
   clk_gen : process
   begin
