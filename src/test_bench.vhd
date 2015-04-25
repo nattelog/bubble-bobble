@@ -50,17 +50,17 @@ begin
     rst <= '0';
     wait for 1 us;
 
-    --for y in 0 to 83 loop
-    --  for i in 0 to 159 loop
-    --  	rx <= rxs(i);
-    --  	wait for 8.68 us;
-    --  end loop;  -- i
-    --end loop;
+    for y in 0 to 83 loop
+      for i in 0 to 159 loop
+      	rx <= rxs(i);
+      	wait for 8.68 us;
+      end loop;  -- i
+    end loop;
 
-    rst <= '1';
-    wait for 200 ns;
+--    rst <= '1';
+--    wait for 200 ns;
 
-    rst <= '0';
+--    rst <= '0';
     wait for 500 ns;
 
     tb_running <= false;
