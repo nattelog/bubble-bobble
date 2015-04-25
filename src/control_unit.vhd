@@ -13,8 +13,7 @@ end control_unit;
 
 architecture behavioral of control_unit is
 
-  signal halt, uart_line_c, uart_reading, uart_begin, uart_reset_pc_count : STD_LOGIC;
-  signal uart_idle_count : STD_LOGIC_VECTOR(6 downto 0);
+  signal halt, uart_line_c, uart_reading : STD_LOGIC;
 
   component uart is
     Port ( clk,rst,rx : in  STD_LOGIC;
@@ -115,37 +114,43 @@ begin
   uart_c : uart port map(clk, rst, rx, uart_data, uart_line_c, uart_reading); 
 
   control_process : process (clk)
+    variable uart_begin : integer := 0;
+    variable uart_reset_pc_count : integer := 0;
+    variable uart_idle_count : integer := 0;
+    
   begin
     if rising_edge(clk) then
       if (rst = '1') then
         controlword <= (others => '0');
         halt <= '0';
-        uart_begin <= '1';
-        uart_reset_pc_count <= '0';
-        uart_idle_count <= (others => '0');
+        uart_begin := 1;
+        uart_clk_count := 0;
+        uart_idle_count := 0;
 
       -- UART reading
       elsif (uart_reading = '1') then
 
         -- reset PC
-        if (uart_begin = '1') then
-          if (uart_reset_pc_count = '0') then
+        if (uart_begin = 1) then
+          if (uart_clk_count = 0) then
             controlword <= ALU_RES & TB & FB & P & LC & SEQ_RES & MADR;
-            uart_reset_pc_count <= '1';
+            uart_clk_count := 1;
             
           else
             controlword <= ALU & TB_AR & FB_PC & P & LC & SEQ_RES & MADR;
-            uart_reset_pc_count <= '0';
-            uart_begin <= '0';
+            uart_clk_count := 0;
+            uart_begin := 0;
             
           end if;
 
         -- line ready
         elsif (uart_line_c = '1') then
-          controlword <= ALU & TB_UR & FB_DR & P_INC & LC & SEQ_RES & MADR;
+          -- write to memory
+            controlword <= ALU & TB_UR & FB_DR & P_INC & LC & SEQ_RES & MADR;
 
+        -- send PC to ASR
         else
-          controlword <= HALT_CONST;
+          controlword <= ALU & TB_PC & FB_ASR & P & LC & SEQ_RES & MADR;
           
         end if;
         
