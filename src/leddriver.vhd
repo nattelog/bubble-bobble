@@ -33,7 +33,7 @@ begin
    --       value(7 downto 4) when "10",
   --       value(3 downto 0) when others;
 
-  v <= value(15 downto 12);
+  v <= value(11 downto 8);
 
    process(clk) begin
      if rising_edge(clk) then 
