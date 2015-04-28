@@ -128,6 +128,28 @@ begin
     end if;
   end process;
 
+    process(clk) begin
+    if rising_edge(clk) then
+      if rst='1' then
+        yctr <= "0000000000";
+      elsif xctr=799 and pixel=0 then
+       if yctr=520 then
+         yctr <= "0000000000";
+       else
+         yctr <= yctr + 1;
+       end if;
+       --
+       if yctr=490 then
+         vs <= '0';
+       elsif  yctr=492 then
+         vs <= '1';
+       end if;
+      end if;
+    end if;
+  end process;
+  Hsync <= hs;
+  Vsync <= vs;
+
   process(clk) begin
     if rising_edge(clk) then
       if rad<60 and ypix=0 and xpix=0 then
