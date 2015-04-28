@@ -11,7 +11,10 @@ architecture behavioral of test_bench is
 
   component cpu
     port (clk, rst, rx : in STD_LOGIC;
-          Led : out STD_LOGIC_VECTOR(7 downto 0));
+          Led : out STD_LOGIC_VECTOR(7 downto 0)
+          seg : out STD_LOGIC_VECTOR(7 downto 0);
+          an : out STD_LOGIC_VECTOR(3 downto 0);
+          sw : in STD_LOGIC_VECTOR(7 downto 0));
   end component;
 
   signal clk : STD_LOGIC := '0';
@@ -19,11 +22,14 @@ architecture behavioral of test_bench is
   signal rx : STD_LOGIC := '1';
   signal rxs :  STD_LOGIC_VECTOR(0 to 159) := "0010101011001010101100101010110010101011000000000101111111110000000001011111111101010101010101010101010101010101010101010000000001011111111100000000010111111111";
   signal Led : STD_LOGIC_VECTOR(7 downto 0) := X"FF";
+  signal seg : STD_LOGIC_VECTOR(7 downto 0) := X"FF";
+  signal an : STD_LOGIC_VECTOR(3 downto 0);
+  signal sw : in STD_LOGIC_VECTOR(7 downto 0);
   signal tb_running : boolean := true;
   
 begin
 
-  test : cpu port map(clk, rst, rx, Led);
+  test : cpu port map(clk, rst, rx, Led, seg, an, sw);
 
   clk_gen : process
   begin
