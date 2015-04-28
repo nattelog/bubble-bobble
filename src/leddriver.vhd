@@ -38,8 +38,19 @@ begin
    process(clk) begin
      if rising_edge(clk) then 
        --counter_r <= counter_r + 1;
+
+       -- 1 : diode off, 0 : diode on
+       
+       -- value vector: 7 6 5 4 3 2 1 0
+       -- segment map:
+       --  0
+       -- 1 2
+       --  3
+       -- 4 5
+       --  6
+       
        case v is
-         when "0000" => segments <= "1111110"; -- 0
+         when "0000" => segments <= "1111101"; -- 0
          when "0001" => segments <= "1001111"; -- 1
          when "0010" => segments <= "0010010"; -- 2
          when "0011" => segments <= "0000110"; -- 3
