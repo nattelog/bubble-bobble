@@ -29,12 +29,30 @@ architecture behavioral of cpu is
   -- *****************
   -- ** MEMORY UNIT **
   -- *****************
-  
+
   type pm_t is array(0 to 255) of STD_LOGIC_VECTOR(31 downto 0);
+
+  -- Example assembly instructions
+  constant EMPTY : STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
+
+  -- 1: asm-operation
+  constant OP_LDA : STD_LOGIC_VECTOR(3 downto 0) := "0000";
+
+  -- 2: gr
+  constant GRX_ZERO : STD_LOGIC_VECTOR(3 downto 0) := "0000";
+
+  -- 3: m
+  constant M_DIRECT : STD_LOGIC_VECTOR(1 downto 0) := "00";
+
+  -- 4: not used
+  constant FILL : STD_LOGIC_VECTOR(5 downto 0) := "000000";
+
+  -- 4: address
+  constant ASM_ADR : STD_LOGIC_VECTOR(15 downto 0) := (others => '0');
   
   signal prim_mem : pm_t := (
-    X"030000FF",
-    X"00FF00FF",
+    OP_LDA & GRX_ZERO & M_DIRECT & FILL & X"00000001",
+    X"FF00FF00",
     others => (others => '0')
     );
 
@@ -85,7 +103,7 @@ architecture behavioral of cpu is
     "0000000", -- OR
     "0000000", -- LSR
     "0000000", -- LSL
-    "0000000" -- BRC
+    "0000000" -- WAIT
     );
 
   -- Here all addressmodes are stored with their
