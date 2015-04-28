@@ -493,7 +493,7 @@ begin
             ssdValue <= PC;
 
           when others =>
-            ssdValue <= "BABE";
+            ssdValue <= X"BABE";
           
         end case;
       end if;
