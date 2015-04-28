@@ -11,7 +11,7 @@ architecture behavioral of test_bench is
 
   component cpu
     port (clk, rst, rx : in STD_LOGIC;
-          Led : out STD_LOGIC_VECTOR(7 downto 0)
+          Led : out STD_LOGIC_VECTOR(7 downto 0);
           seg : out STD_LOGIC_VECTOR(7 downto 0);
           an : out STD_LOGIC_VECTOR(3 downto 0);
           sw : in STD_LOGIC_VECTOR(7 downto 0));
