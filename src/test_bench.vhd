@@ -24,7 +24,7 @@ architecture behavioral of test_bench is
   signal Led : STD_LOGIC_VECTOR(7 downto 0) := X"FF";
   signal seg : STD_LOGIC_VECTOR(7 downto 0) := X"FF";
   signal an : STD_LOGIC_VECTOR(3 downto 0);
-  signal sw : in STD_LOGIC_VECTOR(7 downto 0);
+  signal sw : STD_LOGIC_VECTOR(7 downto 0);
   signal tb_running : boolean := true;
   
 begin
