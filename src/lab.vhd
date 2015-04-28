@@ -175,11 +175,11 @@ begin
   end process;
 
   case video is
-    when 0 =>
+    when '0' =>
       vgaRed(2 downto 0) <= "000";
       vgaGreen(2 downto 0) <= "000";
       vgaBlue(2 downto 1) <= "00";
-    when 1 =>
+    when '1' =>
       vgaRed(2 downto 0) <= "111";
       vgaGreen(2 downto 0) <= "111";
       vgaBlue(2 downto 1) <= "11";
