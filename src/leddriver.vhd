@@ -57,7 +57,7 @@ begin
          when others => segments <= "0111000";
        end case;
 
-       an <= "0111";
+       an <= "1011";
       
        --case counter_r(17 downto 16) is
        --  when "00" => an <= "0111";
