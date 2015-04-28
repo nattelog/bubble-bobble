@@ -200,9 +200,9 @@ begin
          vgaGreen(2 downto 0) <= "000";
          vgaBlue(2 downto 1) <= "00";
        when '1' =>
-         vgaRed(2 downto 0) <= "111";
-         vgaGreen(2 downto 0) <= "111";
-         vgaBlue(2 downto 1) <= "11";
+         vgaRed(2 downto 0) <= ('1' & '1' & '1');
+         vgaGreen(2 downto 0) <= ('1' & '1' & '1');
+         vgaBlue(2 downto 1) <= ('1' & '1');
        when others =>
          vgaRed(2 downto 0) <= "011";
          vgaGreen(2 downto 0) <= "011";
