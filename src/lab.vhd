@@ -171,37 +171,6 @@ begin
     end if;
   end process;
 
-  process(clk) begin
-    if rising_edge(clk) then
-      if rad<60 and ypix=0 and xpix=0 then
-        if pixel=1 then
-          if kol < 79 then
-            a2 <= a(conv_integer(kol+1));
-            b2 <= b(conv_integer(kol+1));
-            c2 <= c(conv_integer(kol+1));
-          elsif kol=79 then
-            a2 <= '0';
-            b2 <= '0';
-            c2 <= '0';
-          end if;
-          a0 <= a1; a1<=a2; 
-          b0 <= b1; b1<=b2; 
-          c0 <= c1; c1<=c2; 
-        elsif pixel=2 then
-          -- antal 1-or i omgivningen
-          nr <= ("000" & a0) + ("000" & a1) + ("000" & a2) + ("000" & b0) + ("000" & b2) + ("000" & c0) + ("000" & c1) + ("000" & c2);
-        elsif pixel=3 then
-          if kol<80 then
-            if nr=3 or (b1='1' and nr=2) then
-              d(conv_integer(kol)) <= '1';
-            else
-              d(conv_integer(kol)) <= '0';
-            end if;
-          end if;
-        end if;
-      end if;
-    end if;
-  end process;
 
       
   -- video
