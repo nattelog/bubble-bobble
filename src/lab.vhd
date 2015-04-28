@@ -131,7 +131,7 @@ begin
     end if;
   end process;
 
-    process(clk) begin
+  process(clk) begin
     if rising_edge(clk) then
       if rst='1' then
         yctr <= "0000000000";
@@ -153,6 +153,28 @@ begin
   Hsync <= hs;
   Vsync <= vs;
 
+    -- bildminne
+  process(clk) begin
+    if rising_edge(clk) then
+      if ypix=0 and xpix=0 and pixel=0 then
+        if rad<60 then
+          if kol=0 then
+            a <= b;
+            b <= c;
+            if rad<59 then
+              c <= bildminne(conv_integer(rad) + 1);     
+            elsif rad=59 then
+              c <= X"00000000000000000000";
+            end if;
+          elsif kol=80 then
+            bildminne(conv_integer(rad)) <= d;     
+          end if;     
+        end if;
+      end if;
+    end if;
+  end process;
+  
+  
   process(clk) begin
     if rising_edge(clk) then
       if rad<60 and ypix=0 and xpix=0 then
