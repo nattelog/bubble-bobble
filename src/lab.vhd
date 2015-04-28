@@ -171,11 +171,8 @@ begin
           video <= '0';
         end if;
       end if;
-    end if;
-  end process;
-  process(clk) begin
-   if rising_edge(clk) then
-     case video is
+
+      case video is
        when '0' =>
          vgaRed(2 downto 0) <= "000";
          vgaGreen(2 downto 0) <= "000";
@@ -189,8 +186,9 @@ begin
          vgaGreen(2 downto 0) <= "011";
          vgaBlue(2 downto 1) <= "10";
      end case;
-   end if;
+    end if;
   end process;
+
   --vgaRed(2 downto 0) <= (video & video & video);
   --vgaGreen(2 downto 0) <= (video & video & video);
   --vgaBlue(2 downto 1) <= (video & video);
