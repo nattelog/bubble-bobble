@@ -51,7 +51,7 @@ architecture behavioral of cpu is
   constant ASM_ADR : STD_LOGIC_VECTOR(15 downto 0) := (others => '0');
   
   signal prim_mem : pm_t := (
-    OP_LDA & GRX_ZERO & M_DIRECT & FILL & X"00000001",
+    OP_LDA & GRX_ZERO & M_DIRECT & FILL & X"0001",
     X"FF00FF00",
     others => (others => '0')
     );
