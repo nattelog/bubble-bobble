@@ -23,8 +23,8 @@ architecture behavioral of test_bench is
   signal rxs :  STD_LOGIC_VECTOR(0 to 159) := "0010101011001010101100101010110010101011000000000101111111110000000001011111111101010101010101010101010101010101010101010000000001011111111100000000010111111111";
   signal Led : STD_LOGIC_VECTOR(7 downto 0) := X"FF";
   signal seg : STD_LOGIC_VECTOR(7 downto 0) := X"FF";
-  signal an : STD_LOGIC_VECTOR(3 downto 0);
-  signal sw : STD_LOGIC_VECTOR(7 downto 0);
+  signal an : STD_LOGIC_VECTOR(3 downto 0) := X"0";
+  signal sw : STD_LOGIC_VECTOR(7 downto 0) := X"00";
   signal tb_running : boolean := true;
   
 begin
