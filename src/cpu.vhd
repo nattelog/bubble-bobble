@@ -502,7 +502,7 @@ begin
             ssdValue <= AR(15 downto 0);
 
           when others =>
-            ssdValue <= X"BABE";
+            ssdValue <= buss(15 downto 0);
           
         end case;
       end if;
