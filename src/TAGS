@@ -1,4 +1,11 @@
 
+Makefile,98
+XILINX_INIT 32,1286
+PART=33,1350
+lab.%:lab.%36,1375
+lab.%:lab.%37,1418
+lab.%:lab.%38,1442
+
 computer.ucf,726
 CONFIG PART 6,192
 Net "clk" LOC=9,241
@@ -20,32 +27,32 @@ use IEEE.STD_LOGIC_1164.ALL;ALL4,49
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,78
 end computer;10,169
 
-control_unit.vhd,803
-library IEEE;3,20
-use IEEE.STD_LOGIC_1164.ALL;ALL4,34
-use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,63
-end control_unit;13,361
-  signal halt,17,424
-  signal halt, uart_line_c,17,424
-  signal halt, uart_line_c, uart_reading : STD_LOGIC;17,424
-           uart_line_c : out STD_LOGIC 22,616
-           uart_reading : out STD_LOGIC 23,689
-  end component;25,788
-  type mm_t is array(27,806
-  constant MM : mm_t 105,4245
-  control_process : process 117,4584
-        uart_begin 128,4908
-        uart_clk_count 129,4933
-        uart_idle_count 130,4962
-      elsif 133,5015
-        elsif 140,5237
-            uart_clk_count 152,5555
-            uart_clk_count 156,5690
-            uart_begin 157,5723
-        elsif 162,5806
-      elsif 173,6126
-  end process;186,6435
-end behavioral;188,6451
+control_unit.vhd,808
+library IEEE;7,177
+use IEEE.STD_LOGIC_1164.ALL;ALL8,191
+use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL9,220
+end control_unit;17,518
+  signal halt : STD_LOGIC;21,581
+  signal uart_line_c,27,658
+  signal uart_line_c, uart_reading : STD_LOGIC;27,658
+           uart_line_c : out STD_LOGIC 32,844
+           uart_reading : out STD_LOGIC 33,917
+  end component;35,1016
+  type mm_t is array(42,1125
+  constant MM : mm_t 116,4476
+  control_process : process 148,5131
+        uart_begin 159,5455
+        uart_clk_count 160,5480
+        uart_idle_count 161,5509
+      elsif 164,5562
+        elsif 171,5784
+            uart_clk_count 183,6102
+            uart_clk_count 187,6237
+            uart_begin 188,6270
+        elsif 193,6353
+      elsif 204,6673
+  end process;217,6982
+end behavioral;219,6998
 
 cpu.vhd,1025
 -- Lab 1 in the course TSEA83,3,68
@@ -59,33 +66,46 @@ end cpu;14,336
   signal buss, DR, GR, IR, AR,22,456
   signal ASR,23,523
   type pm_t is array(30,649
-      elsif 128,3401
-  end process;136,3516
-  k_registers : process 139,3549
-  end process;152,3836
-  micro_pc : process 154,3852
-          when others 247,5747
-        end case;250,5807
-  end process;253,5851
-  loop_counter : process 255,5867
-          when others 275,6242
-        end case;278,6300
-  end process;286,6415
-  primary_memory : process 293,6506
-        elsif 305,6776
-  end process;316,7037
-  general_register : process 323,7156
-  end process;341,7549
-  alu : process 368,8096
-        elsif 384,8397
-        elsif 395,8590
-  end process;418,9043
-  program_counter : process 420,9059
-      elsif 426,9188
-  end process;437,9366
-end behavioral;439,9384
+      elsif 149,3968
+  end process;157,4083
+  k_registers : process 160,4116
+  end process;173,4403
+  micro_pc : process 175,4419
+          when others 268,6314
+        end case;271,6374
+  end process;274,6418
+  loop_counter : process 276,6434
+          when others 296,6809
+        end case;299,6867
+  end process;307,6982
+  primary_memory : process 314,7073
+        elsif 326,7343
+  end process;337,7604
+  general_register : process 344,7723
+  end process;362,8116
+  alu : process 389,8663
+        elsif 405,8964
+        elsif 416,9157
+  end process;439,9610
+  program_counter : process 441,9626
+      elsif 447,9755
+  end process;458,9933
+end behavioral;460,9951
 
-test_bench.vhd,500
+leddriver.vhd,317
+library IEEE;1,0
+use IEEE.STD_LOGIC_1164.ALL;ALL2,14
+--use UNISIM.VComponents.all;all11,303
+end leddriver;18,550
+        signal dp : std_logic;24,767
+   with counter_r(30,877
+         when others 55,1889
+       end case;56,1936
+       case counter_r(58,1960
+   end process;65,2175
+end Behavioral;67,2193
+
+test_bench.vhd,504
 library IEEE;3,15
 use IEEE.STD_LOGIC_1164.ALL;ALL4,29
 use IEEE.STD_LOGIC_UNSIGNED.ALL;ALL5,58
@@ -100,10 +120,10 @@ end test_bench;8,113
   end process;37,906
     variable i : integer;40,938
     variable y : integer;41,964
-      end loop;57,1213
-    end loop;58,1235
-  end process;68,1358
-end behavioral;70,1374
+    --  end loop;57,1225
+    --end loop;58,1249
+  end process;68,1374
+end behavioral;70,1390
 
 uart.vhd,1135
 library IEEE;1,0
@@ -204,5 +224,7 @@ $(PROJNAME)-synthdir/xst/synth/design.scr: $(14,594
 test_bench.vhd~,0
 
 sanitycheck.sh,0
+
+displaydriver.vhd,0
 
 Nexys3_Master.ucf,0

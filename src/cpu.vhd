@@ -10,7 +10,9 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity cpu is
   Port (clk,rst, rx : in STD_LOGIC;
-        Led : out STD_LOGIC_VECTOR(7 downto 0));
+        Led : out STD_LOGIC_VECTOR(7 downto 0);
+        seg : out STD_LOGIC_VECTOR(7 downto 0);
+        an : out STD_LOGIC_VECTOR(3 downto 0));
 end cpu;
 
 architecture behavioral of cpu is
@@ -116,6 +118,18 @@ architecture behavioral of cpu is
   -- General registers
   type gr_t is array(0 to 15) of STD_LOGIC_VECTOR(31 downto 0);
   signal gen_reg : gr_t;
+
+
+  -- ***************
+  -- ** DEBUGGING **
+  -- ***************
+
+  component leddriver is
+    port (clk,rst : in  STD_LOGIC;
+          seg : out  STD_LOGIC_VECTOR(7 downto 0);
+          an : out  STD_LOGIC_VECTOR (3 downto 0);
+          value : in  STD_LOGIC_VECTOR (15 downto 0));
+  end component;
 
   
 begin
@@ -456,5 +470,11 @@ begin
       end if;
     end if;
   end process;
+
+  -- ***********************
+  -- ** 7 SEGMENT DISPLAY **
+  -- ***********************
+
+  7_seg_display : leddriver port map (clk, rst, seg, an, DR(15 downto 0));
   
 end behavioral;
