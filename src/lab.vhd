@@ -188,9 +188,7 @@ begin
           a0 <= a1; a1<=a2; 
           b0 <= b1; b1<=b2; 
           c0 <= c1; c1<=c2; 
-        elsif pixel=2 then
-          -- antal 1-or i omgivningen
-         -- nr <= ("000" & a0) + ("000" & a1) + ("000" & a2) + ("000" & b0) + ("000" & b2) + ("000" & c0) + ("000" & c1) + ("000" & c2);
+
         elsif pixel=3 then
           if kol<80 then
             if b1='1' then
@@ -208,20 +206,7 @@ begin
   -- video
   -- en ram ritas runt spelplanen
   -- tycks medföra att AUTO funkar som avsett
-  process(clk) begin
-    if rising_edge(clk) then
-      if pixel=3 then
-        if xctr=0 or xctr=639 or yctr=0 or yctr=479 then
-          video<='1';
-        elsif yctr<480 and xctr<640 then
-          video <= b(conv_integer(kol));
-        else
-          video <= '0';
-        end if;
-      end if;
-    end if;
-  end process;
-  
+
   vgaRed(2 downto 0) <= (video & video & video);
   vgaGreen(2 downto 0) <= (video & video & video);
   vgaBlue(2 downto 1) <= (video & video);
