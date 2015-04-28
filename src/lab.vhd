@@ -203,9 +203,9 @@ begin
          green(2 downto 0) <= "000";
          blue(2 downto 1) <= "00";
        when '1' =>
-         red(2 downto 0) <= ('1' & '1' & '1');
-         green(2 downto 0) <= ('1' & '1' & '1');
-         blue(2 downto 1) <= ('1' & '1');
+         red(2 downto 0) <= "111";
+         green(2 downto 0) <= "111";
+         blue(2 downto 1) <= "11";
        when others =>
          red(2 downto 0) <= "011";
          green(2 downto 0) <= "011";
@@ -214,9 +214,9 @@ begin
     end if;
   end process;
 
-  vgaRed(2 downto 0) <= red;
-  vgaGreen(2 downto 0) <= green;
-  vgaBlue(2 downto 1) <= blue;
+  vgaRed(2 downto 0) <= red(2 downto 0);
+  vgaGreen(2 downto 0) <= green(2 downto 0);
+  vgaBlue(2 downto 1) <= blue(2 downto 1);
   
   -- ************************************
   
