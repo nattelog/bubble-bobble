@@ -189,7 +189,7 @@ begin
       vgaRed(2 downto 0) <= "111";
       vgaGreen(2 downto 0) <= "111";
       vgaBlue(2 downto 1) <= "11";
-  
+  end case;
   --vgaRed(2 downto 0) <= (video & video & video);
   --vgaGreen(2 downto 0) <= (video & video & video);
   --vgaBlue(2 downto 1) <= (video & video);
