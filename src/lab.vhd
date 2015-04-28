@@ -31,9 +31,9 @@ architecture Behavioral of lab is
   signal ctr : std_logic_vector(15 downto 0) := X"0000";
   signal hs : std_logic := '1';
   signal vs : std_logic := '1';
-  signal R : std_logic_vector(2 downto 0) := "000";
-  signal G : std_logic_vector(2 downto 0) := "000";
-  signal B : std_logic_vector(1 downto 0) := "00";
+  signal red : std_logic_vector(2 downto 0) := "000";
+  signal green : std_logic_vector(2 downto 0) := "000";
+  signal blue : std_logic_vector(1 downto 0) := "00";
   type ram_t is array (0 to 59) of std_logic_vector(0 to 79);
 
   constant glider : ram_t := ("00000000000000000000000000000000000000000000000000000000000000000000000000000000",
@@ -199,24 +199,24 @@ begin
 
       case video is
        when '0' =>
-         R(2 downto 0) <= "000";
-         G(2 downto 0) <= "000";
-         B(2 downto 1) <= "00";
+         red(2 downto 0) <= "000";
+         green(2 downto 0) <= "000";
+         blue(2 downto 1) <= "00";
        when '1' =>
-         R(2 downto 0) <= ('1' & '1' & '1');
-         G(2 downto 0) <= ('1' & '1' & '1');
-         B(2 downto 1) <= ('1' & '1');
+         red(2 downto 0) <= ('1' & '1' & '1');
+         green(2 downto 0) <= ('1' & '1' & '1');
+         blue(2 downto 1) <= ('1' & '1');
        when others =>
-         R(2 downto 0) <= "011";
-         G(2 downto 0) <= "011";
-         B(2 downto 1) <= "10";
+         red(2 downto 0) <= "011";
+         green(2 downto 0) <= "011";
+         blue(2 downto 1) <= "10";
      end case;
     end if;
   end process;
 
-  vgaRed(2 downto 0) <= R;
-  vgaGreen(2 downto 0) <= G;
-  vgaBlue(2 downto 1) <= B;
+  vgaRed(2 downto 0) <= red;
+  vgaGreen(2 downto 0) <= green;
+  vgaBlue(2 downto 1) <= blue;
   
   -- ************************************
   
