@@ -39,7 +39,7 @@ begin
      if rising_edge(clk) then 
        --counter_r <= counter_r + 1;
        case v is
-         when "0000" => segments <= "0000001"; -- 0
+         when "0000" => segments <= "1111110"; -- 0
          when "0001" => segments <= "1001111"; -- 1
          when "0010" => segments <= "0010010"; -- 2
          when "0011" => segments <= "0000110"; -- 3
