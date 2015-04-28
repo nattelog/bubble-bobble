@@ -49,8 +49,8 @@ begin
        
        case v is
          when "0000" => segments <= "1000000"; -- 0
-         when "0001" => segments <= "1111100"; -- 1
-         when "0010" => segments <= "0100010"; -- 2
+         when "0001" => segments <= "1111001"; -- 1
+         when "0010" => segments <= "0100100"; -- 2
          when "0011" => segments <= "0110000"; -- 3
          when "0100" => segments <= "0011001"; -- 4
          when "0101" => segments <= "0010010"; -- 5
