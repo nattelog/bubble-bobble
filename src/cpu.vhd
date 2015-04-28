@@ -475,6 +475,6 @@ begin
   -- ** 7 SEGMENT DISPLAY **
   -- ***********************
 
-  display : leddriver port map (clk, rst, seg, an, X"0123");
+  display : leddriver port map (clk, rst, seg, an, X"4567");
   
 end behavioral;
