@@ -39,22 +39,22 @@ begin
      if rising_edge(clk) then 
        --counter_r <= counter_r + 1;
        case v is
-         when "0000" => segments <= "0000001";
-         when "0001" => segments <= "1001111";
-         when "0010" => segments <= "0010010";
-         when "0011" => segments <= "0000110";
-         when "0100" => segments <= "1001100";
-         when "0101" => segments <= "0100100";
-         when "0110" => segments <= "0100000";
-         when "0111" => segments <= "0001111";
-         when "1000" => segments <= "0000000";
-         when "1001" => segments <= "0000100";
-         when "1010" => segments <= "0001000";
-         when "1011" => segments <= "1100000";
-         when "1100" => segments <= "0110001";
-         when "1101" => segments <= "1000010";
-         when "1110" => segments <= "0110000";
-         when others => segments <= "0111000";
+         when "0000" => segments <= "0000001"; -- 0
+         when "0001" => segments <= "1001111"; -- 1
+         when "0010" => segments <= "0010010"; -- 2
+         when "0011" => segments <= "0000110"; -- 3
+         when "0100" => segments <= "1001100"; -- 4
+         when "0101" => segments <= "0100100"; -- 5
+         when "0110" => segments <= "0100000"; -- 6
+         when "0111" => segments <= "0001111"; -- 7
+         when "1000" => segments <= "0000000"; -- 8
+         when "1001" => segments <= "0000100"; -- 9
+         when "1010" => segments <= "0001000"; -- A
+         when "1011" => segments <= "1100000"; -- B
+         when "1100" => segments <= "0110001"; -- C
+         when "1101" => segments <= "1000010"; -- D
+         when "1110" => segments <= "0110000"; -- E
+         when others => segments <= "0111000"; -- F
        end case;
 
        an <= "1011";
