@@ -496,10 +496,10 @@ begin
             ssdValue <= ASR;
 
           when "00100000" =>
-            ssdValue <= DR;
+            ssdValue <= DR(15 downto 0);
 
           when "00010000" =>
-            ssdValue <= AR;
+            ssdValue <= AR(15 downto 0);
 
           when others =>
             ssdValue <= X"BABE";
