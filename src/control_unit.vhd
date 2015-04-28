@@ -138,6 +138,8 @@ architecture behavioral of control_unit is
     -- Executionphase
 
     -- LDA
+    ALU & TB_DR & FB_GR & P & LC & SEQ_RES & MADR,
+    
     
 
     
