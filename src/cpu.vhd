@@ -88,7 +88,7 @@ architecture behavioral of cpu is
   -- Here all programoperators are stored with their
   -- corresponding microaddresses
   constant k1_reg : k_t := (
-    "0000000", -- LDA
+    "0001000", -- LDA
     "0000000", -- STR
     "0000000", -- ADD
     "0000000", -- SUB
