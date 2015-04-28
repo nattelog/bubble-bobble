@@ -50,7 +50,7 @@ begin
        --  3
        
        case v is
-         when "0000" => segments <= "1011111"; -- 0
+         when "0000" => segments <= "1000000"; -- 0
          when "0001" => segments <= "1001111"; -- 1
          when "0010" => segments <= "0010010"; -- 2
          when "0011" => segments <= "0000110"; -- 3
