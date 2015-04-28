@@ -45,12 +45,12 @@ begin
        -- segment map:
        --  0
        -- 5 1
-       --  3
-       -- 4 2
        --  6
+       -- 4 2
+       --  3
        
        case v is
-         when "0000" => segments <= "1110111"; -- 0
+         when "0000" => segments <= "1101111"; -- 0
          when "0001" => segments <= "1001111"; -- 1
          when "0010" => segments <= "0010010"; -- 2
          when "0011" => segments <= "0000110"; -- 3
