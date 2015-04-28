@@ -492,6 +492,15 @@ begin
           when "10000000" =>
             ssdValue <= PC;
 
+          when "01000000" =>
+            ssdValue <= ASR;
+
+          when "00100000" =>
+            ssdValue <= DR;
+
+          when "00010000" =>
+            ssdValue <= AR;
+
           when others =>
             ssdValue <= X"BABE";
           
