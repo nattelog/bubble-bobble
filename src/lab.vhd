@@ -27,8 +27,7 @@ architecture Behavioral of lab is
   alias xpix : std_logic_vector(2 downto 0) is xctr(2 downto 0);  -- i pixeln
   signal pixel : std_logic_vector(1 downto 0) := "00";
   signal a,b,c,d : std_logic_vector(0 to 79) := X"00000000000000000000";
-   signal a0,a1,a2,b0,b1,b2,c0,c1,c2 : std_logic := '0';
-  signal nr : std_logic_vector(3 downto 0) := "0000";
+  signal a0,a1,a2,b0,b1,b2,c0,c1,c2 : std_logic := '0';
   signal ctr : std_logic_vector(15 downto 0) := X"0000";
   signal hs : std_logic := '1';
   signal vs : std_logic := '1';
@@ -120,45 +119,8 @@ begin
          xctr <= xctr + 1;
        end if;
       end if;
-      -- 
       if xctr=656 then
         hs <= '0';
-      elsif xctr=752 then
-        hs <= '1';
-      end if;
-    end if;
-  end process;
-
-  process(clk) begin
-    if rising_edge(clk) then
-      if rst='1' then
-        yctr <= "0000000000";
-      elsif xctr=799 and pixel=0 then
-       if yctr=520 then
-         yctr <= "0000000000";
-       else
-         yctr <= yctr + 1;
-       end if;
-       --
-       if yctr=490 then
-         vs <= '0';
-       elsif  yctr=492 then
-         vs <= '1';
-       end if;
-      end if;
-    end if;
-  end process;
-  Hsync <= hs;
-  Vsync <= vs;
-
-    -- bildminne
-  process(clk) begin
-    if rising_edge(clk) then
-      if ypix=0 and xpix=0 and pixel=0 then
-        if rad<60 then
-          if kol=0 then
-            a <= b;
-            b <= c;
             if rad<59 then
               c <= bildminne(conv_integer(rad) + 1);     
             elsif rad=59 then
@@ -217,10 +179,20 @@ begin
       end if;
     end if;
   end process;
+
+  case video is
+    when 0 =>
+      vgaRed(2 downto 0) <= "000";
+      vgaGreen(2 downto 0) <= "000";
+      vgaBlue(2 downto 1) <= "00";
+    when 1 =>
+      vgaRed(2 downto 0) <= "111";
+      vgaGreen(2 downto 0) <= "111";
+      vgaBlue(2 downto 1) <= "11";
   
-  vgaRed(2 downto 0) <= (video & video & video);
-  vgaGreen(2 downto 0) <= (video & video & video);
-  vgaBlue(2 downto 1) <= (video & video);
+  --vgaRed(2 downto 0) <= (video & video & video);
+  --vgaGreen(2 downto 0) <= (video & video & video);
+  --vgaBlue(2 downto 1) <= (video & video);
   
   -- ************************************
   
