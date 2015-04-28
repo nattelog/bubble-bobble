@@ -206,7 +206,14 @@ begin
   -- video
   -- en ram ritas runt spelplanen
   -- tycks medföra att AUTO funkar som avsett
-
+  process(clk) begin
+    if rising_edge(clk) then
+      if pixel=3 then
+          video <= '0';
+      end if;
+    end if;
+  end process;
+  
   vgaRed(2 downto 0) <= (video & video & video);
   vgaGreen(2 downto 0) <= (video & video & video);
   vgaBlue(2 downto 1) <= (video & video);
