@@ -12,7 +12,8 @@ entity cpu is
   Port (clk,rst, rx : in STD_LOGIC;
         Led : out STD_LOGIC_VECTOR(7 downto 0);
         seg : out STD_LOGIC_VECTOR(7 downto 0);
-        an : out STD_LOGIC_VECTOR(3 downto 0));
+        an : out STD_LOGIC_VECTOR(3 downto 0);
+        sw : in STD_LOGIC_VECTOR(7 downto 0));
 end cpu;
 
 architecture behavioral of cpu is
@@ -123,6 +124,8 @@ architecture behavioral of cpu is
   -- ***************
   -- ** DEBUGGING **
   -- ***************
+
+  signal ssdValue : STD_LOGIC_VECTOR(15 downto 0);
 
   component leddriver is
     port (clk,rst : in  STD_LOGIC;
@@ -471,10 +474,30 @@ begin
     end if;
   end process;
 
-  -- ***********************
-  -- ** 7 SEGMENT DISPLAY **
-  -- ***********************
+  -- ***************
+  -- ** DEBUGGING **
+  -- ***************
 
-  display : leddriver port map (clk, rst, seg, an, ASR);
+  display : leddriver port map (clk, rst, seg, an, ssdValue);
+
+  process (clk)
+  begin
+    if rising_edge(clk) then
+      if (rst = '1') then
+        ssdValue <= (others => '0');
+
+      else
+        case sw is
+          -- show PC
+          when "10000000" =>
+            ssdValue <= PC;
+
+          when others =>
+            ssdValue <= "BABE";
+          
+        end case;
+      end if;
+    end if;
+  end process;
   
 end behavioral;
