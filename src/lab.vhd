@@ -119,17 +119,11 @@ begin
          xctr <= xctr + 1;
        end if;
       end if;
+      -- 
       if xctr=656 then
         hs <= '0';
-            if rad<59 then
-              c <= bildminne(conv_integer(rad) + 1);     
-            elsif rad=59 then
-              c <= X"00000000000000000000";
-            end if;
-          elsif kol=80 then
-            bildminne(conv_integer(rad)) <= d;     
-          end if;     
-        end if;
+      elsif xctr=752 then
+        hs <= '1';
       end if;
     end if;
   end process;
