@@ -184,6 +184,10 @@ begin
          vgaRed(2 downto 0) <= "111";
          vgaGreen(2 downto 0) <= "111";
          vgaBlue(2 downto 1) <= "11";
+       when others =>
+         vgaRed(2 downto 0) <= "011";
+         vgaGreen(2 downto 0) <= "011";
+         vgaBlue(2 downto 1) <= "10";
      end case;
    end if;
   end process;
