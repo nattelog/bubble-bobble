@@ -196,7 +196,7 @@ begin
             --if nr=3 or (b1='1' and nr=2) then
               --d(conv_integer(kol)) <= '1';
             --else
-              --d(conv_integer(kol)) <= '0';
+              d(conv_integer(kol)) <= '0';
             --end if;
           --end if;
         end if;
