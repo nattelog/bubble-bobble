@@ -33,7 +33,7 @@ architecture Behavioral of lab is
   signal vs : std_logic := '1';
   signal red : std_logic_vector(2 downto 0) := "000";
   signal green : std_logic_vector(2 downto 0) := "000";
-  signal blue : std_logic_vector(1 downto 0) := "00";
+  signal blue : std_logic_vector(2 downto 1) := "00";
   type ram_t is array (0 to 59) of std_logic_vector(0 to 79);
 
   constant glider : ram_t := ("00000000000000000000000000000000000000000000000000000000000000000000000000000000",
