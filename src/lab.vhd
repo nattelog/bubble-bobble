@@ -209,7 +209,11 @@ begin
   process(clk) begin
     if rising_edge(clk) then
       if pixel=3 then
+        if yctr<480 and xctr<640 then
+          video <= b(conv_integer(kol));
+        else
           video <= '0';
+        end if;
       end if;
     end if;
   end process;
