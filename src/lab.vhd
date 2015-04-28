@@ -193,11 +193,11 @@ begin
          -- nr <= ("000" & a0) + ("000" & a1) + ("000" & a2) + ("000" & b0) + ("000" & b2) + ("000" & c0) + ("000" & c1) + ("000" & c2);
         elsif pixel=3 then
           if kol<80 then
-            --if nr=3 or (b1='1' and nr=2) then
-              --d(conv_integer(kol)) <= '1';
-            --else
+            if b1='1' then
               d(conv_integer(kol)) <= '1';
-            --end if;
+            else
+              d(conv_integer(kol)) <= '0';
+            end if;
           end if;
         end if;
       end if;
