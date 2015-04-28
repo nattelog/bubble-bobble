@@ -137,6 +137,9 @@ architecture behavioral of control_unit is
     
     -- Executionphase
 
+    -- LDA
+    
+
     
     others => EMPTY
     );
