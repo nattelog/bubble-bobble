@@ -228,7 +228,7 @@ begin
          red(2 downto 0) <= "111";
          green(2 downto 0) <= "111";
          blue(2 downto 1) <= "11";
-       when '2' =>
+       when "10" =>
          red(2 downto 0) <= "000";
          green(2 downto 0) <= "111";
          blue(2 downto 1) <= "000";
