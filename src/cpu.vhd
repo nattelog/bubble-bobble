@@ -40,9 +40,14 @@ architecture behavioral of cpu is
 
   -- 2: gr
   constant GRX_ZERO : STD_LOGIC_VECTOR(3 downto 0) := "0000";
+  constant GRX_ONE : STD_LOGIC_VECTOR(3 downto 0) := "0000";
+  constant GRX_TWO : STD_LOGIC_VECTOR(3 downto 0) := "0000";
+  constant GRX_THREE : STD_LOGIC_VECTOR(3 downto 0) := "0000";
 
   -- 3: m
   constant M_DIRECT : STD_LOGIC_VECTOR(1 downto 0) := "00";
+  constant M_IMMEDIATE : STD_LOGIC_VECTOR(1 downto 0) := "01";
+  constant M_INDIRECT : STD_LOGIC_VECTOR(1 downto 0) := "10";
 
   -- 4: not used
   constant FILL : STD_LOGIC_VECTOR(5 downto 0) := "000000";
@@ -53,6 +58,8 @@ architecture behavioral of cpu is
   signal prim_mem : pm_t := (
     OP_LDA & GRX_ZERO & M_DIRECT & FILL & X"0001",
     X"FF00FF00",
+    OP_LDA & GRX_ONE & M_IMMEDIATE & FILL & X"0000",
+    X"00FF00FF",
     others => (others => '0')
     );
 
