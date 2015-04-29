@@ -1,4 +1,4 @@
 	;; Test assembly-file
 	;; By Natte Log
 
-_LDA:	LDA $500,GR3
+LDA #$00FF,GR0
