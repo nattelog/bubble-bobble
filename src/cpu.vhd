@@ -519,17 +519,17 @@ begin
       else
 
         -- show main registers
-        if (sw(0) = '0') then
+        if (sw(7) = '0') then
           
-          case sw(7 downto 1) is
+          case sw(6 downto 0) is
             -- show PC
-            when "1000000" =>
+            when "0000001" =>
               ssdValue <= PC;
 
-            when "0100000" =>
+            when "0000010" =>
               ssdValue <= ASR;
 
-            when "0010000" =>
+            when "0000100" =>
               ssdValue <= DR(15 downto 0);
 
             when "0001000" =>
@@ -542,22 +542,9 @@ begin
 
         -- show general registers
         else
-
-          case sw(7 downto 1) is
-            -- show PC
-            when "1000000" =>
-              ssdValue <= gen_reg(1)(15 downto 0);
-
-            when "0100000" =>
-              ssdValue <= gen_reg(2)(15 downto 0);
-
-            when others =>
-              ssdValue <= gen_reg(0)(15 downto 0);
-              
-          end case;
+          ssdValue <= gen_reg(CONV_INTEGER(sw(3 downto 0)))(15 downto 0);
           
         end if;
-        
         
       end if;
     end if;
