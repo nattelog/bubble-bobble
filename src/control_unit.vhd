@@ -123,7 +123,7 @@ architecture behavioral of control_unit is
     ALU & TB & FB & P & LC & SEQ_K2 & MADR,
 
     -- Direct
-    ALU & TB_IR & FB_ASR & P_INC & LC & SEQ_K1 & MADR,
+    ALU & TB_IR & FB_ASR & P & LC & SEQ_K1 & MADR,
 
     -- Immediate
     ALU & TB_PC & FB_ASR & P_INC & LC & SEQ_K1 & MADR,

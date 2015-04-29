@@ -25,14 +25,13 @@ architecture behavioral of cpu is
   signal buss, DR, GR, IR, AR, UR : STD_LOGIC_VECTOR(31 downto 0);
   signal ASR, PC : STD_LOGIC_VECTOR(15 downto 0);
 
-  
-  -- *****************
-  -- ** MEMORY UNIT **
-  -- *****************
+
+  -- ***************************
+  -- ** ASSEMBLY INSTRUCTIONS **
+  -- ***************************
 
   type pm_t is array(0 to 255) of STD_LOGIC_VECTOR(31 downto 0);
-
-  -- Example assembly instructions
+  
   constant EMPTY : STD_LOGIC_VECTOR(31 downto 0) := (others => '0');
 
   -- 1: asm-operation
@@ -54,6 +53,10 @@ architecture behavioral of cpu is
 
   -- 4: address
   constant ASM_ADR : STD_LOGIC_VECTOR(15 downto 0) := (others => '0');
+
+  -- ********************
+  -- ** PRIMARY MEMORY **
+  -- ********************
   
   signal prim_mem : pm_t := (
     OP_LDA & GRX_ZERO & M_DIRECT & FILL & X"0001",
