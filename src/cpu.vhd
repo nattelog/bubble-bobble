@@ -45,12 +45,12 @@ architecture behavioral of cpu is
   constant GRX_THREE : STD_LOGIC_VECTOR(3 downto 0) := "0000";
 
   -- 3: m
-  constant M_DIRECT : STD_LOGIC_VECTOR(1 downto 0) := "00";
-  constant M_IMMEDIATE : STD_LOGIC_VECTOR(1 downto 0) := "01";
-  constant M_INDIRECT : STD_LOGIC_VECTOR(1 downto 0) := "10";
+  constant M_DIRECT : STD_LOGIC_VECTOR(3 downto 0) := "0000";
+  constant M_IMMEDIATE : STD_LOGIC_VECTOR(3 downto 0) := "0001";
+  constant M_INDIRECT : STD_LOGIC_VECTOR(3 downto 0) := "0010";
 
   -- 4: not used
-  constant FILL : STD_LOGIC_VECTOR(5 downto 0) := "000000";
+  constant FILL : STD_LOGIC_VECTOR(3 downto 0) := "0000";
 
   -- 4: address
   constant ASM_ADR : STD_LOGIC_VECTOR(15 downto 0) := (others => '0');
@@ -136,7 +136,7 @@ architecture behavioral of cpu is
   -- Instructionregister parts
   alias ir_op : STD_LOGIC_VECTOR(3 downto 0) is IR(31 downto 28);
   alias ir_grx : STD_LOGIC_VECTOR(3 downto 0) is IR(27 downto 24);
-  alias ir_m : STD_LOGIC_VECTOR(1 downto 0) is IR(21 downto 20);
+  alias ir_m : STD_LOGIC_VECTOR(3 downto 0) is IR(23 downto 20);
   alias ir_adr : STD_LOGIC_VECTOR(15 downto 0) is IR(15 downto 0);
 
   -- The result of an alu-operation, 1 bit bigger than the
