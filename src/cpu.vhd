@@ -544,10 +544,13 @@ begin
           case sw(7 downto 1) is
             -- show PC
             when "1000000" =>
-              ssdValue <= gen_reg(0)(15 downto 0);
+              ssdValue <= gen_reg(1)(15 downto 0);
+
+            when "0100000" =>
+              ssdValue <= gen_reg(2)(15 downto 0);
 
             when others =>
-              ssdValue <= GR(0)(15 downto 0);
+              ssdValue <= gen_reg(0)(15 downto 0);
               
           end case;
           
