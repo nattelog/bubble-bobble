@@ -119,9 +119,9 @@ architecture behavioral of cpu is
   -- Here all addressmodes are stored with their
   -- corresponding microaddresses
   constant k2_reg : k_t := (
-    "0000011", -- DIRECT
-    "0000100", -- IMMEDIATE
-    "0000110", -- INDIRECT
+    "0000100", -- DIRECT
+    "0000101", -- IMMEDIATE
+    "0000111", -- INDIRECT
     "0000000", -- RELATIVE
     others => (others => '0')
     );
