@@ -88,5 +88,11 @@ void gen_bitcode(std::vector<asm_line> &lines, const std::string &OUTPUT_FN){
 	    handle_addr(data, &output);
 	}
     }
+    // FULHACK, FIXA SENARE
+    uint32_t bytes = 0xF0000000;
+    output.put(bytes >> 24);
+    output.put(bytes >> 16);
+    output.put(bytes >> 8);
+    output.put(bytes);
     output.close();
 }

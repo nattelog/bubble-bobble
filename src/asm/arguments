@@ -5,7 +5,7 @@ _LDA:	LDA $500,GR3
 	LDA #999999999,GR3
 	LDA #$FFFFFFFF,GR3 
 	LDA _LDA,GR3
-	LDA (_LDA),GR3  
+	LDA (_LDA),GR3
 	
 _STR:	STR $500, GR3
 	STR ($500), GR3
@@ -15,7 +15,7 @@ _STR:	STR $500, GR3
 	STR (_STR), GR3
 
 _ADD: 	ADD $500, GR3  
-	ADD ($500), GR3
+	ADD ($500), GR3   
 	ADD #500, GR3 
 	ADD #$500, GR3 	 
 	ADD _ADD, GR3      
@@ -48,11 +48,10 @@ _OR:	OR $500, GR3
 	OR #$500, GR3
 	OR _OR, GR3
 	OR (_OR), GR3
-	
 
-_LSR:	LSR GR3
+; _LSR:	 ??
 
-_LSL:   LSL GR3
+; _LSL: ??  Utkommenterade
 
 _BRA:	BRA $500
 	BRA ($500)

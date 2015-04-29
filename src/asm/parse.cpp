@@ -69,7 +69,7 @@ void parse_line(std::vector<asm_line> &lines, std::string &line, int line_number
 		  << data.original_line << " [opcode not handled in no_of_expected_args]" << std::endl;  
     }
 
-    data.phys_addr = lines.size() * ADDR_WIDTH;
+    data.phys_addr = lines.size();
     lines.push_back(data);
     
     /* If the addressing mode is immediate the operand is expected to be located
