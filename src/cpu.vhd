@@ -136,7 +136,7 @@ architecture behavioral of cpu is
   -- Instructionregister parts
   alias ir_op : STD_LOGIC_VECTOR(3 downto 0) is IR(31 downto 28);
   alias ir_grx : STD_LOGIC_VECTOR(3 downto 0) is IR(27 downto 24);
-  alias ir_m : STD_LOGIC_VECTOR(1 downto 0) is IR(23 downto 22);
+  alias ir_m : STD_LOGIC_VECTOR(1 downto 0) is IR(21 downto 20);
   alias ir_adr : STD_LOGIC_VECTOR(15 downto 0) is IR(15 downto 0);
 
   -- The result of an alu-operation, 1 bit bigger than the
