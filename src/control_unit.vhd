@@ -139,7 +139,7 @@ architecture behavioral of control_unit is
     -- Executionphase
 
     -- HALT
-    HALT_CONST,
+    ALU & TB & FB & P & LC & SEQ_HALT & MADR,
 
     -- LDA
     ALU & TB_DR & FB_GR & P & LC & SEQ_RES & MADR,
