@@ -116,8 +116,8 @@ architecture behavioral of control_unit is
   constant MM : mm_t := (
 
     -- Loadphase
-    ALU & TB_PC & FB_ASR & P_INC & LC & SEQ & MADR,
-    ALU & TB_DR & FB_IR & P & LC & SEQ & MADR,
+    ALU & TB_PC & FB_ASR & P & LC & SEQ & MADR,
+    ALU & TB_DR & FB_IR & P_INC & LC & SEQ & MADR,
 
     -- Addressmodephase
     ALU & TB & FB & P & LC & SEQ_K2 & MADR,
