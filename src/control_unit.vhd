@@ -120,6 +120,7 @@ architecture behavioral of control_unit is
     ALU & TB_DR & FB_IR & P_INC & LC & SEQ & MADR,
 
     -- Addressmodephase
+    EMPTY, -- must wait a clock for k2 to get correct value
     ALU & TB & FB & P & LC & SEQ_K2 & MADR,
 
     -- Direct
