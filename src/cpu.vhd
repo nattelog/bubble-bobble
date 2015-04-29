@@ -59,9 +59,9 @@ architecture behavioral of cpu is
   -- ********************
   
   signal prim_mem : pm_t := (
-    OP_LDA & GRX_ZERO & M_DIRECT & FILL & X"0001",
-    X"FF00FF00",
+    OP_LDA & GRX_ZERO & M_DIRECT & FILL & X"0003",
     OP_LDA & GRX_ONE & M_IMMEDIATE & FILL & X"0000",
+    X"FF00FF00",
     X"00FF00FF",
     others => (others => '0')
     );
