@@ -515,24 +515,54 @@ begin
         ssdValue <= (others => '0');
 
       else
-        case sw is
-          -- show PC
-          when "10000000" =>
-            ssdValue <= PC;
 
-          when "01000000" =>
-            ssdValue <= ASR;
-
-          when "00100000" =>
-            ssdValue <= DR(15 downto 0);
-
-          when "00010000" =>
-            ssdValue <= AR(15 downto 0);
-
-          when others =>
-            ssdValue <= buss(15 downto 0);
+        -- show main registers
+        if (sw(0) = '0') then
           
-        end case;
+          case sw(7 downto 1) is
+            -- show PC
+            when "1000000" =>
+              ssdValue <= PC;
+
+            when "0100000" =>
+              ssdValue <= ASR;
+
+            when "0010000" =>
+              ssdValue <= DR(15 downto 0);
+
+            when "0001000" =>
+              ssdValue <= AR(15 downto 0);
+
+            when others =>
+              ssdValue <= buss(15 downto 0);
+              
+          end case;
+
+        -- show general registers
+        else
+
+          case sw(7 downto 1) is
+            -- show PC
+            when "1000000" =>
+              ssdValue <= GR(1)(15 downto 0);
+
+            when "0100000" =>
+              ssdValue <= GR(2)(15 downto 0);
+
+            when "0010000" =>
+              ssdValue <= GR(3)(15 downto 0);
+
+            when "0001000" =>
+              ssdValue <= GR(4)(15 downto 0);
+
+            when others =>
+              ssdValue <= GR(0)(15 downto 0);
+              
+          end case;
+          
+        end if;
+        
+        
       end if;
     end if;
   end process;
