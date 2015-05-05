@@ -57,7 +57,7 @@ begin
     wait for 1 us;
     
     for y in 0 to 83 loop
-      for i in 0 to 159 loop
+      for i in 0 to 119 loop
       	rx <= rxs(i);
       	wait for 8.68 us;
       end loop;  -- i
