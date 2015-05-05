@@ -20,7 +20,7 @@ architecture behavioral of test_bench is
   signal clk : STD_LOGIC := '0';
   signal rst : STD_LOGIC := '0';
   signal rx : STD_LOGIC := '1';
-  signal rxs :  STD_LOGIC_VECTOR(0 to 159) := "0010101011001010101100101010110010101011000000000101111111110000000001011111111101010101010101010101010101010101010101010000000001011111111100000000010111111111";
+  signal rxs :  STD_LOGIC_VECTOR(0 to 120) := "0_00000000_00010000_00000000_11111111_1_0_00000000_00000000_00000000_11111111_1_0_11110000_00000000_00000000_00000000_1";
   signal Led : STD_LOGIC_VECTOR(7 downto 0) := X"FF";
   signal seg : STD_LOGIC_VECTOR(7 downto 0) := X"FF";
   signal an : STD_LOGIC_VECTOR(3 downto 0) := X"0";
@@ -56,18 +56,18 @@ begin
     rst <= '0';
     wait for 1 us;
     
-    --for y in 0 to 83 loop
-    --  for i in 0 to 159 loop
-    --  	rx <= rxs(i);
-    --  	wait for 8.68 us;
-    --  end loop;  -- i
-    --end loop;
+    for y in 0 to 83 loop
+      for i in 0 to 159 loop
+      	rx <= rxs(i);
+      	wait for 8.68 us;
+      end loop;  -- i
+    end loop;
 
---    rst <= '1';
---    wait for 200 ns;
+    rst <= '1';
+    wait for 200 ns;
 
---    rst <= '0';
-    wait for 500 ns;
+    rst <= '0';
+    wait for 1 us;
 
     tb_running <= false;
 

@@ -56,7 +56,7 @@ architecture behavioral of cpu is
   constant ASM_ADR : STD_LOGIC_VECTOR(15 downto 0) := (others => '0');
 
   constant HALT : STD_LOGIC_VECTOR(31 downto 0) := OP_HALT & GRX_ZERO & M_IMMEDIATE & FILL & ASM_ADR;
-
+  
   -- ********************
   -- ** PRIMARY MEMORY **
   -- ********************
