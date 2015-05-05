@@ -7,7 +7,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
  
 
-entity vga is
+entity vga_tiles is
 
   port  ( clk,rst : in  STD_LOGIC;
         vga_red : out STD_LOGIC_VECTOR(2 downto 0);
@@ -17,9 +17,9 @@ entity vga is
     	   v_sync : out STD_LOGIC
         );
 
-end vga;
+end vga_tiles;
 
-architecture behavioral of vga is
+architecture behavioral of vga_tiles is
 
 -- ************
 -- **  VGA   ** 
