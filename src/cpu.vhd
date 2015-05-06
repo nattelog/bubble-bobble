@@ -36,6 +36,7 @@ architecture behavioral of cpu is
 
   -- 1: asm-operation
   constant OP_LDA : STD_LOGIC_VECTOR(3 downto 0) := "0000";
+  constant OP_STR : STD_LOGIC_VECTOR(3 downto 0) := "0001";
   constant OP_HALT : STD_LOGIC_VECTOR(3 downto 0) := "1111";
 
   -- 2: gr
@@ -76,7 +77,7 @@ architecture behavioral of cpu is
   signal prim_mem : pm_t := (
     OP_LDA & GRX_ZERO & M_IMMEDIATE & FILL & X"00FF",
     X"00FFFAFA",
-    OP_LDA & GRX_ZERO & M_DIRECT & FILL & X"0001",
+    OP_STR & GRX_ZERO & M_DIRECT & FILL & X"0004",
     HALT,
     others => (others => '0')
     );
@@ -114,7 +115,7 @@ architecture behavioral of cpu is
   -- corresponding microaddresses
   constant k1_reg : k_t := (
     "0001001", -- LDA, mm index 9
-    "0000000", -- STR
+    "0001010", -- STR, mm index 10
     "0000000", -- ADD
     "0000000", -- SUB
     "0000000", -- CMP

@@ -143,9 +143,9 @@ architecture behavioral of control_unit is
 
     -- LDA
     ALU & TB_DR & FB_GR & P & LC & SEQ_RES & MADR,
-    
-    
 
+    -- STR
+    ALU & TB_GR & FB_DR & P & LC & SEQ_RES & MADR,
     
     others => EMPTY
     );
