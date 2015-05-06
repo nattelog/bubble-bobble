@@ -230,7 +230,6 @@ process(clk) begin
   end if;
   
   if move_player = 255 then
-    player_x <= player_x +1; 
     if move = false then
       move <= true;
     else
