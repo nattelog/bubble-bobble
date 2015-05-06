@@ -63,7 +63,6 @@ architecture behavioral of control_unit is
   constant TB_DR : STD_LOGIC_VECTOR(2 downto 0) := "010";
   constant TB_PC : STD_LOGIC_VECTOR(2 downto 0) := "011";
   constant TB_AR : STD_LOGIC_VECTOR(2 downto 0) := "100";
-  constant TB_HR : STD_LOGIC_VECTOR(2 downto 0) := "101";
   constant TB_GR : STD_LOGIC_VECTOR(2 downto 0) := "110";
   constant TB_UR : STD_LOGIC_VECTOR(2 downto 0) := "111";
 
@@ -72,7 +71,6 @@ architecture behavioral of control_unit is
   constant FB_IR : STD_LOGIC_VECTOR(2 downto 0) := "001";
   constant FB_DR : STD_LOGIC_VECTOR(2 downto 0) := "010";
   constant FB_PC : STD_LOGIC_VECTOR(2 downto 0) := "011";
-  constant FB_HR : STD_LOGIC_VECTOR(2 downto 0) := "101";
   constant FB_GR : STD_LOGIC_VECTOR(2 downto 0) := "110";
   constant FB_ASR : STD_LOGIC_VECTOR(2 downto 0) := "111";
 
@@ -152,16 +150,16 @@ architecture behavioral of control_unit is
     -- ADD
     ALU_FB & TB_DR & FB & P & LC & SEQ & MADR,
     ALU_ADD & TB_GR & FB & P & LC & SEQ & MADR,
-    ALU & TB_AR & FB_GR & P & LC & SEQ & MADR,
+    ALU & TB_AR & FB_GR & P & LC & SEQ_RES & MADR,
 
     -- SUB
     ALU_FB & TB_DR & FB & P & LC & SEQ & MADR,
     ALU_SUB & TB_GR & FB & P & LC & SEQ & MADR,
-    ALU & TB_AR & FB_GR & P & LC & SEQ & MADR,
+    ALU & TB_AR & FB_GR & P & LC & SEQ_RES & MADR,
 
     -- CMP
-    ALU & TB_GR & FB_HR & P & LC & SEQ & MADR,
-    ALU_SUB & TB_HR & FB & P & LC & SEQ & MADR,
+    ALU_FB & TB_GR & FB & P & LC & SEQ & MADR,
+    ALU_SUB & TB_DR & FB & P & LC & SEQ_RES & MADR,
 
     -- BRA
 

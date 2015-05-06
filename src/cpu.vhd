@@ -22,7 +22,7 @@ architecture behavioral of cpu is
   -- ** MAIN SIGNALS **
   -- ******************
   
-  signal buss, DR, GR, IR, AR, HR, UR : STD_LOGIC_VECTOR(31 downto 0);
+  signal buss, DR, GR, IR, AR, UR : STD_LOGIC_VECTOR(31 downto 0);
   signal ASR, PC : STD_LOGIC_VECTOR(15 downto 0);
 
 
@@ -203,7 +203,6 @@ begin
           DR when tb = "010" else
           X"0000" & PC when tb = "011" else
           AR when tb = "100" else
-          HR when tb = "101" else
           GR when tb = "110" else
           UR when tb = "111" else
           (others => '0') when rst = '1' else
@@ -530,19 +529,6 @@ begin
 
       else
         PC <= PC;
-        
-      end if;
-    end if;
-  end process;
-
-  help_reg : process (clk)
-  begin
-    if rising_edge(clk) then
-      if (rst = '1') then
-        HR <= (others => '0');
-
-      elsif (fb = "101") then
-        HR <= buss;
         
       end if;
     end if;
