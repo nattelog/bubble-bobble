@@ -30,8 +30,8 @@ architecture behavioral of vga_tiles is
     signal hs : std_logic := '1';
     signal vs : std_logic := '1';
     
-    signal player_x : integer := 128;
-    signal player_y : integer := 256;
+    signal player_x : integer := 100;
+    signal player_y : integer := 200;
     signal move_player : integer := 0;
     signal move : boolean := false;
     
