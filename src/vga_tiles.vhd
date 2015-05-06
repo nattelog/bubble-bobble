@@ -212,6 +212,8 @@ process(clk) begin
         if x = 15 then
           y <= y + 1;
           x <= 0;
+        else
+          x <= x + 1;
         end if;
         
         if move = true then
@@ -224,7 +226,7 @@ process(clk) begin
           vga_blue <= tile_player(0)((1*8 + 6) to (1*8+7));
         end if;
         move_player <= move_player + 1;
-        x <= x + 1;
+        
       else
         vga_red <= "000";
         vga_green <= "000";
