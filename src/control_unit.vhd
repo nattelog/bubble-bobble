@@ -146,6 +146,30 @@ architecture behavioral of control_unit is
 
     -- STR
     ALU & TB_GR & FB_DR & P & LC & SEQ_RES & MADR,
+
+    -- ADD
+
+    -- SUB
+
+    -- CMP
+
+    -- BRA
+
+    -- BRG
+
+    -- BNE
+
+    -- JSR
+
+    -- RTS
+
+    -- AND
+
+    -- OR
+
+    -- LSR
+
+    -- LSL
     
     others => EMPTY
     );
