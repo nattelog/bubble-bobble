@@ -40,9 +40,9 @@ architecture behavioral of cpu is
 
   -- 2: gr
   constant GRX_ZERO : STD_LOGIC_VECTOR(3 downto 0) := "0000";
-  constant GRX_ONE : STD_LOGIC_VECTOR(3 downto 0) := "0000";
-  constant GRX_TWO : STD_LOGIC_VECTOR(3 downto 0) := "0000";
-  constant GRX_THREE : STD_LOGIC_VECTOR(3 downto 0) := "0000";
+  constant GRX_ONE : STD_LOGIC_VECTOR(3 downto 0) := "0001";
+  constant GRX_TWO : STD_LOGIC_VECTOR(3 downto 0) := "0010";
+  constant GRX_THREE : STD_LOGIC_VECTOR(3 downto 0) := "0011";
 
   -- 3: m
   constant M_DIRECT : STD_LOGIC_VECTOR(3 downto 0) := "0000";
