@@ -43,6 +43,18 @@ architecture behavioral of cpu is
   constant GRX_ONE : STD_LOGIC_VECTOR(3 downto 0) := "0001";
   constant GRX_TWO : STD_LOGIC_VECTOR(3 downto 0) := "0010";
   constant GRX_THREE : STD_LOGIC_VECTOR(3 downto 0) := "0011";
+  constant GRX_FOUR : STD_LOGIC_VECTOR(3 downto 0) := "0100";
+  constant GRX_FIVE : STD_LOGIC_VECTOR(3 downto 0) := "0101";
+  constant GRX_SIX : STD_LOGIC_VECTOR(3 downto 0) := "0110";
+  constant GRX_SEVEN : STD_LOGIC_VECTOR(3 downto 0) := "0111";
+  constant GRX_EIGHT : STD_LOGIC_VECTOR(3 downto 0) := "1000";
+  constant GRX_NINE : STD_LOGIC_VECTOR(3 downto 0) := "1001";
+  constant GRX_TEN : STD_LOGIC_VECTOR(3 downto 0) := "1010";
+  constant GRX_ELEVEN : STD_LOGIC_VECTOR(3 downto 0) := "1011";
+  constant GRX_TWELVE : STD_LOGIC_VECTOR(3 downto 0) := "1100";
+  constant GRX_THIRTEEN : STD_LOGIC_VECTOR(3 downto 0) := "1101";
+  constant GRX_FOURTEEN : STD_LOGIC_VECTOR(3 downto 0) := "1110";
+  constant GRX_FIFTEEN : STD_LOGIC_VECTOR(3 downto 0) := "1111";
 
   -- 3: m
   constant M_DIRECT : STD_LOGIC_VECTOR(3 downto 0) := "0000";
@@ -65,6 +77,20 @@ architecture behavioral of cpu is
     OP_LDA & GRX_ZERO & M_IMMEDIATE & FILL & X"00FF",
     X"00FFFAFA",
     OP_LDA & GRX_ONE & M_DIRECT & FILL & X"0001",
+    OP_LDA & GRX_TWO & M_DIRECT & FILL & X"0001",
+    OP_LDA & GRX_THREE & M_DIRECT & FILL & X"0001",
+    OP_LDA & GRX_FOUR & M_DIRECT & FILL & X"0001",
+    OP_LDA & GRX_FIVE & M_DIRECT & FILL & X"0001",
+    OP_LDA & GRX_SIX & M_DIRECT & FILL & X"0001",
+    OP_LDA & GRX_SEVEN & M_DIRECT & FILL & X"0001",
+    OP_LDA & GRX_EIGHT & M_DIRECT & FILL & X"0001",
+    OP_LDA & GRX_NINE & M_DIRECT & FILL & X"0001",
+    OP_LDA & GRX_TEN & M_DIRECT & FILL & X"0001",
+    OP_LDA & GRX_ELEVEN & M_DIRECT & FILL & X"0001",
+    OP_LDA & GRX_TWELVE & M_DIRECT & FILL & X"0001",
+    OP_LDA & GRX_THIRTEEN & M_DIRECT & FILL & X"0001",
+    OP_LDA & GRX_FOURTEEN & M_DIRECT & FILL & X"0001",
+    OP_LDA & GRX_FIFTEEN & M_DIRECT & FILL & X"0001",
     HALT,
     others => (others => '0')
     );

@@ -63,10 +63,10 @@ begin
       --end loop;  -- i
     --end loop;
 
-    rst <= '1';
-    wait for 200 ns;
+   --rst <= '1';
+   wait for 200 ns;
 
-    rst <= '0';
+    --rst <= '0';
     wait for 1 us;
 
     tb_running <= false;
