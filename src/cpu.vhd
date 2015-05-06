@@ -171,6 +171,9 @@ architecture behavioral of cpu is
   -- regular size of registers
   signal alu_result : STD_LOGIC_VECTOR(32 downto 0);
 
+  -- Helpregister for alu-operations that doesn't store anything
+  signal help_reg : STD_LOGIC_VECTOR(31 downto 0);
+
   -- Flags
   signal Z, N, O, C, L : STD_LOGIC;
 
@@ -459,7 +462,9 @@ begin
     AR(0) & '0' & AR(31 downto 1) when alu_op = "1101" else
 
     -- ROL
-    AR(0) & AR(0) & AR(31 downto 1) when alu_op = "1110" else (others => '0');
+    AR(0) & AR(0) & AR(31 downto 1) when alu_op = "1110" else
+    
+    (others => '0') when rst = '1' else alu_result;
 
   alu : process (clk)
   begin
