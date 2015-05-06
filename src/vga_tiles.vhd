@@ -233,7 +233,7 @@ process(clk) begin
     end if;
     move_player <= 0;
   end if;
-  move_player = move_player + 1;
+  move_player <= move_player + 1;
 end process;
 
 -- *****************
