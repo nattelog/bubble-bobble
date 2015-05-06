@@ -220,12 +220,14 @@ process(clk) begin
         vga_green <= "000";
         vga_blue <= "00";
       end if;
+          
     else
       vga_red <= "000";
       vga_green <= "000";
       vga_blue <= "00";
     end if;
   end if;
+  x_player <= < x_player +1;
   if move_player = 255 then
     if move = false then
       move <= true;
