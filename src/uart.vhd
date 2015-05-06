@@ -57,7 +57,6 @@ begin
         shift := false;
         clkcnt := 0;
         sftcnt := 0;
-        uart_reading <= '0';
       elsif shift = false then
         if rx1 = '0' then              
           shift := true;              -- Start shifting
@@ -92,7 +91,7 @@ begin
       if rst = '1' then
         sreg <= "0000000000";
       elsif sp = '1' then
-        sreg <= rx2 & sreg (9 downto 1);
+        sreg <= sreg(8 downto 0) & rx2;
       end if;
     end if;
   end process;
