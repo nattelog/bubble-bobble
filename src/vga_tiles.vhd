@@ -208,14 +208,16 @@ process(clk) begin
       elsif (yctr - player_y >= 0) and (yctr - player_y < 16) and (xctr - player_x >= 0) and (xctr - player_x < 16) then -- Player
         
         if x = 15 then
-          y <= y + 1;
+        --  y <= y + 1;
           x <= 0;
         elsif pixel = 3 then
           x <= x + 1;
         end if;
+        
         if y = 15 then
           y <= 0;
         end if;
+
         
         if move = true then
           vga_red <= tile_player(y)((x*8) to (x*8 + 2));
