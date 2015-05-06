@@ -22,7 +22,7 @@ architecture behavioral of cpu is
   -- ** MAIN SIGNALS **
   -- ******************
   
-  signal buss, DR, GR, IR, AR, UR : STD_LOGIC_VECTOR(31 downto 0);
+  signal buss, DR, GR, IR, AR, HR, UR : STD_LOGIC_VECTOR(31 downto 0);
   signal ASR, PC : STD_LOGIC_VECTOR(15 downto 0);
 
 
@@ -171,9 +171,6 @@ architecture behavioral of cpu is
   -- regular size of registers
   signal alu_result : STD_LOGIC_VECTOR(32 downto 0);
 
-  -- Helpregister for alu-operations that doesn't store anything
-  signal help_reg : STD_LOGIC_VECTOR(31 downto 0);
-
   -- Flags
   signal Z, N, O, C, L : STD_LOGIC;
 
@@ -208,6 +205,7 @@ begin
           AR when tb = "100" else
           UR when tb = "101" else
           GR when tb = "110" else
+          HR when tb = "111" else
           (others => '0') when rst = '1' else
           buss;
 
@@ -471,6 +469,7 @@ begin
     if rising_edge(clk) then
       if (rst = '1') then
         AR <= (others => '0');
+        HR <= (others => '0');
         Z <= '0';
         N <= '0';
         O <= '0';
