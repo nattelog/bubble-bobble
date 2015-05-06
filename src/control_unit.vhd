@@ -139,35 +139,36 @@ architecture behavioral of control_unit is
     -- Executionphase
 
     -- HALT
-    ALU & TB & FB & P & LC & SEQ_HALT & MADR,
+    ALU & TB & FB & P & LC & SEQ_HALT & MADR, -- 8
+    EMPTY,
 
     -- LDA
-    ALU & TB_DR & FB_GR & P & LC & SEQ_RES & MADR,
+    ALU & TB_DR & FB_GR & P & LC & SEQ_RES & MADR, -- 10
     EMPTY,
 
     -- STR
-    ALU & TB_GR & FB_DR & P & LC & SEQ_RES & MADR,
+    ALU & TB_GR & FB_DR & P & LC & SEQ_RES & MADR, -- 12
     EMPTY,
 
     -- ADD
-    ALU_FB & TB_DR & FB & P & LC & SEQ & MADR,
+    ALU_FB & TB_DR & FB & P & LC & SEQ & MADR, -- 14
     ALU_ADD & TB_GR & FB & P & LC & SEQ & MADR,
     ALU & TB_AR & FB_GR & P & LC & SEQ_RES & MADR,
     EMPTY,
 
     -- SUB
-    ALU_FB & TB_DR & FB & P & LC & SEQ & MADR,
+    ALU_FB & TB_DR & FB & P & LC & SEQ & MADR, -- 18
     ALU_SUB & TB_GR & FB & P & LC & SEQ & MADR,
     ALU & TB_AR & FB_GR & P & LC & SEQ_RES & MADR,
     EMPTY,
 
     -- CMP
-    ALU_FB & TB_GR & FB & P & LC & SEQ & MADR,
+    ALU_FB & TB_GR & FB & P & LC & SEQ & MADR, -- 22
     ALU_SUB & TB_DR & FB & P & LC & SEQ_RES & MADR,
     EMPTY,
 
     -- BRA
-    ALU & TB_DR & FB_PC & P & LC & SEQ & MADR,
+    ALU & TB_DR & FB_PC & P & LC & SEQ & MADR, -- 25
     ALU & TB_PC & FB_ASR & P & LC & SEQ_RES & MADR,
     EMPTY
 
