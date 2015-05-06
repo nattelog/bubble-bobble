@@ -76,21 +76,7 @@ architecture behavioral of cpu is
   signal prim_mem : pm_t := (
     OP_LDA & GRX_ZERO & M_IMMEDIATE & FILL & X"00FF",
     X"00FFFAFA",
-    OP_LDA & GRX_ONE & M_DIRECT & FILL & X"0001",
-    OP_LDA & GRX_TWO & M_DIRECT & FILL & X"0001",
-    OP_LDA & GRX_THREE & M_DIRECT & FILL & X"0001",
-    OP_LDA & GRX_FOUR & M_DIRECT & FILL & X"0001",
-    OP_LDA & GRX_FIVE & M_DIRECT & FILL & X"0001",
-    OP_LDA & GRX_SIX & M_DIRECT & FILL & X"0001",
-    OP_LDA & GRX_SEVEN & M_DIRECT & FILL & X"0001",
-    OP_LDA & GRX_EIGHT & M_DIRECT & FILL & X"0001",
-    OP_LDA & GRX_NINE & M_DIRECT & FILL & X"0001",
-    OP_LDA & GRX_TEN & M_DIRECT & FILL & X"0001",
-    OP_LDA & GRX_ELEVEN & M_DIRECT & FILL & X"0001",
-    OP_LDA & GRX_TWELVE & M_DIRECT & FILL & X"0001",
-    OP_LDA & GRX_THIRTEEN & M_DIRECT & FILL & X"0001",
-    OP_LDA & GRX_FOURTEEN & M_DIRECT & FILL & X"0001",
-    OP_LDA & GRX_FIFTEEN & M_DIRECT & FILL & X"0001",
+    OP_LDA & GRX_ZERO & M_DIRECT & FILL & X"0001",
     HALT,
     others => (others => '0')
     );
