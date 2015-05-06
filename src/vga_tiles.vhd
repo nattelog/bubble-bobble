@@ -213,6 +213,7 @@ process(clk) begin
           vga_red <= tile_player2(yctr mod 16)(((xctr mod 16)*8) to ((xctr mod 16)*8 + 2));
           vga_green <= tile_player2(yctr mod 16)(((xctr mod 16)*8 + 3) to ((xctr mod 16)*8 + 5));
           vga_blue <= tile_player2(yctr mod 16)(((xctr mod 16*8) + 6) to ((xctr mod 16)*8+7));
+       end if;
       else
         vga_red <= "000";
         vga_green <= "000";
