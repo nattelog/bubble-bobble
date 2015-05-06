@@ -217,13 +217,13 @@ process(clk) begin
         end if;
         
         if move = true then
-          vga_red <= tile_player(0)((1*8) to (1*8 + 2));
-          vga_green <= tile_player(0)((1*8 + 3) to (1*8 + 5));
-          vga_blue <= tile_player(0)((1*8 + 6) to (1*8+7));
+          vga_red <= tile_player(y)((x*8) to (x*8 + 2));
+          vga_green <= tile_player(y)((x*8 + 3) to (x*8 + 5));
+          vga_blue <= tile_player(y)((x*8 + 6) to (x*8+7));
         elsif move = false then
-          vga_red <= tile_player(0)((1*8) to (1*8 + 2));
-          vga_green <= tile_player(0)((1*8 + 3) to (1*8 + 5));
-          vga_blue <= tile_player(0)((1*8 + 6) to (1*8+7));
+          vga_red <= tile_player(y)((x*8) to (x*8 + 2));
+          vga_green <= tile_player(y)((x*8 + 3) to (x*8 + 5));
+          vga_blue <= tile_player(y)((x*8 + 6) to (x*8+7));
         end if;
         move_player <= move_player + 1;
         
