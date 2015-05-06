@@ -32,7 +32,7 @@ architecture behavioral of test_bench is
   
   signal asm_halt : STD_LOGIC_VECTOR(39 downto 0) := B"0_11110000_1_0_00000000_1_0_00000000_1_0_00000000_1";
 
-  signal rxs :  STD_LOGIC_VECTOR(0 to 119) := asm_1 & asm_2 & asm_3 & asm_4 & asm_halt;
+  signal rxs :  STD_LOGIC_VECTOR(0 to 199) := asm_1 & asm_2 & asm_3 & asm_4 & asm_halt;
   signal Led : STD_LOGIC_VECTOR(7 downto 0) := X"FF";
   signal seg : STD_LOGIC_VECTOR(7 downto 0) := X"FF";
   signal an : STD_LOGIC_VECTOR(3 downto 0) := X"0";
@@ -69,7 +69,7 @@ begin
     wait for 2 us;
     
     --for y in 0 to 83 loop
-      for i in 0 to 119 loop
+      for i in 0 to 199 loop
         rx <= rxs(i);
         wait for 8.68 us;
       end loop;  -- i
