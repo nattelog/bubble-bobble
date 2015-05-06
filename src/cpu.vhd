@@ -92,7 +92,7 @@ architecture behavioral of cpu is
     X"00000003",
     OP_CMP & GRX_ZERO & M_IMMEDIATE & FILL & X"0000",
     X"00000001",
-    OP_BRA & GRX_ZERO & M_IMMEDIATE & FILL & X"0000";
+    OP_BRA & GRX_ZERO & M_IMMEDIATE & FILL & X"0000",
     HALT,
     others => (others => '0')
     );
