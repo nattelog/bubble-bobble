@@ -206,14 +206,15 @@ process(clk) begin
         vga_green <= tile_block(yctr mod 16)(((xctr mod 16)*8 + 3) to ((xctr mod 16)*8 + 5));
         vga_blue <= tile_block(yctr mod 16)(((xctr mod 16*8) + 6) to ((xctr mod 16)*8+7));
       elsif (yctr - player_y >= 0) and (yctr - player_y < 16) and (xctr - player_x >= 0) and (xctr - player_x < 16) then -- Player
-        if y = 15 then
-          y <= 0;
-        end if;
+        
         if x = 15 then
           y <= y + 1;
           x <= 0;
         else
           x <= x + 1;
+        end if;
+        if y = 15 then
+          y <= 0;
         end if;
         
         if move = true then
