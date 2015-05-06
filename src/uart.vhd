@@ -57,6 +57,7 @@ begin
         shift := false;
         clkcnt := 0;
         sftcnt := 0;
+        uart_reading <= '0';
       elsif shift = false then
         if rx1 = '0' then              
           shift := true;              -- Start shifting
