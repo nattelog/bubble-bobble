@@ -1,1 +1,0 @@
-nattelog@Natanaels-MacBook-Pro.local.2018
