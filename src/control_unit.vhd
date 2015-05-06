@@ -106,7 +106,7 @@ architecture behavioral of control_unit is
   constant MADR : STD_LOGIC_VECTOR(6 downto 0) := "0000000";
 
   -- Short line for HALT
-  constant HALT_CONST : STD_LOGIC_VECTOR(23 downto 0) := ALU & TB & FB & P & LC & SEQ_RES & MADR;
+  constant HALT_CONST : STD_LOGIC_VECTOR(32 downto 0) := ALU & TB & FB & P & LC & SEQ_RES & MADR;
 
 
   -- *****************
@@ -143,27 +143,33 @@ architecture behavioral of control_unit is
 
     -- LDA
     ALU & TB_DR & FB_GR & P & LC & SEQ_RES & MADR,
+    EMPTY,
 
     -- STR
     ALU & TB_GR & FB_DR & P & LC & SEQ_RES & MADR,
+    EMPTY,
 
     -- ADD
     ALU_FB & TB_DR & FB & P & LC & SEQ & MADR,
     ALU_ADD & TB_GR & FB & P & LC & SEQ & MADR,
     ALU & TB_AR & FB_GR & P & LC & SEQ_RES & MADR,
+    EMPTY,
 
     -- SUB
     ALU_FB & TB_DR & FB & P & LC & SEQ & MADR,
     ALU_SUB & TB_GR & FB & P & LC & SEQ & MADR,
     ALU & TB_AR & FB_GR & P & LC & SEQ_RES & MADR,
+    EMPTY,
 
     -- CMP
     ALU_FB & TB_GR & FB & P & LC & SEQ & MADR,
     ALU_SUB & TB_DR & FB & P & LC & SEQ_RES & MADR,
+    EMPTY,
 
     -- BRA
     ALU & TB_DR & FB_PC & P & LC & SEQ & MADR,
     ALU & TB_PC & FB_ASR & P & LC & SEQ_RES & MADR,
+    EMPTY
 
     -- BRG
 
