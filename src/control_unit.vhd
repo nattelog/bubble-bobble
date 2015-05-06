@@ -162,6 +162,8 @@ architecture behavioral of control_unit is
     ALU_SUB & TB_DR & FB & P & LC & SEQ_RES & MADR,
 
     -- BRA
+    ALU & TB_DR & FB_PC & P & LC & SEQ & MADR,
+    ALU & TB_PC & FB_ASR & P & LC & SEQ_RES & MADR,
 
     -- BRG
 

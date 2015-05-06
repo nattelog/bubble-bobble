@@ -92,6 +92,7 @@ architecture behavioral of cpu is
     X"00000003",
     OP_CMP & GRX_ZERO & M_IMMEDIATE & FILL & X"0000",
     X"00000001",
+    OP_BRA & GRX_ZERO & M_IMMEDIATE & FILL & X"0000";
     HALT,
     others => (others => '0')
     );
@@ -133,7 +134,7 @@ architecture behavioral of cpu is
     "0001011", -- ADD, mm index 11
     "0001110", -- SUB, mm index 14
     "0010001", -- CMP, mm index 17
-    "0000000", -- BRA
+    "0010011", -- BRA, mm index 19
     "0000000", -- BRG
     "0000000", -- BNE
     "0000000", -- BRE
