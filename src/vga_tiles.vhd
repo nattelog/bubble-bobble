@@ -199,6 +199,7 @@ v_sync <= vs;
 
 process(clk) begin
   if rising_edge(clk) then
+    move_player <= move_player + 1;
     if yctr < 479 and xctr < 639 then -- In bounds
       if game_map(yctr/16)(xctr/16) = '1' then -- Map tile
         vga_red <= tile_block(yctr mod 16)(((xctr mod 16)*8) to ((xctr mod 16)*8 + 2));
@@ -233,7 +234,7 @@ process(clk) begin
     end if;
     move_player <= 0;
   end if;
-  move_player <= move_player + 1;
+  
 end process;
 
 -- *****************
