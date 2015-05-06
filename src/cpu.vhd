@@ -64,6 +64,7 @@ architecture behavioral of cpu is
   signal prim_mem : pm_t := (
     OP_LDA & GRX_ZERO & M_IMMEDIATE & FILL & X"00FF",
     X"00FFFAFA",
+    OP_LDA & GRX_ONE & M_DIRECT & FILL & X"0001",
     HALT,
     others => (others => '0')
     );
