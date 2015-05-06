@@ -215,6 +215,7 @@ process(clk) begin
           vga_blue <= tile_player2(yctr mod 16)(((xctr mod 16*8) + 6) to ((xctr mod 16)*8+7));
        end if;
        move_player <= move_player + 1;
+       player_x <= player_x +1;   
       else
         vga_red <= "000";
         vga_green <= "000";
@@ -227,7 +228,7 @@ process(clk) begin
       vga_blue <= "00";
     end if;
   end if;
-  player_x <= player_x +1;
+  
   if move_player = 255 then
     if move = false then
       move <= true;
