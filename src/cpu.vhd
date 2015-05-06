@@ -90,8 +90,8 @@ architecture behavioral of cpu is
   signal prim_mem : pm_t := (
     OP_LDA & GRX_ZERO & M_IMMEDIATE & FILL & X"0000",
     X"00000001",
-    OP_SUB & GRX_ZERO & M_IMMEDIATE & FILL & X"0000",
-    X"00000000",
+    OP_CMP & GRX_ZERO & M_IMMEDIATE & FILL & X"0000",
+    X"00000001",
     HALT,
     others => (others => '0')
     );
@@ -132,7 +132,7 @@ architecture behavioral of cpu is
     "0001010", -- STR, mm index 10
     "0001011", -- ADD, mm index 11
     "0001110", -- SUB, mm index 14
-    "0000000", -- CMP
+    "0010001", -- CMP, mm index 17
     "0000000", -- BRA
     "0000000", -- BRG
     "0000000", -- BNE
