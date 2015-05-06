@@ -54,19 +54,19 @@ begin
     wait until rising_edge(clk);
 
     rst <= '0';
-    wait for 1 us;
+    wait for 2 us;
     
     --for y in 0 to 83 loop
-      --for i in 0 to 119 loop
-      	--rx <= rxs(i);
-      	--wait for 8.68 us;
-      --end loop;  -- i
+    --for i in 0 to 119 loop
+    --rx <= rxs(i);
+    --wait for 8.68 us;
+    --end loop;  -- i
     --end loop;
 
-   --rst <= '1';
-   wait for 200 ns;
+    rst <= '1';
+    wait for 200 ns;
 
-    --rst <= '0';
+    rst <= '0';
     wait for 1 us;
 
     tb_running <= false;
