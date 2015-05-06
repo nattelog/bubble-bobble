@@ -37,7 +37,7 @@ architecture behavioral of cpu is
   -- 1: asm-operation
   constant OP_LDA : STD_LOGIC_VECTOR(3 downto 0) := "0000";
   constant OP_STR : STD_LOGIC_VECTOR(3 downto 0) := "0001";
-  constant OP_ADD : STD_LOGIC_VECTOR(3 downto 0) := "0000";
+  constant OP_ADD : STD_LOGIC_VECTOR(3 downto 0) := "0010";
   constant OP_HALT : STD_LOGIC_VECTOR(3 downto 0) := "1111";
 
   -- 2: gr
