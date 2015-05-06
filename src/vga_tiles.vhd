@@ -34,6 +34,7 @@ architecture behavioral of vga_tiles is
     signal player_y : integer := 200;
     signal move_player : integer := 0;
     signal move : boolean := false;
+    signal x, y : integer := 0;
     
 -- ************
 -- **  GMEM  **
@@ -205,17 +206,25 @@ process(clk) begin
         vga_green <= tile_block(yctr mod 16)(((xctr mod 16)*8 + 3) to ((xctr mod 16)*8 + 5));
         vga_blue <= tile_block(yctr mod 16)(((xctr mod 16*8) + 6) to ((xctr mod 16)*8+7));
       elsif (yctr - player_y >= 0) and (yctr - player_y < 16) and (xctr - player_x >= 0) and (xctr - player_x < 16) then -- Player
+        if y = 15 then
+          y <= 0;
+        end if;
+        if x = 15 then
+          y <= y + 1;
+          x <= 0;
+        end if;
+        
         if move = true then
-          vga_red <= tile_player(yctr mod 16)(((xctr mod 16)*8) to ((xctr mod 16)*8 + 2));
-          vga_green <= tile_player(yctr mod 16)(((xctr mod 16)*8 + 3) to ((xctr mod 16)*8 + 5));
-          vga_blue <= tile_player(yctr mod 16)(((xctr mod 16*8) + 6) to ((xctr mod 16)*8+7));
+          vga_red <= tile_player(y)((x*8) to (x*8 + 2));
+          vga_green <= tile_player(y)((x*8 + 3) to (x*8 + 5));
+          vga_blue <= tile_player(y)((x*8 + 6) to (x*8+7));
         elsif move = false then
           vga_red <= tile_player2(yctr mod 16)(((xctr mod 16)*8) to ((xctr mod 16)*8 + 2));
           vga_green <= tile_player2(yctr mod 16)(((xctr mod 16)*8 + 3) to ((xctr mod 16)*8 + 5));
           vga_blue <= tile_player2(yctr mod 16)(((xctr mod 16*8) + 6) to ((xctr mod 16)*8+7));
-       end if;
-       move_player <= move_player + 1;
-         
+        end if;
+        move_player <= move_player + 1;
+        x <= x + 1;
       else
         vga_red <= "000";
         vga_green <= "000";
