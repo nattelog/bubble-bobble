@@ -170,7 +170,7 @@ architecture behavioral of control_unit is
     -- BRA
     ALU & TB_DR & FB_PC & P & LC & SEQ & MADR, -- 25
     ALU & TB_PC & FB_ASR & P & LC & SEQ_RES & MADR,
-    EMPTY
+    EMPTY,
 
     -- BRG
 
