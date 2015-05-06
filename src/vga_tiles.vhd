@@ -208,7 +208,7 @@ process(clk) begin
       elsif (yctr - player_y >= 0) and (yctr - player_y < 16) and (xctr - player_x >= 0) and (xctr - player_x < 16) then -- Player
         
         
-        if pixel = 3 then
+        if pixel = 3 and x != 15 then
           x <= x + 1;
         elsif x = 15 then
         --  y <= y + 1;
