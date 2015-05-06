@@ -38,6 +38,18 @@ architecture behavioral of cpu is
   constant OP_LDA : STD_LOGIC_VECTOR(3 downto 0) := "0000";
   constant OP_STR : STD_LOGIC_VECTOR(3 downto 0) := "0001";
   constant OP_ADD : STD_LOGIC_VECTOR(3 downto 0) := "0010";
+  constant OP_SUB : STD_LOGIC_VECTOR(3 downto 0) := "0011";
+  constant OP_CMP : STD_LOGIC_VECTOR(3 downto 0) := "0100";
+  constant OP_BRA : STD_LOGIC_VECTOR(3 downto 0) := "0101";
+  constant OP_BRG : STD_LOGIC_VECTOR(3 downto 0) := "0110";
+  constant OP_BNE : STD_LOGIC_VECTOR(3 downto 0) := "0111";
+  constant OP_BRE : STD_LOGIC_VECTOR(3 downto 0) := "1000";
+  constant OP_JSR : STD_LOGIC_VECTOR(3 downto 0) := "1001";
+  constant OP_RTS : STD_LOGIC_VECTOR(3 downto 0) := "1010";
+  constant OP_AND : STD_LOGIC_VECTOR(3 downto 0) := "1011";
+  constant OP_OR : STD_LOGIC_VECTOR(3 downto 0) := "1100";
+  constant OP_LSR : STD_LOGIC_VECTOR(3 downto 0) := "1101";
+  constant OP_LSL : STD_LOGIC_VECTOR(3 downto 0) := "1110";
   constant OP_HALT : STD_LOGIC_VECTOR(3 downto 0) := "1111";
 
   -- 2: gr

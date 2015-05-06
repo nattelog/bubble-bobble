@@ -165,6 +165,8 @@ architecture behavioral of control_unit is
 
     -- BNE
 
+    -- BRE
+
     -- JSR
 
     -- RTS
