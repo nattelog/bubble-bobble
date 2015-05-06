@@ -225,15 +225,15 @@ process(clk) begin
       vga_blue <= "00";
     end if;
   end if;
-  if move_player = "111" then
+  if move_player = 15 then
     if move = false then
       move <= true;
     else
       move <= false;
     end if;
-    move_player <= '0';
+    move_player <= 0;
   end if;
-  move_player = move_player + '1';
+  move_player = move_player + 1;
 end process;
 
 -- *****************
