@@ -231,9 +231,9 @@ process(clk) begin
     else
       move <= false;
     end if;
-    move_player <= "000";
+    move_player <= '0';
   end if;
-  move_player = move_player + "1";
+  move_player = move_player + '1';
 end process;
 
 -- *****************
