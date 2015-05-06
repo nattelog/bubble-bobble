@@ -22,11 +22,11 @@ architecture behavioral of test_bench is
   signal rx : STD_LOGIC := '1';
 
   -- ASM instructions
-  signal asm_1 : STD_LOGIC_VECTOR(39 downto 0) := "0_00000000_1_0_00010000_1_0_00000000_1_0_11111111_1";
+  signal asm_1 : STD_LOGIC_VECTOR(39 downto 0) := B"0_00000000_1_0_00010000_1_0_00000000_1_0_11111111_1";
   
-  signal asm_2 : STD_LOGIC_VECTOR(39 downto 0) := "0_00000000_1_0_00010000_1_0_00000000_1_0_11111111_1";
+  signal asm_2 : STD_LOGIC_VECTOR(39 downto 0) := B"0_00000000_1_0_00010000_1_0_00000000_1_0_11111111_1";
   
-  signal asm_halt : STD_LOGIC_VECTOR(39 downto 0) := "0_11110000_1_0_00000000_1_0_00000000_1_0_00000000_1";
+  signal asm_halt : STD_LOGIC_VECTOR(39 downto 0) := B"0_11110000_1_0_00000000_1_0_00000000_1_0_00000000_1";
 
   signal rxs :  STD_LOGIC_VECTOR(0 to 119) := asm_1 & asm_2 & asm_halt;
   signal Led : STD_LOGIC_VECTOR(7 downto 0) := X"FF";
