@@ -118,20 +118,24 @@ architecture behavioral of control_unit is
     -- Loadphase
     ALU & TB_PC & FB_ASR & P & LC & SEQ & MADR,
     ALU & TB_DR & FB_IR & P_INC & LC & SEQ & MADR,
+    EMPTY,
 
     -- Addressmodephase
-    EMPTY, -- must wait a clock for k2 to get correct value
     ALU & TB & FB & P & LC & SEQ_K2 & MADR,
+    EMPTY,
 
     -- Direct
     ALU & TB_IR & FB_ASR & P & LC & SEQ_K1 & MADR,
+    EMPTY,
 
     -- Immediate
     ALU & TB_PC & FB_ASR & P_INC & LC & SEQ_K1 & MADR,
+    EMPTY,
 
     -- Indirect
     ALU & TB_IR & FB_ASR & P & LC & SEQ & MADR,
     ALU & TB_DR & FB_ASR & P & LC & SEQ_K1 & MADR,
+    EMPTY,
 
     -- Indexed
     -- not done yet..
@@ -139,36 +143,36 @@ architecture behavioral of control_unit is
     -- Executionphase
 
     -- HALT
-    ALU & TB & FB & P & LC & SEQ_HALT & MADR, -- 8
+    ALU & TB & FB & P & LC & SEQ_HALT & MADR, -- 12
     EMPTY,
 
     -- LDA
-    ALU & TB_DR & FB_GR & P & LC & SEQ_RES & MADR, -- 10
+    ALU & TB_DR & FB_GR & P & LC & SEQ_RES & MADR, -- 14
     EMPTY,
 
     -- STR
-    ALU & TB_GR & FB_DR & P & LC & SEQ_RES & MADR, -- 12
+    ALU & TB_GR & FB_DR & P & LC & SEQ_RES & MADR, -- 16
     EMPTY,
 
     -- ADD
-    ALU_FB & TB_DR & FB & P & LC & SEQ & MADR, -- 14
+    ALU_FB & TB_DR & FB & P & LC & SEQ & MADR, -- 18
     ALU_ADD & TB_GR & FB & P & LC & SEQ & MADR,
     ALU & TB_AR & FB_GR & P & LC & SEQ_RES & MADR,
     EMPTY,
 
     -- SUB
-    ALU_FB & TB_DR & FB & P & LC & SEQ & MADR, -- 18
+    ALU_FB & TB_DR & FB & P & LC & SEQ & MADR, -- 22
     ALU_SUB & TB_GR & FB & P & LC & SEQ & MADR,
     ALU & TB_AR & FB_GR & P & LC & SEQ_RES & MADR,
     EMPTY,
 
     -- CMP
-    ALU_FB & TB_GR & FB & P & LC & SEQ & MADR, -- 22
+    ALU_FB & TB_GR & FB & P & LC & SEQ & MADR, -- 26
     ALU_SUB & TB_DR & FB & P & LC & SEQ_RES & MADR,
     EMPTY,
 
     -- BRA
-    ALU & TB_DR & FB_PC & P & LC & SEQ & MADR, -- 25
+    ALU & TB_DR & FB_PC & P & LC & SEQ & MADR, -- 29
     ALU & TB_PC & FB_ASR & P & LC & SEQ_RES & MADR,
     EMPTY,
 

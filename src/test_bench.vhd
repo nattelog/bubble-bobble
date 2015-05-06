@@ -24,7 +24,7 @@ architecture behavioral of test_bench is
   -- ASM instructions
   signal asm_1 : STD_LOGIC_VECTOR(39 downto 0) := B"0_00000000_1_0_00010000_1_0_00000000_1_0_11111111_1";
   
-  signal asm_2 : STD_LOGIC_VECTOR(39 downto 0) := B"0_00000000_1_0_00010000_1_0_00000000_1_0_11111111_1";
+  signal asm_2 : STD_LOGIC_VECTOR(39 downto 0) := B"0_00000000_1_0_00000000_1_0_00000000_1_0_11111111_1";
 
   signal asm_3 : STD_LOGIC_VECTOR(39 downto 0) := B"0_00100000_1_0_00010000_1_0_00001111_1_0_00000000_1";
 

@@ -134,12 +134,12 @@ architecture behavioral of cpu is
   -- Here all programoperators are stored with their
   -- corresponding microaddresses
   constant k1_reg : k_t := (
-    "0001010", -- LDA, mm index 10
-    "0001100", -- STR, mm index 12
-    "0001110", -- ADD, mm index 14
-    "0010010", -- SUB, mm index 18
-    "0010110", -- CMP, mm index 22
-    "0011001", -- BRA, mm index 25
+    "0001110", -- LDA, mm index 14
+    "0010000", -- STR, mm index 16
+    "0010010", -- ADD, mm index 18
+    "0010110", -- SUB, mm index 22
+    "0011010", -- CMP, mm index 26
+    "0011101", -- BRA, mm index 29
     "0000000", -- BRG
     "0000000", -- BNE
     "0000000", -- BRE
@@ -149,7 +149,7 @@ architecture behavioral of cpu is
     "0000000", -- OR
     "0000000", -- LSR
     "0000000", -- LSL
-    "0001000" -- HALT, mm index 8
+    "0001000" -- HALT, mm index 12
     );
 
   -- Here all addressmodes are stored with their
