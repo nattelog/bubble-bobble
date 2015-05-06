@@ -211,7 +211,7 @@ process(clk) begin
         if pixel = 3 and x /= 15 then
           x <= x + 1;
         elsif x = 15 then
-        --  y <= y + 1;
+          y <= y + 1;
           x <= 0;
         end if;
         
