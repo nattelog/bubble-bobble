@@ -6,7 +6,7 @@
 
 
 /* Constants */
-const int ADDR_WIDTH = 4; // In bytes. Used for the calculation of physical addresses
+const int ADDR_WIDTH = 1; // In bytes. Used for the calculation of physical addresses
 const int NO_OF_GR = 16; // Number of general registers, not yet implemented
 const std::string NOT_ASSIGNED = "N\\A"; 
 const std::string ERROR = "*";
