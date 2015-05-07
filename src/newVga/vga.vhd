@@ -74,7 +74,7 @@ architecture behavioral of vga is
       "00000000000000000000000000000000000111000001110000011100000000110000001100000011000000111111111111111111000000110000001100000000"
       );
       
-    signal tile_player : tile_t := tile_block;
+    
     
 -- ************
 -- **  GMEM  **
@@ -101,7 +101,7 @@ architecture behavioral of vga is
     );
     
     
-
+signal tile_player : tile_t := tile_block;
 -- *******************
 -- ** SPRITES & MAP **
 -- *******************
