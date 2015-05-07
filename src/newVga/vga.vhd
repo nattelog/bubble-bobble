@@ -150,7 +150,7 @@ process(clk) begin
     if sprite_changer = false then
       tile_player <= tile_player_move;
     else
-      tile_player <= tile_player_still
+      tile_player <= tile_player_still;
     end if;
 
     if pixel = 3 then
