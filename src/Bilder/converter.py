@@ -1,6 +1,6 @@
 from PIL import Image
 
-im = Image.open("fiende2.png")
+im = Image.open("Bubbla_liten.png")
 def convertToBin(integer):
 	 return '{message:{fill}{align}{width}}'.format(message=bin(integer)[2:], fill = '0', align = '>', width = 3)
 def convertToBinBlue(integer):
