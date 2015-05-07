@@ -31,8 +31,10 @@ architecture behavioral of vga is
 -- *************
 
     signal player_move : std_logic_vector ( 1 downto 0) := "00"; -- 00 Still, 10 Left, 01 Right
-    signal player_x : integer := 201;
-    signal player_y : integer := 201;
+    signal player_x : integer := 100;
+    signal player_y : integer := 430;
+    signal sprite_changer : boolean := false;
+    signal sprite_changer_delay : integer := 0;
     
     signal tile_player_still : tile_t := (
       "00000000000000000000000000000000000000000000000000000000000000000000000000000000111000000000000000000000000000000000000000000000",
@@ -103,6 +105,7 @@ architecture behavioral of vga is
 -- *******************
 -- ** SPRITES & MAP **
 -- *******************
+    
     type map_t is array(0 to 29) of STD_LOGIC_VECTOR(0 to 39);
     signal game_map : map_t := (
     "1111111111111100011111100011111111111111",
@@ -137,6 +140,34 @@ architecture behavioral of vga is
     "1111111111111100011111100011111111111111");
 
 begin
+
+  
+-- **************
+-- **   MUX    **
+-- **************
+process(clk) begin
+  if rising_edge(clk) then
+    if sprite_changer = false then
+      tile_player <= tile_player_move;
+    else
+      tile_player <= tile_player_still
+    end if;
+
+    if pixel = 3 then
+      sprite_changer_delay <= sprite_changer delay + 1;
+    end if;
+
+    if sprite_changer_delay = 50 then
+      sprite_changer_delay <= 0;
+      if sprite_changer = false then
+        sprite_changer = true;
+      else
+        sprite_changer = false;
+      end if;
+    end if;
+    
+  end if;
+end process;
 
 -- **************
 -- **   VGA    **
