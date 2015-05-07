@@ -241,7 +241,6 @@ process(clk) begin
 end process;
 
   
-end process; 
 
 -- *****************
 -- **   PICTURE   **
