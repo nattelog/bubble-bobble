@@ -148,9 +148,9 @@ begin
 process(clk) begin
   if rising_edge(clk) then
     if sprite_changer = false then
-      tile_player <= tile_player_move;
-    else
       tile_player <= tile_player_still;
+    else
+      tile_player <= tile_player_move;
     end if;
 
     if pixel = 3 then
