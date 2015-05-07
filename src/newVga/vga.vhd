@@ -157,7 +157,7 @@ process(clk) begin
       sprite_changer_delay <= sprite_changer_delay + 1;
     end if;
 
-    if sprite_changer_delay = 50 then
+    if sprite_changer_delay = 200 then
       sprite_changer_delay <= 0;
       if sprite_changer = false then
         sprite_changer <= true;
