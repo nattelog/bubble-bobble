@@ -154,7 +154,7 @@ process(clk) begin
     end if;
 
     if pixel = 3 then
-      sprite_changer_delay <= sprite_changer delay + 1;
+      sprite_changer_delay <= sprite_changer_delay + 1;
     end if;
 
     if sprite_changer_delay = 50 then
