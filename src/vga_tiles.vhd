@@ -211,10 +211,9 @@ process(clk) begin
         vga_red <= tile_player(yctr - player_y)(((xctr-player_x)*8) to ((xctr-player_x)*8 + 2));
         vga_green <= tile_player(y)(((xctr-player_x)*8 + 3) to ((xctr-player_x)*8 + 5));
         vga_blue <= tile_player(y)(((xctr-player_x)*8 + 6) to ((xctr-player_x)*8+7));
-      end if;
+      
 
      
-   end if;
         
       else
         vga_red <= "000";
@@ -227,7 +226,7 @@ process(clk) begin
       vga_green <= "000";
       vga_blue <= "00";
     end if;
-  end if;
+  
   
   if move_player = 255 then
     if move = false then
@@ -237,6 +236,7 @@ process(clk) begin
     end if;
     move_player <= 0;
   end if;
+ end if;
   
 end process;
 
