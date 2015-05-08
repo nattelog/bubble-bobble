@@ -33,6 +33,10 @@ architecture behavioral of vga is
     signal player_move : std_logic_vector ( 1 downto 0) := "00"; -- 00 Still, 10 Left, 01 Right
     signal player_x : integer := 100;
     signal player_y : integer := 430;
+    signal enemy_x : integer := 120;
+    signal enemy_y : integer := 430;
+    signal bubble_x : integer := 140;
+    signal bubble_y : integer := 430;
     signal sprite_changer : boolean := false;
     signal sprite_changer_delay : integer := 0;
     
@@ -325,6 +329,15 @@ process(clk) begin
         vga_red <= tile_player(yctr - player_y)((xctr - player_x)*8 to ((xctr-player_x)*8+2));
         vga_green <= tile_player(yctr - player_y)(((xctr - player_x)*8 + 3) to (((xctr - player_x)*8 + 5)));
         vga_blue <= tile_player(yctr - player_y)(((xctr - player_x)*8 + 6) to (((xctr - player_x)*8 + 7)));
+      elsif ((yctr - enemy_y) > -1) and ((yctr - enemy_y) < 16) and ((xctr - enemy_x) > -1) and ((xctr - enemy_x) < 16) then
+        vga_red <= tile_enemy(yctr - enemy_y)((xctr - enemy_x)*8 to ((xctr-enemy_x)*8+2));
+        vga_green <= tile_enemy(yctr - enemy_y)(((xctr - enemy_x)*8 + 3) to (((xctr - enemy_x)*8 + 5)));
+        vga_blue <= tile_enemy(yctr - enemy_y)(((xctr - enemy_x)*8 + 6) to (((xctr - enemy_x)*8 + 7)));
+      elsif ((yctr - bubble_y) > -1) and ((yctr - bubble_y) < 16) and ((xctr - bubble_x) > -1) and ((xctr - bubble_x) < 16) then
+        vga_red <= tile_bubble(yctr - bubble_y)((xctr - bubble_x)*8 to ((xctr-bubble)*8+2));
+        vga_green <= tile_bubble(yctr - bubble_y)(((xctr - bubble_x)*8 + 3) to (((xctr - bubble_x)*8 + 5)));
+        vga_blue <= tile_bubble(yctr - bubble_y)(((xctr - bubble_x)*8 + 6) to (((xctr - bubble_x)*8 + 7)));
+        
       else
         vga_red <= "000";
         vga_green <= "000";
