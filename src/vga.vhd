@@ -334,7 +334,7 @@ process(clk) begin
         vga_green <= tile_enemy(yctr - enemy_y)(((xctr - enemy_x)*8 + 3) to (((xctr - enemy_x)*8 + 5)));
         vga_blue <= tile_enemy(yctr - enemy_y)(((xctr - enemy_x)*8 + 6) to (((xctr - enemy_x)*8 + 7)));
       elsif ((yctr - bubble_y) > -1) and ((yctr - bubble_y) < 16) and ((xctr - bubble_x) > -1) and ((xctr - bubble_x) < 16) then
-        vga_red <= tile_bubble(yctr - bubble_y)((xctr - bubble_x)*8 to ((xctr-bubble)*8+2));
+        vga_red <= tile_bubble(yctr - bubble_y)((xctr - bubble_x)*8 to ((xctr-bubble_x)*8+2));
         vga_green <= tile_bubble(yctr - bubble_y)(((xctr - bubble_x)*8 + 3) to (((xctr - bubble_x)*8 + 5)));
         vga_blue <= tile_bubble(yctr - bubble_y)(((xctr - bubble_x)*8 + 6) to (((xctr - bubble_x)*8 + 7)));
         
