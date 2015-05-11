@@ -233,7 +233,7 @@ process(clk) begin
   if rising_edge(clk) then
     if sprite_changer = false then
       tile_player <= tile_player_still;
-      tile_enemy <= tile_player_still;
+      tile_enemy <= tile_enemy_still;
       tile_bubble <= tile_bubble_still;
     else
       tile_player <= tile_player_move;
